@@ -1,39 +1,56 @@
-using namespace std;
 #include <opencv2\opencv.hpp>
+
+using namespace std;
 
 class Detector
 {
 public:
 	Mat video_stream;
-	CascadeClassifier faceDetector; // Declaring an object named 'face detector' of CascadeClassifier class//
+	CascadeClassifier faceDetector;
 	VideoCapture real_time;
-	vector<Rect> faces; // Declaring a rectangular vector named faces//
+	vector<Rect> faces;
 
 	Detector(VideoCapture real_time_)
 	{
 		real_time = real_time_;
-		// Declaring a matrix hold frames from video stream//
 
-		string trained_classifier_location = "C:/opencv/sources/data/haarcascades/haarcascade_frontalface_alt.xml"; // Defining the location our XML Trained Classifier in a string//
-		faceDetector.load(trained_classifier_location);																// loading the XML trained classifier in the object//
+		string trained_classifier_location = "C:/opencv/sources/data/haarcascades/haarcascade_frontalface_alt.xml";
+		faceDetector.load(trained_classifier_location);
 
-		namedWindow("Face Detection"); // Declaring a window to show the result//
+		namedWindow("Face Detection");
 	}
 
 	void Detect()
 	{
-		faceDetector.detectMultiScale(video_stream, faces, 1.1, 4, CASCADE_SCALE_IMAGE, Size(30, 30)); // Detecting the faces in 'image_with_humanfaces' matrix//
-		real_time.read(video_stream);																   // reading frames from camera and loading them in 'video_stream' Matrix//
+		faceDetector.detectMultiScale(video_stream, faces, 1.1, 4, CASCADE_SCALE_IMAGE, Size(30, 30));
+		real_time.read(video_stream);
 
 		for (int i = 0; i < faces.size(); i++)
-		{																					 // for locating the face
-			Mat faceROI = video_stream(faces[i]);											 // Storing face in the matrix//
-			int x = faces[i].x;																 // Getting the initial row value of face rectangle's starting point//
-			int y = faces[i].y;																 // Getting the initial column value of face rectangle's starting point//
-			int h = y + faces[i].height;													 // Calculating the height of the rectangle//
-			int w = x + faces[i].width;														 // Calculating the width of the rectangle//
-			rectangle(video_stream, Point(x, y), Point(w, h), Scalar(255, 0, 255), 2, 8, 0); // Drawing a rectangle using around the faces//
+		{
+			Mat faceROI = video_stream(faces[i]);
+
+			int x = faces[i].x;
+			int y = faces[i].y;
+			int h = y + faces[i].height;
+			int w = x + faces[i].width;
+
+			int center_x = (x + w) / 2;
+			int center_y = (y + h) / 2;
+
+			int offset_x = (real_time.get(CAP_PROP_FRAME_WIDTH) / 2) - center_x;
+			int offset_y = (real_time.get(CAP_PROP_FRAME_HEIGHT) / 2) - center_y;
+
+			string position_text = to_string(offset_x) + ", " + to_string(offset_y);
+			putText(video_stream, position_text, Point(x, y - 5), FONT_HERSHEY_DUPLEX, 0.75, Scalar(255, 0, 255), 1.5);
+			rectangle(video_stream, Point(x, y), Point(w, h), Scalar(255, 0, 255), 2, 8, 0);
 		}
+
+		line(video_stream, Point(real_time.get(CAP_PROP_FRAME_WIDTH) / 2, 0), Point(real_time.get(CAP_PROP_FRAME_WIDTH) / 2, real_time.get(CAP_PROP_FRAME_HEIGHT)), Scalar(0, 0, 255), 1);
+		line(video_stream, Point(0, real_time.get(CAP_PROP_FRAME_HEIGHT) / 2), Point(real_time.get(CAP_PROP_FRAME_WIDTH), real_time.get(CAP_PROP_FRAME_HEIGHT) / 2), Scalar(0, 0, 255), 1);
+	}
+
+	void Show()
+	{
 		imshow("Face Detection", video_stream);
 	}
 };

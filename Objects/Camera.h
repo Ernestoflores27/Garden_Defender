@@ -8,9 +8,9 @@ class Camera
 public:
     VideoCapture getVideoCapture()
     {
-        VideoCapture real_time(0);                 // capturing video from default webcam//
-        real_time.set(CAP_PROP_FRAME_WIDTH, 320);  // Setting the width of the video
-        real_time.set(CAP_PROP_FRAME_HEIGHT, 240); // Setting the height of the video//
+        VideoCapture real_time(0);
+        real_time.set(CAP_PROP_FRAME_WIDTH, 640);
+        real_time.set(CAP_PROP_FRAME_HEIGHT, 480);
 
         return real_time;
     }

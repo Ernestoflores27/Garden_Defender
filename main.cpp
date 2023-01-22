@@ -11,9 +11,10 @@ int main()
     while (true)
     {
         detector.Detect();
+        detector.Show();
 
         if (waitKey(10) == 27)
-        { // wait time for each frame is 10 milliseconds//
+        {
             break;
         }
     }
