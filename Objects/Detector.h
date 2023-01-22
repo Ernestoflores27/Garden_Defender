@@ -20,11 +20,26 @@ public:
 		namedWindow("Face Detection");
 	}
 
-	void Detect()
+	vector<Rect> Detect()
 	{
-		faceDetector.detectMultiScale(video_stream, faces, 1.1, 4, CASCADE_SCALE_IMAGE, Size(30, 30));
 		real_time.read(video_stream);
+		faceDetector.detectMultiScale(video_stream, faces, 1.1, 4, CASCADE_SCALE_IMAGE, Size(30, 30));
+		return faces;
+	}
 
+	void Show()
+	{
+		imshow("Face Detection", video_stream);
+	}
+
+	void drawCrossair()
+	{
+		line(video_stream, Point(real_time.get(CAP_PROP_FRAME_WIDTH) / 2, 0), Point(real_time.get(CAP_PROP_FRAME_WIDTH) / 2, real_time.get(CAP_PROP_FRAME_HEIGHT)), Scalar(0, 0, 255), 1);
+		line(video_stream, Point(0, real_time.get(CAP_PROP_FRAME_HEIGHT) / 2), Point(real_time.get(CAP_PROP_FRAME_WIDTH), real_time.get(CAP_PROP_FRAME_HEIGHT) / 2), Scalar(0, 0, 255), 1);
+	}
+
+	void drawBoundaries(vector<Rect> faces)
+	{
 		for (int i = 0; i < faces.size(); i++)
 		{
 			Mat faceROI = video_stream(faces[i]);
@@ -44,13 +59,5 @@ public:
 			putText(video_stream, position_text, Point(x, y - 5), FONT_HERSHEY_DUPLEX, 0.75, Scalar(255, 0, 255), 1.5);
 			rectangle(video_stream, Point(x, y), Point(w, h), Scalar(255, 0, 255), 2, 8, 0);
 		}
-
-		line(video_stream, Point(real_time.get(CAP_PROP_FRAME_WIDTH) / 2, 0), Point(real_time.get(CAP_PROP_FRAME_WIDTH) / 2, real_time.get(CAP_PROP_FRAME_HEIGHT)), Scalar(0, 0, 255), 1);
-		line(video_stream, Point(0, real_time.get(CAP_PROP_FRAME_HEIGHT) / 2), Point(real_time.get(CAP_PROP_FRAME_WIDTH), real_time.get(CAP_PROP_FRAME_HEIGHT) / 2), Scalar(0, 0, 255), 1);
-	}
-
-	void Show()
-	{
-		imshow("Face Detection", video_stream);
 	}
 };

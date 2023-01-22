@@ -4,13 +4,17 @@
 
 int main()
 {
-    Camera cam1;
+    Camera cam1(640, 480);
     VideoCapture real_time = cam1.getVideoCapture();
+
     Detector detector(real_time);
+    vector<Rect> faces;
 
     while (true)
     {
-        detector.Detect();
+        faces = detector.Detect();
+        detector.drawCrossair();
+        detector.drawBoundaries(faces);
         detector.Show();
 
         if (waitKey(10) == 27)

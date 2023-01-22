@@ -8,6 +8,8 @@
         "type_traits": "cpp",
         "utility": "cpp",
         "xlocnum": "cpp",
-        "xutility": "cpp"
+        "xutility": "cpp",
+        "xiosbase": "cpp",
+        "atomic": "cpp"
     }
 }
