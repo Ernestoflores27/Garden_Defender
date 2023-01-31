@@ -4,7 +4,7 @@
 
 int main()
 {
-    Camera cam1(640, 480);
+    Camera cam1(320, 240);
     VideoCapture real_time = cam1.getVideoCapture();
 
     Detector detector(real_time);

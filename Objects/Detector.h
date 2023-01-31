@@ -14,7 +14,7 @@ public:
 	{
 		real_time = real_time_;
 
-		string trained_classifier_location = "C:/opencv/sources/data/haarcascades/haarcascade_frontalface_alt.xml";
+		string trained_classifier_location = "Garden_Defender/haarcascade_frontalface_default.xml";
 		faceDetector.load(trained_classifier_location);
 
 		namedWindow("Face Detection");
