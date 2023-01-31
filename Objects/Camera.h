@@ -6,28 +6,20 @@ using namespace std;
 class Camera
 {
 public:
-    int run()
+    int width, height;
+
+    Camera(int width_, int height_)
     {
-        Mat image;
-        namedWindow("Display window");
-        VideoCapture cap(0);
+        width = width_;
+        height = height_;
+    }
 
-        if (!cap.isOpened())
-        {
-            cout << "cannot open camera";
-        }
-
-        while (true)
-        {
-            cap >> image;
-            imshow("Display window", image);
-
-            char c = (char)waitKey(25);
-            if (c == 27)
-            { // If 'Esc' is entered break the loop//
-                break;
-            }
-        }
-        return 0;
+    VideoCapture getVideoCapture()
+    {
+        VideoCapture real_time(0, CAP_V4L2);
+        real_time.set(CAP_PROP_FRAME_WIDTH, width);
+        real_time.set(CAP_PROP_FRAME_HEIGHT, height);
+        real_time.set(CAP_PROP_AUTO_EXPOSURE, 3);
+        return real_time;
     }
 };

@@ -6,7 +6,19 @@ public:
     Turret()
     {
     }
-    void run()
+    void MoveTurret()
     {
-        }
+    }
+    void MoveHorizontal()
+    {
+    }
+    void MoveVertical()
+    {
+    }
+    void Shoot()
+    {
+    }
+    void Explore()
+    {
+    }
 };
