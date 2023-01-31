@@ -6,7 +6,6 @@ public:
     Turret()
     {
     }
-
     void MoveTurret()
     {
     }
