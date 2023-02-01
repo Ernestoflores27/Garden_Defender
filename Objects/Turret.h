@@ -1,4 +1,5 @@
-#include <pigpio.h>
+#include <pigpiod_if2.h>
+#include <unistd.h>
 
 using namespace std;
 
@@ -7,31 +8,38 @@ using namespace std;
 class Turret
 {
 public:
-    Turret()
+    int Turret_GPIO;
+    Turret(int GPIO_)
     {
-        gpioInitialise();
-        gpioSetMode(LED_PIN, PI_OUTPUT);
+        Turret_GPIO = GPIO_;
+        if (gpioInitialise() < 0)
+            return;
+        gpioWrite(Turret_GPIO, 1);
     }
-    void MoveTurret()
+    void turretTerminate()
+    {
+        gpioTerminate();
+    }
+    void moveTurret()
     {
     }
-    void MoveHorizontal()
+    void moveHorizontal(int dir)
     {
+        printf("moveHorizontal\n");
     }
-    void MoveVertical()
+    void moveVertical(int dir)
     {
+        printf("moveVertical\n");
     }
-    void Shoot()
+    void shoot()
     {
-        while (true)
-        {
-            gpioDelay(100000);
-            gpioWrite(LED_PIN, 1);
-            gpioDelay(100000);
-            gpioWrite(LED_PIN, 0);
-        }
+        printf("Shooting\n");
+
+        gpioWrite(Turret_GPIO, 0);
+        usleep(500000);
+        gpioWrite(Turret_GPIO, 1);
     }
-    void Explore()
+    void explore()
     {
     }
 };
