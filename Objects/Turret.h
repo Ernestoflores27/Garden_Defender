@@ -1,9 +1,8 @@
 #include <pigpiod_if2.h>
+#include <PiPCA9685/PCA9685.h>
 #include <unistd.h>
 
 using namespace std;
-
-#define LED_PIN 6
 
 class Turret
 {
@@ -11,6 +10,20 @@ public:
     int Turret_GPIO;
     Turret(int GPIO_)
     {
+        // PCA9685 SETUP
+        PiPCA9685::PCA9685 pca{};
+        pca.set_pwm_freq(60.0);
+
+        pca.set_pwm(0, 0, 370);
+        usleep(1'000'000);
+        pca.set_pwm(0, 0, 415);
+        usleep(1'000'000);
+        pca.set_pwm(0, 0, 460);
+        usleep(1'000'000);
+        pca.set_pwm(0, 0, 415);
+        usleep(1'000'000);
+
+        // Relay Pin Setup
         Turret_GPIO = GPIO_;
         if (gpioInitialise() < 0)
             return;
