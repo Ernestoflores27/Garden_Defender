@@ -24,10 +24,6 @@ public:
     {
         float pwm = mapAngleToPWM(angle);
         pca.set_pwm(idx, 0, pwm);
-        cout << angle;
-        cout << '\n';
-        cout << pwm;
-        cout << '\n';
     }
 
     float mapAngleToPWM(float angle)
