@@ -7,12 +7,13 @@ class Turret
 {
 public:
     int Turret_GPIO;
+    int pitch, yaw;
     Servos servos;
 
     Turret(int GPIO_)
     {
+        // Servo Setup
         servos.servoInit(204, 410, -90, 90);
-        servos.servoMove(0, 0);
 
         // Relay Pin Setup
         Turret_GPIO = GPIO_;
@@ -20,22 +21,29 @@ public:
             return;
         gpioWrite(Turret_GPIO, 1);
     }
-
-        void moveTurret()
+    void changePosition(int pitch_, int yaw_)
     {
+        pitch = pitch_;
+        yaw = yaw_;
+        moveTurret();
     }
-    void moveHorizontal(int dir)
+    void moveTurret()
     {
-        printf("moveHorizontal\n");
+        servos.servoMove(0, yaw);
+        servos.servoMove(1, pitch);
     }
-    void moveVertical(int dir)
+    void movePitch(int dir)
     {
-        printf("moveVertical\n");
+        pitch = pitch + dir;
+        moveTurret();
+    }
+    void moveYaw(int dir)
+    {
+        yaw = yaw + dir;
+        moveTurret();
     }
     void shoot()
     {
-        printf("Shooting\n");
-
         gpioWrite(Turret_GPIO, 0);
         usleep(500000);
         gpioWrite(Turret_GPIO, 1);
