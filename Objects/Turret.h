@@ -1,6 +1,5 @@
 #include <pigpiod_if2.h>
-#include <PiPCA9685/PCA9685.h>
-#include <unistd.h>
+#include "./Servos.h"
 
 using namespace std;
 
@@ -8,32 +7,12 @@ class Turret
 {
 public:
     int Turret_GPIO;
+    Servos servos;
+
     Turret(int GPIO_)
     {
-        // PCA9685 SETUP
-        PiPCA9685::PCA9685 pca{};
-        pca.set_pwm_freq(50.0);
-
-        for (int pos = 150; pos < 460; pos++)
-        {
-            pca.set_pwm(0, 0, pos);
-            usleep(1'000);
-        }
-        for (int pos = 460; pos > 150; pos--)
-        {
-            pca.set_pwm(0, 0, pos);
-            usleep(1'000);
-        }
-        for (int pos = 150; pos < 460; pos++)
-        {
-            pca.set_pwm(1, 0, pos);
-            usleep(1'000);
-        }
-        for (int pos = 460; pos > 150; pos--)
-        {
-            pca.set_pwm(1, 0, pos);
-            usleep(1'000);
-        }
+        servos.servoInit(204, 410, -90, 90);
+        servos.servoMove(0, 0);
 
         // Relay Pin Setup
         Turret_GPIO = GPIO_;
@@ -41,11 +20,8 @@ public:
             return;
         gpioWrite(Turret_GPIO, 1);
     }
-    void turretTerminate()
-    {
-        gpioTerminate();
-    }
-    void moveTurret()
+
+        void moveTurret()
     {
     }
     void moveHorizontal(int dir)
@@ -66,5 +42,29 @@ public:
     }
     void explore()
     {
+        // for (int pos = 204; pos < 410; pos++)
+        // {
+        //     pca.set_pwm(0, 0, pos);
+        //     usleep(10'000);
+        // }
+        // for (int pos = 410; pos > 204; pos--)
+        // {
+        //     pca.set_pwm(0, 0, pos);
+        //     usleep(10'000);
+        // }
+        // for (int pos = 204; pos < 410; pos++)
+        // {
+        //     pca.set_pwm(1, 0, pos);
+        //     usleep(10'000);
+        // }
+        // for (int pos = 410; pos > 204; pos--)
+        // {
+        //     pca.set_pwm(1, 0, pos);
+        //     usleep(10'000);
+        // }
+    }
+    void turretTerminate()
+    {
+        gpioTerminate();
     }
 };
