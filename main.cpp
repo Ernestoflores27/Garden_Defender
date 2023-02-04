@@ -23,25 +23,25 @@ int main()
         detector.drawBoundaries();
         detector.drawCrossair();
 
-                if (!detector.faces_vector.empty())
+        if (!detector.faces_vector.empty())
         {
             detector.lineClosest();
             if (detector.getOffsetX() > 20)
             {
-                turret.movePitch(1);
+                turret.movePitch(3);
             }
             else if (detector.getOffsetX() < -20)
             {
-                turret.movePitch(-1);
+                turret.movePitch(-3);
             }
 
             if (detector.getOffsetY() > 20)
             {
-                turret.moveYaw(1);
+                turret.moveYaw(2);
             }
             else if (detector.getOffsetY() < -20)
             {
-                turret.moveYaw(-1);
+                turret.moveYaw(-2);
             }
 
             if (detector.getOffsetY() < 20 and detector.getOffsetY() > -20 and detector.getOffsetX() < 20 and detector.getOffsetX() > -20)
