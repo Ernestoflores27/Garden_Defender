@@ -7,13 +7,17 @@ class Turret
 {
 public:
     int Turret_GPIO;
-    int pitch, yaw;
+    int pitch, yaw, min_pitch, max_pitch, min_yaw, max_yaw;
     Servos servos;
 
-    Turret(int GPIO_)
+    Turret(int GPIO_, int min_pitch_ = -90, int max_pitch_ = 90, int min_yaw_ = -45, int max_yaw_ = 30)
     {
         // Servo Setup
-        servos.servoInit(204, 410, -90, 90);
+        servos.servoInit(104, 514, -90, 90);
+        min_pitch = min_pitch_;
+        max_pitch = max_pitch_;
+        min_yaw = min_yaw_;
+        max_yaw = max_yaw_;
 
         // Relay Pin Setup
         Turret_GPIO = GPIO_;
@@ -23,24 +27,24 @@ public:
     }
     void changePosition(int pitch_, int yaw_)
     {
-        pitch = pitch_;
-        yaw = yaw_;
+        pitch = clamp(pitch_, min_pitch, max_pitch);
+        yaw = clamp(yaw_, min_yaw, max_yaw);
+        moveTurret();
+    }
+    void movePitch(int dir)
+    {
+        pitch = clamp(pitch + dir, min_pitch, max_pitch);
+        moveTurret();
+    }
+    void moveYaw(int dir)
+    {
+        yaw = clamp(yaw + dir, min_yaw, max_yaw);
         moveTurret();
     }
     void moveTurret()
     {
         servos.servoMove(0, yaw);
         servos.servoMove(1, pitch);
-    }
-    void movePitch(int dir)
-    {
-        pitch = pitch + dir;
-        moveTurret();
-    }
-    void moveYaw(int dir)
-    {
-        yaw = yaw + dir;
-        moveTurret();
     }
     void shoot()
     {
@@ -50,29 +54,23 @@ public:
     }
     void explore()
     {
-        // for (int pos = 204; pos < 410; pos++)
-        // {
-        //     pca.set_pwm(0, 0, pos);
-        //     usleep(10'000);
-        // }
-        // for (int pos = 410; pos > 204; pos--)
-        // {
-        //     pca.set_pwm(0, 0, pos);
-        //     usleep(10'000);
-        // }
-        // for (int pos = 204; pos < 410; pos++)
-        // {
-        //     pca.set_pwm(1, 0, pos);
-        //     usleep(10'000);
-        // }
-        // for (int pos = 410; pos > 204; pos--)
-        // {
-        //     pca.set_pwm(1, 0, pos);
-        //     usleep(10'000);
-        // }
     }
     void turretTerminate()
     {
         gpioTerminate();
+    }
+
+    int clamp(int value, int min, int max)
+    {
+        if (value < min)
+        {
+            return min;
+        }
+        else if (max < value)
+        {
+            return max;
+        }
+        else
+            return value;
     }
 };
