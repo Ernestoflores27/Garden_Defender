@@ -1,6 +1,5 @@
 #include <PiPCA9685/PCA9685.h>
 #include <unistd.h>
-#include <iostream>
 
 using namespace std;
 

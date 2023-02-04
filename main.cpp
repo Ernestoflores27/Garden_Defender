@@ -3,7 +3,6 @@
 #include "Objects/Turret.h"
 #include <opencv4/opencv2/opencv.hpp>
 #include <unistd.h>
-#include <iostream>
 
 using namespace std;
 
@@ -21,8 +20,37 @@ int main()
     while (true)
     {
         faces = detector.Detect();
+        detector.drawBoundaries();
         detector.drawCrossair();
-        detector.drawBoundaries(faces);
+
+                if (!detector.faces_vector.empty())
+        {
+            detector.lineClosest();
+            if (detector.getOffsetX() > 20)
+            {
+                turret.movePitch(1);
+            }
+            else if (detector.getOffsetX() < -20)
+            {
+                turret.movePitch(-1);
+            }
+
+            if (detector.getOffsetY() > 20)
+            {
+                turret.moveYaw(1);
+            }
+            else if (detector.getOffsetY() < -20)
+            {
+                turret.moveYaw(-1);
+            }
+
+            if (detector.getOffsetY() < 20 and detector.getOffsetY() > -20 and detector.getOffsetX() < 20 and detector.getOffsetX() > -20)
+            {
+                turret.shoot();
+                detector.showShooting();
+            }
+        }
+
         detector.Show();
 
         int k = waitKey(10);

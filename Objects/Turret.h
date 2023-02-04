@@ -49,7 +49,7 @@ public:
     void shoot()
     {
         gpioWrite(Turret_GPIO, 0);
-        usleep(500000);
+        // usleep(500000);
         gpioWrite(Turret_GPIO, 1);
     }
     void explore()
