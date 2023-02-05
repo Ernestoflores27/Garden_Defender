@@ -1,5 +1,5 @@
 #include <pigpiod_if2.h>
-#include "./Servos.h"
+#include "Servos.h"
 
 using namespace std;
 
