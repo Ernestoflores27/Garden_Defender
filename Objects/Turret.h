@@ -1,5 +1,8 @@
 #include <pigpiod_if2.h>
 #include "Servos.h"
+#include <time.h>
+#include <thread>
+#include <iostream>
 
 using namespace std;
 
@@ -9,6 +12,7 @@ public:
     int Turret_GPIO;
     int pitch, yaw, min_pitch, max_pitch, min_yaw, max_yaw;
     Servos servos;
+    time_t start_shooting_time;
 
     Turret(int GPIO_, int min_pitch_ = -90, int max_pitch_ = 90, int min_yaw_ = -45, int max_yaw_ = 30)
     {
@@ -24,6 +28,8 @@ public:
         if (gpioInitialise() < 0)
             return;
         gpioWrite(Turret_GPIO, 1);
+
+        start_shooting_time = time(0);
     }
     void changePosition(int pitch_, int yaw_)
     {
@@ -48,8 +54,20 @@ public:
     }
     void shoot()
     {
+        if (difftime(time(0), start_shooting_time) > 3)
+        {
+            cout << "Shooting! \n";
+            start_shooting_time = time(0);
+            thread t1(&Turret::shootThread, this);
+            t1.detach();
+        }
+    }
+
+    void shootThread()
+    {
+
         gpioWrite(Turret_GPIO, 0);
-        // usleep(500000);
+        this_thread::sleep_for(500ms);
         gpioWrite(Turret_GPIO, 1);
     }
     void explore()

@@ -6,6 +6,8 @@
 
 using namespace std;
 
+#define MARGIN 40
+
 int main()
 {
     Camera cam1(320, 240);
@@ -26,25 +28,25 @@ int main()
         if (!detector.faces_vector.empty())
         {
             detector.lineClosest();
-            if (detector.getOffsetX() > 20)
+            if (detector.getOffsetX() > MARGIN)
             {
-                turret.movePitch(3);
+                turret.movePitch(2);
             }
-            else if (detector.getOffsetX() < -20)
+            else if (detector.getOffsetX() < -MARGIN)
             {
-                turret.movePitch(-3);
-            }
-
-            if (detector.getOffsetY() > 20)
-            {
-                turret.moveYaw(2);
-            }
-            else if (detector.getOffsetY() < -20)
-            {
-                turret.moveYaw(-2);
+                turret.movePitch(-2);
             }
 
-            if (detector.getOffsetY() < 20 and detector.getOffsetY() > -20 and detector.getOffsetX() < 20 and detector.getOffsetX() > -20)
+            if (detector.getOffsetY() > MARGIN)
+            {
+                turret.moveYaw(1);
+            }
+            else if (detector.getOffsetY() < -MARGIN)
+            {
+                turret.moveYaw(-1);
+            }
+
+            if (detector.getOffsetY() < MARGIN and detector.getOffsetY() > -MARGIN and detector.getOffsetX() < MARGIN and detector.getOffsetX() > -MARGIN)
             {
                 turret.shoot();
                 detector.showShooting();

@@ -12,6 +12,6 @@ include_directories( ${OpenCV_INCLUDE_DIRS} ${pigpio_INCLUDE_DIR})
 add_executable(garden_defender main.cpp)
 
 target_link_libraries(garden_defender ${OpenCV_LIBS} ${pigpio_LIBRARY} ${pigpiod_if_LIBRARY} ${pigpiod_if2_LIBRARY} ${PiPCA9685_LIBRARY})
-target_link_libraries(garden_defender -lpigpio)
+target_link_libraries(garden_defender -lpigpio -pthread)
 
 include(CPack)
