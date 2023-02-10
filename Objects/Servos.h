@@ -22,6 +22,7 @@ public:
     void servoMove(int idx, float angle)
     {
         float pwm = mapAngleToPWM(angle);
+        
         pca.set_pwm(idx, 0, pwm);
     }
 
