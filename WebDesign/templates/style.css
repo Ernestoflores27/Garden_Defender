@@ -1,0 +1,54 @@
+body{
+    margin: 0;
+    margin-left: 20px;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    background-color: white;
+    background-image: url(logo.jpeg);
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  
+  .container2{
+    perspective: 320px;
+  }
+  
+  .btn{
+    display: block;
+    margin: 80px 0;
+    width: 80px;
+    height: 80px;
+    border: none;
+    background-color: #e15f41;
+    color: #fff;
+    font-size: 18px;
+    border-radius: 6px;
+    outline: none;
+    cursor: pointer;
+    transition: .3s linear;
+  }
+  
+  .btn1:hover{
+    transform: rotateX(15deg);
+    box-shadow: 0 15px 15px #e15f4190;
+  }
+  
+  .btn2:hover{
+    transform: rotateX(-15deg);
+    box-shadow: 0 -15px 15px #e15f4190;
+  }
+  
+  .btn3:hover{
+    transform: rotateY(15deg);
+    box-shadow: -15px 0px 15px #e15f4190;
+  }
+  
+  .btn4:hover{
+    transform: rotateY(-15deg);
+    box-shadow: 15px 0 15px #e15f4190;
+  }
+  
+  
