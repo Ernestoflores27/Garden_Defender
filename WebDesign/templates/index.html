@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>video录制</title>
+    <title>videoShow</title>
     <style>
         #container {
             display: flex;
@@ -98,7 +98,6 @@
 
 <body>
     <div class="box">
-        <!-- autoplay 自动播放  loop循环播放  muted 声音 preload 预加载 -->
 
         <video id="gum" autoplay muted
             style="object-fit:fill; width: 100%;height: 100%; position: absolute; top: 0; left: 0;"></video>
@@ -112,9 +111,9 @@
         <div class="layui-body">
             <div id="container">
                 <div class="controls">
-                    <button id="record" disabled>开始录制</button>
-                    <button id="play" disabled>播放</button>
-                    <button id="download" disabled>下载</button>
+                    <button id="record" disabled>Start Record/button>
+                    <button id="play" disabled>Play</button>
+                    <button id="download" disabled>Download</button>
                     <span id="tEl"></span>
                 </div>
                 <video id="gum2" controls="controls" autoplay style="display:none"></video>
@@ -125,21 +124,13 @@
 </body>
 <script>
     class RecordingVideo {
-        // 播放时长
         duration = 0
-        // 录制流媒体
         mediaRecorder
-        // 录制的数据
         recordedBlobs
-        // 倒计时interlval
         intervalId
-        // 摄像头流媒体
         stream
-        // 录制时长
         maxD = 15
-        // 倒计时初始值
         count = 15
-        // 页面dom
         gumVideo = document.querySelector('#gum')
         gumVideo2 = document.querySelector('#gum2')
         recordButton = document.querySelector('#record')
@@ -151,14 +142,12 @@
                 audio: true,
                 video: {
                     facingMode: "user",
-                    //width: 400,//视频宽度
-                    //height: 400,//视频高度
-                    frameRate: 60,//每秒60帧
+                    frameRate: 60,
                 }
             }
             const isSecureOrigin = location.protocol === 'https:' || location.hostname === 'localhost'
             if (!isSecureOrigin) {
-                alert('getUserMedia() 必须在https或localhost下使用')
+                alert('getUserMedia() has to be used after \'https\' or \'localhost\'')
                 location.protocol = 'HTTPS'
             }
             this.recordButton.onclick = () => this.toggleRecording()
@@ -166,54 +155,54 @@
             this.downloadButton.onclick = () => this.download()
             this.gumVideo2.width = constraints.video.width
             this.gumVideo2.height = constraints.video.height
-            // 获取摄像头流媒体
+            // get video stream
             this.getUserMedia(constraints, (stream) => {
-                // 摄像头流媒体成功回调
+                
                 this.recordButton.disabled = false
                 this.stream = stream
                 this.gumVideo.srcObject = stream
             }, (e) => {
-                // 摄像头流媒体失败回调
+                // failure
                 if (error.message === 'Permission denied') {
-                    alert('您已经禁止使用摄像头，请到设置-通用-微信存储空间-管理微信存储空间-点击‘清理其他微信账号聊天数据’')
+                    alert('You have disabled the use of camera, please go to Settings - General - WeChat Storage - Manage WeChat Storage - Click \'Clean up chat data from other WeChat accounts\'')
                 }
                 console.log('navigator.getUserMedia error: ', error)
             })
 
         }
-        // 获取摄像头流媒体
+        // get video stream
         getUserMedia(constraints, success, error) {
             if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-                //最新的标准API
+                //latest standard API
                 navigator.mediaDevices.getUserMedia(constraints).then(success).catch(error)
             } else if (navigator.webkitGetUserMedia) {
-                //webkit核心浏览器
+                //webkit core
                 navigator.webkitGetUserMedia(constraints, success, error)
             } else if (navigator.mozGetUserMedia) {
-                //firfox浏览器
+                //firfox
                 navigator.mozGetUserMedia(constraints, success, error)
             } else if (navigator.getUserMedia) {
-                //旧版API
+                //outed API
                 navigator.getUserMedia(constraints, success, error)
             }
         }
-        // 开始录制的事件
+        // start to record
         toggleRecording() {
             const tEl = this.tEL
-            if (this.recordButton.textContent === '开始录制') {
+            if (this.recordButton.textContent === 'start to record') {
                 tEl.innerHTML = ''
                 this.startRecording()
                 clearInterval(this.intervalId)
-                tEl.innerHTML = '剩余时间：' + this.count + '秒'
+                tEl.innerHTML = 'remained:' + this.count + 's'
                 this.count--
                 this.intervalId = setInterval(() => {
-                    tEl.innerHTML = '剩余时间：' + this.count + '秒'
+                    tEl.innerHTML = 'remaind:' + this.count + 's'
                     if (this.count <= 0) {
                         clearInterval(this.intervalId)
                         this.duration = this.maxD - this.count
                         this.count = this.maxD
                         this.stopRecording()
-                        this.recordButton.textContent = '开始录制'
+                        this.recordButton.textContent = 'start to record'
                         this.downloadButton.disabled = false
                         this.playButton.disabled = false
                     } else {
@@ -227,12 +216,12 @@
                 this.duration = this.maxD - this.count
                 this.count = this.maxD
                 this.stopRecording()
-                this.recordButton.textContent = '开始录制'
+                this.recordButton.textContent = 'start to record'
                 this.playButton.disabled = false
                 this.downloadButton.disabled = false
             }
         }
-        // 开始录制
+        // start to record
         startRecording() {
             const isSafari = !(!(/Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent)))
 
@@ -245,32 +234,32 @@
             try {
                 this.mediaRecorder = new MediaRecorder(this.stream, options)
             } catch (e) {
-                alert('MediaRecorder创建失败: ' + e + '. mimeType: ' + options.mimeType)
+                alert('MediaRecorder failed to be created: ' + e + '. mimeType: ' + options.mimeType)
                 return
             }
-            this.recordButton.textContent = '结束录制'
+            this.recordButton.textContent = 'record end'
             this.downloadButton.disabled = true
             this.playButton.disabled = true
 
-            // 录制中
+            // recording
             this.mediaRecorder.ondataavailable = event => {
                 if (event.data && event.data.size > 0) {
                     this.recordedBlobs.push(event.data)
                 }
             }
-            // 录制结束回调
+            // end
             this.mediaRecorder.onstop = event => {
                 console.log('Recorder stopped: ', event)
             }
-            // 开始录制
+            // start to record
             this.mediaRecorder.start(10);
         }
-        // 停止录制
+        // stop recording
         stopRecording() {
-            tEl.innerHTML = '录制完成'
+            tEl.innerHTML = 'finished record'
             this.mediaRecorder.stop()
         }
-        // 下载视频
+        // download video
         download() {
             const blob = new Blob(this.recordedBlobs, { type: 'video/mp4' })
             const a = document.createElement('a')
@@ -278,7 +267,6 @@
             a.href = URL.createObjectURL(blob)
             a.click()
         }
-        // 点击播放
         play() {
             const { recordedBlobs, gumVideo2 } = this
             const blob = new Blob(recordedBlobs, { type: 'video/mp4' })
@@ -289,7 +277,7 @@
             } else {
                 strSize = (size / 1024).toFixed(2) + 'MB'
             }
-            alert('播放时长：' + this.duration + '秒, 大小：' + strSize)
+            alert('' + this.duration + 's, ' + strSize)
             const videoURL = URL.createObjectURL(blob)
             gumVideo2.style.display = ''
             gumVideo2.src = videoURL
