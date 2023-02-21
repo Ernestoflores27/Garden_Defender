@@ -27,9 +27,10 @@ int main()
 
     while (true)
     {
-        vector<Mat> a = detector.DetectObj();
-        // faces = detector.Detect();
-        // detector.drawBoundaries();
+        turret.printYaw();
+
+        faces = detector.Detect();
+        detector.drawBoundaries();
         // detector.drawCrossair();
 
         if (!detector.faces_vector.empty())
@@ -62,7 +63,7 @@ int main()
 
         detector.Show();
 
-        int k = waitKey(10);
+        int k = waitKey(1);
         if (k == 27)
         {
             break;

@@ -15,7 +15,7 @@ const float NMS_THRESHOLD = 0.45;
 const float CONFIDENCE_THRESHOLD = 0.45;
 
 // Text parameters.
-const float FONT_SCALE = 0.7;
+const float FONT_SCALE = 0.4;
 const int FONT_FACE = FONT_HERSHEY_SIMPLEX;
 const int THICKNESS = 1;
 
@@ -57,64 +57,37 @@ public:
 		namedWindow("Object Detection");
 	}
 
-	void draw_label(Mat &input_image, string label, int left, int top)
-	{
-		int baseLine;
-		Size label_size = getTextSize(label, FONT_FACE, FONT_SCALE, THICKNESS, &baseLine);
-		top = max(top, label_size.height);
-		Point tlc = Point(left, top);
-		Point brc = Point(left + label_size.width, top + label_size.height + baseLine);
-		rectangle(input_image, tlc, brc, BLACK, FILLED);
-		putText(input_image, label, Point(left, top + label_size.height), FONT_FACE, FONT_SCALE, YELLOW, THICKNESS);
-	}
-
 	vector<Rect> Detect()
 	{
 		real_time.read(video_stream);
-		faceDetector.detectMultiScale(video_stream, faces, 1.1, 4, CASCADE_SCALE_IMAGE, Size(30, 30));
-
-		faces_vector.clear();
-		for (Rect face : faces)
-		{
-			Face f(face, real_time.get(CAP_PROP_FRAME_WIDTH), real_time.get(CAP_PROP_FRAME_HEIGHT));
-			faces_vector.push_back(f);
-		}
-		sortFaces();
-		return faces;
-	}
-	vector<Mat> DetectObj()
-	{
-		real_time.read(video_stream);
 		detections = pre_process(video_stream, net);
-		img = post_process(video_stream.clone(), detections, class_list);
+		vector<Rect> a = post_process(video_stream.clone(), detections, class_list);
 
 		vector<double> layersTimes;
 		double freq = getTickFrequency() / 1000;
 		double t = net.getPerfProfile(layersTimes) / freq;
 		string label = format("Inference time : %.2f ms", t);
 
-		putText(img, label, Point(20, 40), FONT_FACE, FONT_SCALE, RED);
-		return detections;
+		putText(video_stream, label, Point(20, 40), FONT_FACE, FONT_SCALE, RED);
+		return a;
 	}
 
 	vector<Mat> pre_process(Mat &input_image, Net &net)
 	{
 		Mat blob;
 		blobFromImage(input_image, blob, 1. / 255., Size(INPUT_WIDTH, INPUT_HEIGHT), Scalar(), true, false);
-
 		net.setInput(blob);
-
 		vector<Mat> outputs;
 		net.forward(outputs, net.getUnconnectedOutLayersNames());
-
 		return outputs;
 	}
 
-	Mat post_process(Mat input_image, vector<Mat> &outputs, const vector<string> &class_name)
+	vector<Rect> post_process(Mat input_image, vector<Mat> &outputs, const vector<string> &class_name)
 	{
 		vector<int> class_ids;
 		vector<float> confidences;
 		vector<Rect> boxes;
+
 		float x_factor = input_image.cols / INPUT_WIDTH;
 		float y_factor = input_image.rows / INPUT_HEIGHT;
 		float *data = (float *)outputs[0].data;
@@ -149,25 +122,33 @@ public:
 		}
 		vector<int> indices;
 		NMSBoxes(boxes, confidences, SCORE_THRESHOLD, NMS_THRESHOLD, indices);
+
+		faces_vector.clear();
 		for (int i = 0; i < indices.size(); i++)
 		{
 			int idx = indices[i];
 			Rect box = boxes[idx];
-			int left = box.x;
-			int top = box.y;
-			int width = box.width;
-			int height = box.height;
-			rectangle(input_image, Point(left, top), Point(left + width, top + height), BLUE, 3 * THICKNESS);
-			string label = format("%.2f", confidences[idx]);
-			label = class_name[class_ids[idx]] + ":" + label;
-			draw_label(input_image, label, left, top);
+			Face f(box, real_time.get(CAP_PROP_FRAME_WIDTH), real_time.get(CAP_PROP_FRAME_HEIGHT));
+			faces_vector.push_back(f);
 		}
-		return input_image;
+		sortFaces();
+		return faces;
+	}
+
+	void draw_label(Mat &input_image, string label, int left, int top)
+	{
+		int baseLine;
+		Size label_size = getTextSize(label, FONT_FACE, FONT_SCALE, THICKNESS, &baseLine);
+		top = max(top, label_size.height);
+		Point tlc = Point(left, top);
+		Point brc = Point(left + label_size.width, top + label_size.height + baseLine);
+		rectangle(input_image, tlc, brc, BLACK, FILLED);
+		putText(input_image, label, Point(left, top + label_size.height), FONT_FACE, FONT_SCALE, YELLOW, THICKNESS);
 	}
 
 	void Show()
 	{
-		imshow("Object Detection", img);
+		imshow("Object Detection", video_stream);
 	}
 
 	void sortFaces()
@@ -197,7 +178,6 @@ public:
 				c = Scalar(0, 255, 0);
 			}
 			string position_text = to_string(f.offset_x) + ", " + to_string(f.offset_y);
-			// putText(video_stream, position_text, Point(f.x, f.y - 5), FONT_HERSHEY_DUPLEX, 0.75, Scalar(255, 0, 255), 1.5);
 			rectangle(video_stream, Point(f.x, f.y), Point(f.w, f.h), c, 2, 8, 0);
 			i++;
 		}
