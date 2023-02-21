@@ -27,7 +27,6 @@ int main()
 
     while (true)
     {
-        turret.printYaw();
 
         faces = detector.Detect();
         detector.drawBoundaries();
