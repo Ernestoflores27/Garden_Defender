@@ -6,10 +6,16 @@
 
 using namespace std;
 
+using namespace cv;
+using namespace cv::dnn;
+
 #define MARGIN 40
 
 int main()
 {
+
+    Mat video_stream;
+
     Camera cam1(320, 240);
     VideoCapture real_time = cam1.getVideoCapture();
 
@@ -21,13 +27,14 @@ int main()
 
     while (true)
     {
-        faces = detector.Detect();
-        detector.drawBoundaries();
-        detector.drawCrossair();
+        vector<Mat> a = detector.DetectObj();
+        // faces = detector.Detect();
+        // detector.drawBoundaries();
+        // detector.drawCrossair();
 
         if (!detector.faces_vector.empty())
         {
-            detector.lineClosest();
+            // detector.lineClosest();
             if (detector.getOffsetX() > MARGIN)
             {
                 turret.movePitch(2);
