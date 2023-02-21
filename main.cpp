@@ -39,11 +39,11 @@ int main()
 
             if (detector.getOffsetY() > MARGIN)
             {
-                turret.moveYaw(1);
+                turret.moveYaw(-1);
             }
             else if (detector.getOffsetY() < -MARGIN)
             {
-                turret.moveYaw(-1);
+                turret.moveYaw(1);
             }
 
             if (detector.getOffsetY() < MARGIN and detector.getOffsetY() > -MARGIN and detector.getOffsetX() < MARGIN and detector.getOffsetX() > -MARGIN)
@@ -62,11 +62,11 @@ int main()
         }
         else if (k == 82)
         {
-            turret.moveYaw(5);
+            turret.moveYaw(-5);
         }
         else if (k == 84)
         {
-            turret.moveYaw(-5);
+            turret.moveYaw(5);
         }
         else if (k == 81)
         {
