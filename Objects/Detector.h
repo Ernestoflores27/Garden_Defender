@@ -236,11 +236,10 @@ public:
 	void sortFaces();
 	int getOffsetX();
 	int getOffsetY();
-
-private:
-private:
 	vector<Face> faces_vector;
 
+private:
+private:
 	const float anchors[2][6] = {{12.64, 19.39, 37.88, 51.48, 55.71, 138.31}, {126.91, 78.23, 131.57, 214.55, 279.92, 258.87}};
 	const float stride[3] = {16.0, 32.0};
 	const int inpWidth = 352;
@@ -358,7 +357,8 @@ vector<Face> yolo_fast::detect(Mat &frame)
 
 		if (classIds[idx] == 0)
 		{
-			Face f(box, 320, 240);
+			cv::Size s = frame.size();
+			Face f(box, s.width, s.height);
 			this->faces_vector.push_back(f);
 		}
 	}

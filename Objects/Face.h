@@ -11,8 +11,8 @@ public:
     {
         x = face.x;
         y = face.y;
-        h = y + face.height;
-        w = x + face.width;
+        h = face.height;
+        w = face.width;
 
         center_x = x + (w / 2);
         center_y = y + (h / 2);
@@ -20,7 +20,7 @@ public:
         offset_x = (camera_width / 2) - center_x;
         offset_y = (camera_height / 2) - center_y;
 
-        distance = (offset_x*offset_x) + (offset_y *offset_y);
+        distance = (offset_x * offset_x) + (offset_y * offset_y);
     }
 };
 
