@@ -232,10 +232,15 @@ class yolo_fast
 {
 public:
 	yolo_fast(string modelpath, float objThreshold, float confThreshold, float nmsThreshold);
-	void detect(Mat &srcimg);
+	vector<Face> detect(Mat &srcimg);
+	void sortFaces();
+	int getOffsetX();
+	int getOffsetY();
 
 private:
 private:
+	vector<Face> faces_vector;
+
 	const float anchors[2][6] = {{12.64, 19.39, 37.88, 51.48, 55.71, 138.31}, {126.91, 78.23, 131.57, 214.55, 279.92, 258.87}};
 	const float stride[3] = {16.0, 32.0};
 	const int inpWidth = 352;
@@ -283,7 +288,7 @@ void yolo_fast::drawPred(int classId, float conf, int left, int top, int right, 
 	putText(frame, label, Point(left, top), FONT_HERSHEY_SIMPLEX, 1, Scalar(0, 255, 0), 1);
 }
 
-void yolo_fast::detect(Mat &frame)
+vector<Face> yolo_fast::detect(Mat &frame)
 {
 	Mat blob;
 	blobFromImage(frame, blob, 1 / 255.0, Size(this->inpWidth, this->inpHeight));
@@ -339,13 +344,37 @@ void yolo_fast::detect(Mat &frame)
 
 	// Perform non maximum suppression to eliminate redundant overlapping boxes with
 	// lower confidences
+	faces_vector.clear();
 	vector<int> indices;
 	NMSBoxes(boxes, confidences, this->confThreshold, this->nmsThreshold, indices);
 	for (size_t i = 0; i < indices.size(); ++i)
 	{
+
 		int idx = indices[i];
+
 		Rect box = boxes[idx];
 		this->drawPred(classIds[idx], confidences[idx], box.x, box.y,
 					   box.x + box.width, box.y + box.height, frame);
+
+		if (classIds[idx] == 0)
+		{
+			Face f(box, 320, 240);
+			this->faces_vector.push_back(f);
+		}
 	}
+	this->sortFaces();
+	return this->faces_vector;
+}
+
+void yolo_fast::sortFaces()
+{
+	sort(faces_vector.begin(), faces_vector.end());
+}
+int yolo_fast::getOffsetX()
+{
+	return this->faces_vector[0].offset_x;
+}
+int yolo_fast::getOffsetY()
+{
+	return this->faces_vector[0].offset_y;
 }

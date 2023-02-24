@@ -93,6 +93,7 @@ int main()
     yolo_fast yolo_model("Garden_Defender/yolov5n.onnx", 0.3, 0.3, 0.4);
 
     Mat video_stream;
+    vector<Face> faces;
 
     Camera cam1(320, 240);
     VideoCapture real_time = cam1.getVideoCapture();
@@ -100,7 +101,7 @@ int main()
     while (true)
     {
         real_time.read(video_stream);
-        yolo_model.detect(video_stream);
+        faces = yolo_model.detect(video_stream);
 
         static const string kWinName = "Deep learning object detection in OpenCV";
         namedWindow(kWinName, WINDOW_NORMAL);
