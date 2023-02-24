@@ -65,6 +65,11 @@
         "streambuf": "cpp",
         "thread": "cpp",
         "cinttypes": "cpp",
-        "typeinfo": "cpp"
+        "typeinfo": "cpp",
+        "*.ipp": "cpp",
+        "bitset": "cpp",
+        "forward_list": "cpp",
+        "typeindex": "cpp",
+        "variant": "cpp"
     }
 }
