@@ -1,63 +1,186 @@
 #include <opencv4/opencv2/opencv.hpp>
+#include <opencv4/opencv2/dnn.hpp>
+#include <opencv4/opencv2/imgproc.hpp>
+#include <opencv4/opencv2/highgui.hpp>
+#include "Face.h"
+#include <iostream>
+#include <fstream>
+#include <sstream>
 
+using namespace cv;
+using namespace dnn;
 using namespace std;
 
-class Detector
+class yolo_fast
 {
 public:
-	Mat video_stream;
-	CascadeClassifier faceDetector;
-	VideoCapture real_time;
-	vector<Rect> faces;
+	yolo_fast(string modelpath, float objThreshold, float confThreshold, float nmsThreshold);
+	vector<Face> detect(Mat &srcimg);
+	void sortFaces();
+	int getOffsetX();
+	int getOffsetY();
+	void drawCrossair(Mat &frame);
+	void lineClosest(Mat &frame);
+	void showShooting();
+	vector<Face> faces_vector;
 
-	Detector(VideoCapture real_time_)
+private:
+	const float anchors[2][6] = {{12.64, 19.39, 37.88, 51.48, 55.71, 138.31}, {126.91, 78.23, 131.57, 214.55, 279.92, 258.87}};
+	const float stride[3] = {16.0, 32.0};
+	const int inpWidth = 352;
+	const int inpHeight = 352;
+	const int num_stage = 2;
+	const int anchor_num = 3;
+	float objThreshold;
+	float confThreshold;
+	float nmsThreshold;
+	vector<string> classes;
+	const string classesFile = "Garden_Defender/object_detection.txt";
+	int num_class;
+	Net net;
+	Mat frame_show;
+	void drawPred(int classId, float conf, int left, int top, int right, int bottom, Mat &frame);
+};
+
+yolo_fast::yolo_fast(string modelpath, float obj_Threshold, float conf_Threshold, float nms_Threshold)
+{
+	this->objThreshold = obj_Threshold;
+	this->confThreshold = conf_Threshold;
+	this->nmsThreshold = nms_Threshold;
+
+	ifstream ifs(this->classesFile.c_str());
+	string line;
+	while (getline(ifs, line))
+		this->classes.push_back(line);
+	this->num_class = this->classes.size();
+	this->net = readNet(modelpath);
+}
+
+void yolo_fast::drawPred(int classId, float conf, int left, int top, int right, int bottom, Mat &frame) // Draw the predicted bounding box
+{
+	// Draw a rectangle displaying the bounding box
+	rectangle(frame, Point(left, top), Point(right, bottom), Scalar(0, 0, 255), 2);
+
+	// Get the label for the class name and its confidence
+	string label = format("%.2f", conf);
+	label = this->classes[classId] + ":" + label;
+
+	// Display the label at the top of the bounding box
+	int baseLine;
+	Size labelSize = getTextSize(label, FONT_HERSHEY_DUPLEX, 0.5, 1, &baseLine);
+	top = max(top, labelSize.height);
+	putText(frame, label, Point(left, top), FONT_HERSHEY_DUPLEX, 1, Scalar(0, 0, 255), 1.5);
+}
+
+vector<Face> yolo_fast::detect(Mat &frame)
+{
+	Mat blob;
+	blobFromImage(frame, blob, 1 / 255.0, Size(this->inpWidth, this->inpHeight));
+	this->net.setInput(blob);
+	vector<Mat> outs;
+	this->net.forward(outs, this->net.getUnconnectedOutLayersNames());
+
+	/////generate proposals
+	vector<int> classIds;
+	vector<float> confidences;
+	vector<Rect> boxes;
+	float ratioh = (float)frame.rows / this->inpHeight, ratiow = (float)frame.cols / this->inpWidth;
+	int n = 0, q = 0, i = 0, j = 0, nout = this->anchor_num * 5 + this->classes.size(), row_ind = 0;
+	float *pdata = (float *)outs[0].data;
+	for (n = 0; n < this->num_stage; n++) /// stage
 	{
-		real_time = real_time_;
-
-		string trained_classifier_location = "Garden_Defender/haarcascade_frontalface_default.xml";
-		faceDetector.load(trained_classifier_location);
-
-		namedWindow("Face Detection");
-	}
-
-	vector<Rect> Detect()
-	{
-		real_time.read(video_stream);
-		faceDetector.detectMultiScale(video_stream, faces, 1.1, 4, CASCADE_SCALE_IMAGE, Size(30, 30));
-		return faces;
-	}
-
-	void Show()
-	{
-		imshow("Face Detection", video_stream);
-	}
-
-	void drawCrossair()
-	{
-		line(video_stream, Point(real_time.get(CAP_PROP_FRAME_WIDTH) / 2, 0), Point(real_time.get(CAP_PROP_FRAME_WIDTH) / 2, real_time.get(CAP_PROP_FRAME_HEIGHT)), Scalar(0, 0, 255), 1);
-		line(video_stream, Point(0, real_time.get(CAP_PROP_FRAME_HEIGHT) / 2), Point(real_time.get(CAP_PROP_FRAME_WIDTH), real_time.get(CAP_PROP_FRAME_HEIGHT) / 2), Scalar(0, 0, 255), 1);
-	}
-
-	void drawBoundaries(vector<Rect> faces)
-	{
-		for (int i = 0; i < faces.size(); i++)
+		int num_grid_x = (int)(this->inpWidth / this->stride[n]);
+		int num_grid_y = (int)(this->inpHeight / this->stride[n]);
+		for (i = 0; i < num_grid_y; i++)
 		{
-			Mat faceROI = video_stream(faces[i]);
+			for (j = 0; j < num_grid_x; j++)
+			{
+				Mat scores = outs[0].row(row_ind).colRange(this->anchor_num * 5, outs[0].cols);
+				Point classIdPoint;
+				double max_class_socre;
+				// Get the value and location of the maximum score
+				minMaxLoc(scores, 0, &max_class_socre, 0, &classIdPoint);
+				for (q = 0; q < this->anchor_num; q++) /// anchor
+				{
+					const float anchor_w = this->anchors[n][q * 2];
+					const float anchor_h = this->anchors[n][q * 2 + 1];
+					float box_score = pdata[4 * this->anchor_num + q];
+					if (box_score > this->objThreshold && max_class_socre > this->confThreshold)
+					{
+						float cx = (pdata[4 * q] * 2.f - 0.5f + j) * this->stride[n];	  /// cx
+						float cy = (pdata[4 * q + 1] * 2.f - 0.5f + i) * this->stride[n]; /// cy
+						float w = powf(pdata[4 * q + 2] * 2.f, 2.f) * anchor_w;			  /// w
+						float h = powf(pdata[4 * q + 3] * 2.f, 2.f) * anchor_h;			  /// h
 
-			int x = faces[i].x;
-			int y = faces[i].y;
-			int h = y + faces[i].height;
-			int w = x + faces[i].width;
+						int left = (cx - 0.5 * w) * ratiow;
+						int top = (cy - 0.5 * h) * ratioh;
 
-			int center_x = (x + w) / 2;
-			int center_y = (y + h) / 2;
-
-			int offset_x = (real_time.get(CAP_PROP_FRAME_WIDTH) / 2) - center_x;
-			int offset_y = (real_time.get(CAP_PROP_FRAME_HEIGHT) / 2) - center_y;
-
-			string position_text = to_string(offset_x) + ", " + to_string(offset_y);
-			putText(video_stream, position_text, Point(x, y - 5), FONT_HERSHEY_DUPLEX, 0.75, Scalar(255, 0, 255), 1.5);
-			rectangle(video_stream, Point(x, y), Point(w, h), Scalar(255, 0, 255), 2, 8, 0);
+						classIds.push_back(classIdPoint.x);
+						confidences.push_back(box_score * max_class_socre);
+						boxes.push_back(Rect(left, top, (int)(w * ratiow), (int)(h * ratioh)));
+					}
+				}
+				row_ind++;
+				pdata += nout;
+			}
 		}
 	}
-};
+
+	// Perform non maximum suppression to eliminate redundant overlapping boxes with
+	// lower confidences
+	faces_vector.clear();
+	vector<int> indices;
+	NMSBoxes(boxes, confidences, this->confThreshold, this->nmsThreshold, indices);
+	for (size_t i = 0; i < indices.size(); ++i)
+	{
+		int idx = indices[i];
+
+		if (classIds[idx] == 0)
+		{
+			Rect box = boxes[idx];
+			this->drawPred(classIds[idx], confidences[idx], box.x, box.y,
+						   box.x + box.width, box.y + box.height, frame);
+			cv::Size s = frame.size();
+			Face f(box, s.width, s.height);
+			this->faces_vector.push_back(f);
+		}
+	}
+	this->sortFaces();
+	this->drawCrossair(frame);
+	this->lineClosest(frame);
+	this->frame_show = frame;
+	return this->faces_vector;
+}
+
+void yolo_fast::sortFaces()
+{
+	sort(faces_vector.begin(), faces_vector.end());
+}
+
+int yolo_fast::getOffsetX()
+{
+	return this->faces_vector[0].offset_x;
+}
+
+int yolo_fast::getOffsetY()
+{
+	return this->faces_vector[0].offset_y;
+}
+
+void yolo_fast::drawCrossair(Mat &frame)
+{
+	cv::Size s = frame.size();
+	line(frame, Point(s.width / 2, 0), Point(s.width / 2, s.height), Scalar(0, 255, 0), 1);
+	line(frame, Point(0, s.height / 2), Point(s.width, s.height / 2), Scalar(0, 255, 0), 1);
+}
+
+void yolo_fast::lineClosest(Mat &frame)
+{
+	cv::Size s = frame.size();
+	line(frame, Point(s.width / 2, s.height / 2), Point(faces_vector[0].center_x, faces_vector[0].center_y), Scalar(0, 255, 0), 2);
+}
+
+void yolo_fast::showShooting()
+{
+	putText(this->frame_show, "Shooting", Point(faces_vector[0].x, faces_vector[0].y + 25), FONT_HERSHEY_DUPLEX, 0.75, Scalar(0, 0, 255), 1.5);
+}
