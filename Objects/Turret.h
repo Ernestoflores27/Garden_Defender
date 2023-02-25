@@ -11,8 +11,9 @@ class Turret
 public:
     int Turret_GPIO;
     int pitch, yaw, min_pitch, max_pitch, min_yaw, max_yaw;
+    int dir = 5;
     Servos servos;
-    time_t start_shooting_time;
+    time_t start_shooting_time, start_exploring_time;
 
     Turret(int GPIO_, int min_pitch_ = -90, int max_pitch_ = 90, int min_yaw_ = -45, int max_yaw_ = 30)
     {
@@ -30,6 +31,7 @@ public:
         gpioWrite(Turret_GPIO, 1);
 
         start_shooting_time = time(0);
+        start_exploring_time = time(0);
     }
     void changePosition(int pitch_, int yaw_)
     {
@@ -65,16 +67,32 @@ public:
 
     void shootThread()
     {
-
         gpioWrite(Turret_GPIO, 0);
         this_thread::sleep_for(500ms);
         gpioWrite(Turret_GPIO, 1);
     }
+
     void explore()
     {
+        yaw = 0;
+        if (time(0) - start_exploring_time > 1)
+        {
+            movePitch(dir);
+        }
+
+        if (pitch > 80)
+        {
+            dir = -5;
+        }
+        else if (pitch < -80)
+        {
+            dir = 5;
+        }
     }
+
     void turretTerminate()
     {
+        gpioWrite(Turret_GPIO, 1);
         gpioTerminate();
     }
 
@@ -90,5 +108,9 @@ public:
         }
         else
             return value;
+    }
+    void resetTime()
+    {
+        start_exploring_time = time(0);
     }
 };

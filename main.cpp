@@ -14,7 +14,7 @@ int main()
     Camera cam1(640, 480);
     VideoCapture real_time = cam1.getVideoCapture();
 
-    yolo_fast yolo_model("Garden_Defender/yolov5n.onnx", 0.3, 0.3, 0.4);
+    yolo_fast yolo_model("Garden_Defender/yolov5n.onnx", 0.3, 0.4, 0.4);
     vector<Face> faces;
 
     Turret turret(23);
@@ -27,6 +27,7 @@ int main()
 
         if (!yolo_model.faces_vector.empty())
         {
+            turret.resetTime();
             if (yolo_model.getOffsetX() > MARGIN)
             {
                 turret.movePitch((yolo_model.getOffsetX() * 4 / 320) + 1);
@@ -47,9 +48,13 @@ int main()
 
             if (yolo_model.getOffsetY() < MARGIN and yolo_model.getOffsetY() > -MARGIN and yolo_model.getOffsetX() < MARGIN and yolo_model.getOffsetX() > -MARGIN)
             {
-                turret.shoot();
+                // turret.shoot();
                 yolo_model.showShooting();
             }
+        }
+        else
+        {
+            turret.explore();
         }
 
         static const string kWinName = "Garden Defender";
