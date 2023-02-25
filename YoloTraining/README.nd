@@ -1,0 +1,10 @@
+Steps:
+1 - Gather the data
+2 - Prepare the data
+3 - Train the model
+4 - Test the model
+5 - Export as onnx
+6 - Simplify onnx:
+    To make the onnx file runnable in the rpi code:
+        python -m onnxsim yolo-fastestv2.onnx yolo-fastestv2-opt.onnx
+
