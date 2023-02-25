@@ -1,0 +1,32 @@
+ISO-10303-21;
+HEADER;
+FILE_DESCRIPTION (( 'STEP AP214' ),
+    '1' );
+FILE_NAME ('Gnome.STEP',
+    '2023-02-25T15:47:42',
+    ( '' ),
+    ( '' ),
+    'SwSTEP 2.0',
+    'SolidWorks 2023',
+    '' );
+FILE_SCHEMA (( 'AUTOMOTIVE_DESIGN' ));
+ENDSEC;
+
+DATA;
+#1 = APPLICATION_CONTEXT ( 'automotive_design' ) ;
+#2 = PRODUCT_CONTEXT ( 'NONE', #1, 'mechanical' ) ;
+#3 = DIRECTION ( 'NONE',  ( 1.000000000000000000, 0.000000000000000000, 0.000000000000000000 ) ) ;
+#4 = PRODUCT_DEFINITION_FORMATION_WITH_SPECIFIED_SOURCE ( 'Symmetric', '', #5, .NOT_KNOWN. ) ;
+#5 = PRODUCT ( 'Gnome_Predeterminado', 'Gnome_Predeterminado', '', ( #2 ) ) ;
+#6 = APPLICATION_PROTOCOL_DEFINITION ( 'draft international standard', 'automotive_design', 1998, #10 ) ;
+#7 = AXIS2_PLACEMENT_3D ( 'NONE', #12, #8, #3 ) ;
+#8 = DIRECTION ( 'NONE',  ( 0.000000000000000000, 0.000000000000000000, 1.000000000000000000 ) ) ;
+#9 = PRODUCT_DEFINITION ( 'General', '', #4, #11 ) ;
+#10 = APPLICATION_CONTEXT ( 'automotive_design' ) ;
+#11 = PRODUCT_DEFINITION_CONTEXT ( 'detailed design', #10, 'design' ) ;
+#12 = CARTESIAN_POINT ( 'NONE',  ( 0.000000000000000000, 0.000000000000000000, 0.000000000000000000 ) ) ;
+#13 = PRODUCT_DEFINITION_SHAPE ( 'NONE', 'NONE',  #9 ) ;
+#14 = APPLICATION_PROTOCOL_DEFINITION ( 'draft international standard', 'automotive_design', 1998, #1 ) ;
+#15 = PRODUCT_RELATED_PRODUCT_CATEGORY ( 'part', '', ( #5 ) ) ;
+ENDSEC;
+END-ISO-10303-21;
