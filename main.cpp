@@ -6,61 +6,56 @@
 
 using namespace std;
 
-using namespace cv;
-using namespace cv::dnn;
-
-#define MARGIN 40
+#define MARGIN 15
 
 int main()
 {
-
     Mat video_stream;
-
-    Camera cam1(320, 240);
+    Camera cam1(640, 480);
     VideoCapture real_time = cam1.getVideoCapture();
 
-    Detector detector(real_time);
-    vector<Rect> faces;
+    yolo_fast yolo_model("Garden_Defender/yolov5n.onnx", 0.3, 0.3, 0.4);
+    vector<Face> faces;
 
-    Turret turret(18);
+    Turret turret(23);
     turret.changePosition(0, 0);
 
     while (true)
     {
+        real_time.read(video_stream);
+        faces = yolo_model.detect(video_stream);
 
-        faces = detector.Detect();
-        detector.drawBoundaries();
-        // detector.drawCrossair();
-
-        if (!detector.faces_vector.empty())
+        if (!yolo_model.faces_vector.empty())
         {
-            // detector.lineClosest();
-            if (detector.getOffsetX() > MARGIN)
+            if (yolo_model.getOffsetX() > MARGIN)
             {
-                turret.movePitch(2);
+                turret.movePitch((yolo_model.getOffsetX() * 4 / 320) + 1);
             }
-            else if (detector.getOffsetX() < -MARGIN)
+            else if (yolo_model.getOffsetX() < -MARGIN)
             {
-                turret.movePitch(-2);
+                turret.movePitch(((yolo_model.getOffsetX() * 4 / 320) - 1));
             }
 
-            if (detector.getOffsetY() > MARGIN)
+            if (yolo_model.getOffsetY() > MARGIN)
             {
                 turret.moveYaw(-1);
             }
-            else if (detector.getOffsetY() < -MARGIN)
+            else if (yolo_model.getOffsetY() < -MARGIN)
             {
                 turret.moveYaw(1);
             }
 
-            if (detector.getOffsetY() < MARGIN and detector.getOffsetY() > -MARGIN and detector.getOffsetX() < MARGIN and detector.getOffsetX() > -MARGIN)
+            if (yolo_model.getOffsetY() < MARGIN and yolo_model.getOffsetY() > -MARGIN and yolo_model.getOffsetX() < MARGIN and yolo_model.getOffsetX() > -MARGIN)
             {
                 turret.shoot();
-                detector.showShooting();
+                yolo_model.showShooting();
             }
         }
 
-        detector.Show();
+        static const string kWinName = "Garden Defender";
+        namedWindow(kWinName);
+        imshow(kWinName, video_stream);
+        waitKey(1);
 
         int k = waitKey(1);
         if (k == 27)
