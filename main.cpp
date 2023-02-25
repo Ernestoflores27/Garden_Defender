@@ -6,19 +6,15 @@
 
 using namespace std;
 
-using namespace cv;
-using namespace cv::dnn;
-
 #define MARGIN 15
 
 int main()
 {
-
     Mat video_stream;
     Camera cam1(640, 480);
     VideoCapture real_time = cam1.getVideoCapture();
 
-    yolo_fast yolo_model("Garden_Defender/yolov5n.onnx", 0.3, 0.3, 0.4); //     vector<Face> faces;
+    yolo_fast yolo_model("Garden_Defender/yolov5n.onnx", 0.3, 0.3, 0.4);
     vector<Face> faces;
 
     Turret turret(23);
@@ -31,7 +27,6 @@ int main()
 
         if (!yolo_model.faces_vector.empty())
         {
-            // detector.lineClosest();
             if (yolo_model.getOffsetX() > MARGIN)
             {
                 turret.movePitch((yolo_model.getOffsetX() * 4 / 320) + 1);
@@ -52,19 +47,15 @@ int main()
 
             if (yolo_model.getOffsetY() < MARGIN and yolo_model.getOffsetY() > -MARGIN and yolo_model.getOffsetX() < MARGIN and yolo_model.getOffsetX() > -MARGIN)
             {
-                // turret.shoot();
-                // yolo_model.showShooting();
+                turret.shoot();
+                yolo_model.showShooting();
             }
         }
 
-        static const string kWinName = "Deep learning object detection in OpenCV";
+        static const string kWinName = "Garden Defender";
         namedWindow(kWinName);
         imshow(kWinName, video_stream);
         waitKey(1);
-        // yolo_model.drawBoundaries();
-
-        // detector.drawCrossair();
-        // yolo_model.Show();
 
         int k = waitKey(1);
         if (k == 27)
@@ -92,26 +83,3 @@ int main()
         }
     }
 }
-
-// int main()
-// {
-//     yolo_fast yolo_model("Garden_Defender/yolov5n.onnx", 0.3, 0.3, 0.4);
-
-//     Mat video_stream;
-//     vector<Face> faces;
-
-//     Camera cam1(320, 240);
-//     VideoCapture real_time = cam1.getVideoCapture();
-
-//     while (true)
-//     {
-//         real_time.read(video_stream);
-//         faces = yolo_model.detect(video_stream);
-
-//         static const string kWinName = "Deep learning object detection in OpenCV";
-//         namedWindow(kWinName, WINDOW_NORMAL);
-//         imshow(kWinName, video_stream);
-//         waitKey(1);
-//     }
-//     destroyAllWindows();
-// }
