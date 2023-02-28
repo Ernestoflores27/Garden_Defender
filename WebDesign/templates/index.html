@@ -12,6 +12,7 @@
             flex-wrap: wrap;
             justify-content: center;
             align-items: center;
+
         }
 
         .controls {
@@ -34,7 +35,6 @@
             z-index: 0;
             margin-bottom: 0%;
         }
-
         .sector {
             z-index: 3;
             position: relative;
@@ -43,8 +43,8 @@
             margin: 0 auto;
             border: 5px solid #cbc8c8;
             border-radius: 50%;
-            background: #cbc8c8;
-            margin-right: 150px;
+            background: transparent;
+            margin-right: 50px;
             margin-top: 20%;
         }
 
@@ -59,14 +59,18 @@
         .sector .box,
         .sector .center {
             transition: 0.5s;
-            background: #bdbcb3;
+            background: transparent;
             cursor: pointer;
         }
 
-        .sector .box:hover,
-        .sector .center:hover {
-            background: #4a4a43;
+        .sector.box.s1:hover {
+            width: "60px";
+            height: "60px";
+            position: relative;
+            right: -17px;
+            top: 19px;
         }
+
 
         .sector .s1 {
             transform: rotate(45deg);
@@ -97,24 +101,33 @@
 </head>
 
 <body>
+    <div class="logoDiv">
+        <img src="Logo.png" style="position: absolute; left:30px; top: 30px; z-index: 3; width: 15%;"/>
+    </div>
     <div class="box">
 
         <video id="gum" autoplay muted
-            style="object-fit:fill; width: 100%;height: 100%; position: absolute; top: 0; left: 0;"></video>
+            style="object-fit:fill;  position: absolute; top: 0; left: 0; object-fit: contain;"></video>
+
         <div class="sector">
-            <div class="box s1"></div>
-            <div class="box s2"></div>
-            <div class="box s3"></div>
-            <div class="box s4"></div>
-            <div class="center"></div>
+
+            <div class="box s1"><img src="up.png" width="60px" height="60px"
+                    style="transform: rotate(-45deg); position: relative; right: -17px; top: 19px;"></div>
+            <div class="box s2"><img src="right.png" width="60px" height="60px"
+                    style="transform: rotate(-135deg); position: relative; right: -17px; top: 19px;"></div>
+            <div class="box s3"><img src="down.png" width="60px" height="60px"
+                    style="transform: rotate(135deg); position: relative; right: -17px; top: 19px;"></div>
+            <div class="box s4"><img src="left.png" width="60px" height="60px"
+                    style="transform: rotate(45deg); position: relative; right: -17px; top: 19px;"></div>
+            <div class="center"><img src="ok.png" width="99px" height="88px"></div>
         </div>
         <div class="layui-body">
             <div id="container">
-                <div class="controls">
+                <div class="controls" hidden>
                     <button id="record" disabled>Start Record/button>
-                    <button id="play" disabled>Play</button>
-                    <button id="download" disabled>Download</button>
-                    <span id="tEl"></span>
+                        <button id="play" disabled>Play</button>
+                        <button id="download" disabled>Download</button>
+                        <span id="tEl"></span>
                 </div>
                 <video id="gum2" controls="controls" autoplay style="display:none"></video>
             </div>
@@ -157,7 +170,7 @@
             this.gumVideo2.height = constraints.video.height
             // get video stream
             this.getUserMedia(constraints, (stream) => {
-                
+
                 this.recordButton.disabled = false
                 this.stream = stream
                 this.gumVideo.srcObject = stream
