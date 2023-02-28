@@ -177,6 +177,9 @@ void yolo_fast::drawCrossair(Mat &frame)
 void yolo_fast::lineClosest(Mat &frame)
 {
 	cv::Size s = frame.size();
+	if (faces_vector.empty())
+		return;
+
 	line(frame, Point(s.width / 2, s.height / 2), Point(faces_vector[0].center_x, faces_vector[0].center_y), Scalar(0, 255, 0), 2);
 }
 
