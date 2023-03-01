@@ -26,6 +26,7 @@ public:
 	void show();
 	void detectThread();
 	void detectT();
+	void persistence();
 	vector<Face> faces_vector;
 	VideoCapture real_time;
 	Mat frame;
@@ -190,6 +191,19 @@ void yolo_fast::lineClosest(Mat &frame)
 void yolo_fast::showShooting()
 {
 	putText(this->frame, "Shooting", Point(faces_vector[0].x, faces_vector[0].y + 25), FONT_HERSHEY_DUPLEX, 0.75, Scalar(0, 0, 255), 1.5);
+}
+
+void yolo_fast::persistence()
+{
+	if (faces_vector.empty())
+		return;
+
+	line(frame, Point(s.width / 2, s.height / 2), Point(faces_vector[0].center_x, faces_vector[0].center_y), Scalar(0, 255, 0), 2);
+
+	for(Face face:faces_vector)
+	{
+		circle(frame, Point(face.center_x, face.center_y),1,Scalar(0,255,0));
+	}
 }
 
 void yolo_fast::show()
