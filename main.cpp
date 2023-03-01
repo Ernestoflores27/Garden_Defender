@@ -23,8 +23,6 @@ int main()
 
     while (true)
     {
-        // turret.explore();
-        // this_thread::sleep_for(10ms);
 
         real_time.read(video_stream);
         faces = yolo_model.detect(video_stream);
