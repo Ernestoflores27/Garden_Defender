@@ -10,8 +10,9 @@ class Turret
 {
 public:
     int Turret_GPIO;
-    int pitch, yaw, min_pitch, max_pitch, min_yaw, max_yaw;
-    int dir = 5;
+    float pitch, yaw, min_pitch, max_pitch, min_yaw, max_yaw;
+    float old_pitch = 0, old_yaw = 0, new_pitch = 0, new_yaw = 0;
+    float dir = 5;
     Servos servos;
     time_t start_shooting_time, start_exploring_time;
 
@@ -37,22 +38,40 @@ public:
     {
         pitch = clamp(pitch_, min_pitch, max_pitch);
         yaw = clamp(yaw_, min_yaw, max_yaw);
-        moveTurret();
+        // moveTurret();
     }
-    void movePitch(int dir)
+    void movePitch(float dir)
     {
         pitch = clamp(pitch + dir, min_pitch, max_pitch);
-        moveTurret();
+        // moveTurret();
     }
-    void moveYaw(int dir)
+    void moveYaw(float dir)
     {
         yaw = clamp(yaw + dir, min_yaw, max_yaw);
-        moveTurret();
+        // moveTurret();
     }
     void moveTurret()
     {
         servos.servoMove(0, yaw);
         servos.servoMove(1, pitch);
+    }
+    void moveT()
+    {
+        thread t1(&Turret::moveThread, this);
+        t1.detach();
+    }
+    void moveThread()
+    {
+        while (true)
+        {
+            new_pitch = (old_pitch * 0.97) + (pitch * 0.03);
+            new_yaw = (old_yaw * 0.97) + (yaw * 0.03);
+            old_pitch = new_pitch;
+            old_yaw = new_yaw;
+            servos.servoMove(0, new_yaw);
+            servos.servoMove(1, new_pitch);
+            this_thread::sleep_for(10ms);
+        }
     }
     void shoot()
     {
@@ -82,11 +101,11 @@ public:
 
         if (pitch > 80)
         {
-            dir = -5;
+            dir = -2;
         }
         else if (pitch < -80)
         {
-            dir = 5;
+            dir = 2;
         }
     }
 
@@ -96,7 +115,7 @@ public:
         gpioTerminate();
     }
 
-    int clamp(int value, int min, int max)
+    float clamp(float value, float min, float max)
     {
         if (value < min)
         {

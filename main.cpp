@@ -19,9 +19,13 @@ int main()
 
     Turret turret(23);
     turret.changePosition(0, 0);
+    turret.moveT();
 
     while (true)
     {
+        // turret.explore();
+        // this_thread::sleep_for(10ms);
+
         real_time.read(video_stream);
         faces = yolo_model.detect(video_stream);
 
@@ -30,20 +34,20 @@ int main()
             turret.resetTime();
             if (yolo_model.getOffsetX() > MARGIN)
             {
-                turret.movePitch((yolo_model.getOffsetX() * 4 / 320) + 1);
+                turret.movePitch(3 * ((yolo_model.getOffsetX() * 4 / 320) + 0.3));
             }
             else if (yolo_model.getOffsetX() < -MARGIN)
             {
-                turret.movePitch(((yolo_model.getOffsetX() * 4 / 320) - 1));
+                turret.movePitch(3 * ((yolo_model.getOffsetX() * 4 / 320) - 0.3));
             }
 
             if (yolo_model.getOffsetY() > MARGIN)
             {
-                turret.moveYaw(-1);
+                turret.moveYaw(3 * ((yolo_model.getOffsetY() * 4 / 320) - 0.3));
             }
             else if (yolo_model.getOffsetY() < -MARGIN)
             {
-                turret.moveYaw(1);
+                turret.moveYaw(3 * ((yolo_model.getOffsetX() * 4 / 320) + 0.3));
             }
 
             if (yolo_model.getOffsetY() < MARGIN and yolo_model.getOffsetY() > -MARGIN and yolo_model.getOffsetX() < MARGIN and yolo_model.getOffsetX() > -MARGIN)
