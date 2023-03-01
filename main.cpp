@@ -6,7 +6,7 @@
 
 using namespace std;
 
-#define MARGIN 15
+#define MARGIN 0.2
 
 int main()
 {
@@ -23,30 +23,34 @@ int main()
 
     while (true)
     {
+        turret.explore();
         if (!yolo_model.faces_vector.empty())
         {
             turret.resetTime();
-            if (abs(yolo_model.getOffsetX()) > MARGIN)
-            {
-                turret.movePitch(yolo_model.getOffsetX() * 4 / 320);
-            }
 
-            if (abs(yolo_model.getOffsetY() > MARGIN))
-            {
-                turret.moveYaw(-yolo_model.getOffsetY() * 4 / 320);
-            }
+            float error_x = yolo_model.getOffsetX() * 2 / 320;
+            float error_y = yolo_model.getOffsetY() * 2 / 320;
 
-            if (abs(yolo_model.getOffsetY()) < MARGIN and abs(yolo_model.getOffsetX()) < MARGIN)
+            turret.movePitch(error_x);
+            turret.moveYaw(-error_y);
+
+            if (abs(error_x) < MARGIN and abs(error_y) < MARGIN)
             {
                 // turret.shoot();
                 yolo_model.showShooting();
             }
         }
-        else
-        {
-            turret.explore();
+
+        char c = (char)waitKey(25); // Allowing 25 milliseconds frame processing time and initiating break condition//
+
+        if (c == 27)
+        { // If 'Esc' is entered break the loop//
+            break;
         }
 
         this_thread::sleep_for(50ms);
     }
+
+    real_time.release();
+    turret.release();
 }

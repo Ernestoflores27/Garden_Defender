@@ -90,9 +90,9 @@ public:
 
     void explore()
     {
-        yaw = 0;
         if (time(0) - start_exploring_time > 1)
         {
+            yaw = 0;
             movePitch(dir);
         }
 
@@ -128,5 +128,9 @@ public:
     void resetTime()
     {
         start_exploring_time = time(0);
+    }
+    void release()
+    {
+        gpioTerminate();
     }
 };

@@ -18,8 +18,8 @@ public:
 	yolo_fast(string modelpath, float objThreshold, float confThreshold, float nmsThreshold, VideoCapture real_time);
 	void detect();
 	void sortFaces();
-	int getOffsetX();
-	int getOffsetY();
+	float getOffsetX();
+	float getOffsetY();
 	void drawCrossair(Mat &frame);
 	void lineClosest(Mat &frame);
 	void showShooting();
@@ -161,12 +161,12 @@ void yolo_fast::sortFaces()
 	sort(faces_vector.begin(), faces_vector.end());
 }
 
-int yolo_fast::getOffsetX()
+float yolo_fast::getOffsetX()
 {
 	return this->faces_vector[0].offset_x;
 }
 
-int yolo_fast::getOffsetY()
+float yolo_fast::getOffsetY()
 {
 	return this->faces_vector[0].offset_y;
 }
