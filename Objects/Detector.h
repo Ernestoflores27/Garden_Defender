@@ -6,6 +6,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <thread>
 
 using namespace cv;
 using namespace dnn;
@@ -15,7 +16,7 @@ class yolo_fast
 {
 public:
 	yolo_fast(string modelpath, float objThreshold, float confThreshold, float nmsThreshold, VideoCapture real_time);
-	vector<Face> detect();
+	void detect();
 	void sortFaces();
 	int getOffsetX();
 	int getOffsetY();
@@ -23,6 +24,8 @@ public:
 	void lineClosest(Mat &frame);
 	void showShooting();
 	void show();
+	void detectThread();
+	void detectT();
 	vector<Face> faces_vector;
 	VideoCapture real_time;
 	Mat frame;
@@ -75,7 +78,7 @@ void yolo_fast::drawPred(int classId, float conf, int left, int top, int right, 
 	putText(frame, label, Point(left, top), FONT_HERSHEY_DUPLEX, 1, Scalar(0, 0, 255), 1.5);
 }
 
-vector<Face> yolo_fast::detect()
+void yolo_fast::detect()
 {
 	real_time.read(frame);
 	Mat blob;
@@ -150,8 +153,7 @@ vector<Face> yolo_fast::detect()
 		}
 	}
 	this->sortFaces();
-
-	return this->faces_vector;
+	this->show();
 }
 
 void yolo_fast::sortFaces()
@@ -192,11 +194,27 @@ void yolo_fast::showShooting()
 
 void yolo_fast::show()
 {
-	this->drawCrossair(frame);
-	this->lineClosest(frame);
+	if (!frame.empty())
+	{
+		this->drawCrossair(frame);
+		this->lineClosest(frame);
 
-	static const string kWinName = "Garden Defender";
-	namedWindow(kWinName);
-	imshow(kWinName, frame);
-	waitKey(1);
+		static const string kWinName = "Garden Defender";
+		namedWindow(kWinName);
+		imshow(kWinName, frame);
+		waitKey(1);
+	}
+}
+
+void yolo_fast::detectThread()
+{
+	while (true)
+	{
+		this->detect();
+	}
+}
+void yolo_fast::detectT()
+{
+	thread t1(&yolo_fast::detectThread, this);
+	t1.detach();
 }

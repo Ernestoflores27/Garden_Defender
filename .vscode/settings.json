@@ -12,6 +12,7 @@
         "vector": "cpp",
         "system_error": "cpp",
         "thread": "cpp",
-        "chrono": "cpp"
+        "chrono": "cpp",
+        "iostream": "cpp"
     }
 }
