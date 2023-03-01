@@ -26,17 +26,17 @@ int main()
         if (!yolo_model.faces_vector.empty())
         {
             turret.resetTime();
-            if (yolo_model.getOffsetX() > MARGIN or yolo_model.getOffsetX() < -MARGIN)
+            if (abs(yolo_model.getOffsetX()) > MARGIN)
             {
                 turret.movePitch(yolo_model.getOffsetX() * 4 / 320);
             }
 
-            if (yolo_model.getOffsetY() > MARGIN or yolo_model.getOffsetY() < -MARGIN)
+            if (abs(yolo_model.getOffsetY() > MARGIN))
             {
                 turret.moveYaw(-yolo_model.getOffsetY() * 4 / 320);
             }
 
-            if (yolo_model.getOffsetY() < MARGIN and yolo_model.getOffsetY() > -MARGIN and yolo_model.getOffsetX() < MARGIN and yolo_model.getOffsetX() > -MARGIN)
+            if (abs(yolo_model.getOffsetY()) < MARGIN and abs(yolo_model.getOffsetX()) < MARGIN)
             {
                 // turret.shoot();
                 yolo_model.showShooting();
