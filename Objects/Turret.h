@@ -38,17 +38,14 @@ public:
     {
         pitch = clamp(pitch_, min_pitch, max_pitch);
         yaw = clamp(yaw_, min_yaw, max_yaw);
-        // moveTurret();
     }
     void movePitch(float dir)
     {
         pitch = clamp(pitch + dir, min_pitch, max_pitch);
-        // moveTurret();
     }
     void moveYaw(float dir)
     {
         yaw = clamp(yaw + dir, min_yaw, max_yaw);
-        // moveTurret();
     }
     void moveTurret()
     {
@@ -93,9 +90,9 @@ public:
 
     void explore()
     {
-        yaw = 0;
         if (time(0) - start_exploring_time > 1)
         {
+            yaw = 0;
             movePitch(dir);
         }
 
@@ -131,5 +128,9 @@ public:
     void resetTime()
     {
         start_exploring_time = time(0);
+    }
+    void release()
+    {
+        gpioTerminate();
     }
 };
