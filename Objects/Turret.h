@@ -38,17 +38,14 @@ public:
     {
         pitch = clamp(pitch_, min_pitch, max_pitch);
         yaw = clamp(yaw_, min_yaw, max_yaw);
-        // moveTurret();
     }
     void movePitch(float dir)
     {
         pitch = clamp(pitch + dir, min_pitch, max_pitch);
-        // moveTurret();
     }
     void moveYaw(float dir)
     {
         yaw = clamp(yaw + dir, min_yaw, max_yaw);
-        // moveTurret();
     }
     void moveTurret()
     {

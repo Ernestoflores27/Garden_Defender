@@ -26,22 +26,14 @@ int main()
         if (!yolo_model.faces_vector.empty())
         {
             turret.resetTime();
-            if (yolo_model.getOffsetX() > MARGIN)
+            if (yolo_model.getOffsetX() > MARGIN or yolo_model.getOffsetX() < -MARGIN)
             {
-                turret.movePitch(((yolo_model.getOffsetX() * 4 / 320) + 0.3));
-            }
-            else if (yolo_model.getOffsetX() < -MARGIN)
-            {
-                turret.movePitch(((yolo_model.getOffsetX() * 4 / 320) - 0.3));
+                turret.movePitch(yolo_model.getOffsetX() * 4 / 320);
             }
 
-            if (yolo_model.getOffsetY() > MARGIN)
+            if (yolo_model.getOffsetY() > MARGIN or yolo_model.getOffsetY() < -MARGIN)
             {
-                turret.moveYaw(((-yolo_model.getOffsetY() * 4 / 320) - 0.3));
-            }
-            else if (yolo_model.getOffsetY() < -MARGIN)
-            {
-                turret.moveYaw(((-yolo_model.getOffsetY() * 4 / 320) + 0.3));
+                turret.moveYaw(-yolo_model.getOffsetY() * 4 / 320);
             }
 
             if (yolo_model.getOffsetY() < MARGIN and yolo_model.getOffsetY() > -MARGIN and yolo_model.getOffsetX() < MARGIN and yolo_model.getOffsetX() > -MARGIN)
@@ -55,31 +47,6 @@ int main()
             turret.explore();
         }
 
-        // int k = waitKey(1);
-
-        // if (k == 27)
-        // {
-        //     break;
-        // }
-        // else if (k == 82)
-        // {
-        //     turret.moveYaw(-5);
-        // }
-        // else if (k == 84)
-        // {
-        //     turret.moveYaw(5);
-        // }
-        // else if (k == 81)
-        // {
-        //     turret.movePitch(5);
-        // }
-        // else if (k == 83)
-        // {
-        //     turret.movePitch(-5);
-        // }
-        // else
-        // {
-        // }
-        this_thread::sleep_for(200ms);
+        this_thread::sleep_for(50ms);
     }
 }
