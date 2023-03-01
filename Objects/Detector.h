@@ -14,15 +14,18 @@ using namespace std;
 class yolo_fast
 {
 public:
-	yolo_fast(string modelpath, float objThreshold, float confThreshold, float nmsThreshold);
-	vector<Face> detect(Mat &srcimg);
+	yolo_fast(string modelpath, float objThreshold, float confThreshold, float nmsThreshold, VideoCapture real_time);
+	vector<Face> detect();
 	void sortFaces();
 	int getOffsetX();
 	int getOffsetY();
 	void drawCrossair(Mat &frame);
 	void lineClosest(Mat &frame);
 	void showShooting();
+	void show();
 	vector<Face> faces_vector;
+	VideoCapture real_time;
+	Mat frame;
 
 private:
 	const float anchors[2][6] = {{12.64, 19.39, 37.88, 51.48, 55.71, 138.31}, {126.91, 78.23, 131.57, 214.55, 279.92, 258.87}};
@@ -38,12 +41,12 @@ private:
 	const string classesFile = "Garden_Defender/object_detection.txt";
 	int num_class;
 	Net net;
-	Mat frame_show;
 	void drawPred(int classId, float conf, int left, int top, int right, int bottom, Mat &frame);
 };
 
-yolo_fast::yolo_fast(string modelpath, float obj_Threshold, float conf_Threshold, float nms_Threshold)
+yolo_fast::yolo_fast(string modelpath, float obj_Threshold, float conf_Threshold, float nms_Threshold, VideoCapture real_time)
 {
+	this->real_time = real_time;
 	this->objThreshold = obj_Threshold;
 	this->confThreshold = conf_Threshold;
 	this->nmsThreshold = nms_Threshold;
@@ -72,8 +75,9 @@ void yolo_fast::drawPred(int classId, float conf, int left, int top, int right, 
 	putText(frame, label, Point(left, top), FONT_HERSHEY_DUPLEX, 1, Scalar(0, 0, 255), 1.5);
 }
 
-vector<Face> yolo_fast::detect(Mat &frame)
+vector<Face> yolo_fast::detect()
 {
+	real_time.read(frame);
 	Mat blob;
 	blobFromImage(frame, blob, 1 / 255.0, Size(this->inpWidth, this->inpHeight));
 	this->net.setInput(blob);
@@ -146,9 +150,7 @@ vector<Face> yolo_fast::detect(Mat &frame)
 		}
 	}
 	this->sortFaces();
-	this->drawCrossair(frame);
-	this->lineClosest(frame);
-	this->frame_show = frame;
+
 	return this->faces_vector;
 }
 
@@ -185,5 +187,16 @@ void yolo_fast::lineClosest(Mat &frame)
 
 void yolo_fast::showShooting()
 {
-	putText(this->frame_show, "Shooting", Point(faces_vector[0].x, faces_vector[0].y + 25), FONT_HERSHEY_DUPLEX, 0.75, Scalar(0, 0, 255), 1.5);
+	putText(this->frame, "Shooting", Point(faces_vector[0].x, faces_vector[0].y + 25), FONT_HERSHEY_DUPLEX, 0.75, Scalar(0, 0, 255), 1.5);
+}
+
+void yolo_fast::show()
+{
+	this->drawCrossair(frame);
+	this->lineClosest(frame);
+
+	static const string kWinName = "Garden Defender";
+	namedWindow(kWinName);
+	imshow(kWinName, frame);
+	waitKey(1);
 }

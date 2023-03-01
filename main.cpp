@@ -14,7 +14,7 @@ int main()
     Camera cam1(640, 480);
     VideoCapture real_time = cam1.getVideoCapture();
 
-    yolo_fast yolo_model("Garden_Defender/yolov5n.onnx", 0.3, 0.4, 0.4);
+    yolo_fast yolo_model("Garden_Defender/yolov5n.onnx", 0.3, 0.4, 0.4, real_time);
     vector<Face> faces;
 
     Turret turret(23);
@@ -24,8 +24,7 @@ int main()
     while (true)
     {
 
-        real_time.read(video_stream);
-        faces = yolo_model.detect(video_stream);
+        faces = yolo_model.detect();
 
         if (!yolo_model.faces_vector.empty())
         {
@@ -59,10 +58,7 @@ int main()
             turret.explore();
         }
 
-        static const string kWinName = "Garden Defender";
-        namedWindow(kWinName);
-        imshow(kWinName, video_stream);
-        waitKey(1);
+        yolo_model.show();
 
         int k = waitKey(1);
         if (k == 27)
