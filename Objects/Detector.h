@@ -27,7 +27,7 @@ public:
 	void detectThread();
 	void detectT();
 	void persistence();
-	vector<Face> faces_vector;
+	vector<Face> faces_vector, faces_vector_old, faces_vector_filter;
 	VideoCapture real_time;
 	Mat frame;
 
@@ -198,12 +198,38 @@ void yolo_fast::persistence()
 	if (faces_vector.empty())
 		return;
 
-	line(frame, Point(s.width / 2, s.height / 2), Point(faces_vector[0].center_x, faces_vector[0].center_y), Scalar(0, 255, 0), 2);
+	int dist_margin = 50;
+	faces_vector_filter.clear();
 
-	for(Face face:faces_vector)
+	for (Face face_old : faces_vector_old)
 	{
-		circle(frame, Point(face.center_x, face.center_y),1,Scalar(0,255,0));
+		for (Face face : faces_vector)
+		{
+			int offset_x = face_old.center_x - face.center_x;
+			int offset_y = face_old.center_y - face.center_y;
+			int distance = (offset_x * offset_x) + (offset_y * offset_y);
+
+			if (distance < dist_margin * dist_margin)
+			{
+				faces_vector_filter.push_back(face);
+			}
+		}
 	}
+
+	for (Face face_old : faces_vector_old)
+	{
+		circle(frame, Point(face_old.center_x, face_old.center_y), 5, Scalar(0, 0, 255), -1);
+	}
+	for (Face face : faces_vector)
+	{
+		circle(frame, Point(face.center_x, face.center_y), 5, Scalar(255, 0, 0), -1);
+	}
+	for (Face face : faces_vector_filter)
+	{
+		circle(frame, Point(face.center_x, face.center_y), dist_margin, Scalar(255, 0, 0));
+	}
+
+	faces_vector_old = faces_vector;
 }
 
 void yolo_fast::show()
@@ -212,6 +238,7 @@ void yolo_fast::show()
 	{
 		this->drawCrossair(frame);
 		this->lineClosest(frame);
+		this->persistence();
 
 		static const string kWinName = "Garden Defender";
 		namedWindow(kWinName);

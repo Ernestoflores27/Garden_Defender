@@ -31,12 +31,12 @@ int main()
             float error_x = yolo_model.getOffsetX() * 2 / 320;
             float error_y = yolo_model.getOffsetY() * 2 / 320;
 
-            turret.movePitch(error_x);
-            turret.moveYaw(-error_y);
+            turret.movePitch(2 * error_x);
+            turret.moveYaw(-2 * error_y);
 
             if (abs(error_x) < MARGIN and abs(error_y) < MARGIN)
             {
-                // turret.shoot();
+                turret.shoot();
                 yolo_model.showShooting();
             }
         }

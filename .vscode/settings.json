@@ -13,6 +13,7 @@
         "system_error": "cpp",
         "thread": "cpp",
         "chrono": "cpp",
-        "iostream": "cpp"
+        "iostream": "cpp",
+        "iterator": "cpp"
     }
 }
