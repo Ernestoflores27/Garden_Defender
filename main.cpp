@@ -15,8 +15,6 @@ int main()
     VideoCapture real_time = cam1.getVideoCapture();
 
     Detector detector_model("Garden_Defender/yoloFastestV2.onnx", 0.3, 0.4, 0.4, real_time);
-    // thread t1(&Detector::detectThread, detector_model);
-    // t1.detach();
     detector_model.detectT();
 
     Turret turret(23);
