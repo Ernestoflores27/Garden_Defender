@@ -14,8 +14,10 @@ int main()
     Camera cam1(640, 480);
     VideoCapture real_time = cam1.getVideoCapture();
 
-    yolo_fast yolo_model("Garden_Defender/yolov5n.onnx", 0.3, 0.4, 0.4, real_time);
-    yolo_model.detectT();
+    Detector detector_model("Garden_Defender/yoloFastestV2.onnx", 0.3, 0.4, 0.4, real_time);
+    // thread t1(&Detector::detectThread, detector_model);
+    // t1.detach();
+    detector_model.detectT();
 
     Turret turret(23);
     turret.changePosition(0, 0);
@@ -24,12 +26,12 @@ int main()
     while (true)
     {
         turret.explore();
-        if (!yolo_model.faces_vector.empty())
+        if (!detector_model.objs_vector.empty())
         {
             turret.resetTime();
 
-            float error_x = yolo_model.getOffsetX() * 2 / 320;
-            float error_y = yolo_model.getOffsetY() * 2 / 320;
+            float error_x = detector_model.getOffsetX() * 2 / 320;
+            float error_y = detector_model.getOffsetY() * 2 / 320;
 
             turret.movePitch(2 * error_x);
             turret.moveYaw(-2 * error_y);
@@ -37,17 +39,15 @@ int main()
             if (abs(error_x) < MARGIN and abs(error_y) < MARGIN)
             {
                 turret.shoot();
-                yolo_model.showShooting();
+                detector_model.showShooting();
             }
         }
 
-        char c = (char)waitKey(25); // Allowing 25 milliseconds frame processing time and initiating break condition//
-
+        char c = (char)waitKey(25);
         if (c == 27)
-        { // If 'Esc' is entered break the loop//
+        {
             break;
         }
-
         this_thread::sleep_for(50ms);
     }
 

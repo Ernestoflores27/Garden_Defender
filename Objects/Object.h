@@ -2,17 +2,17 @@
 
 using namespace std;
 
-class Face
+class Object
 {
 public:
     int64_t x, y, h, w, center_x, center_y, offset_x, offset_y;
     int64_t distance;
-    Face(Rect face, int camera_width, int camera_height)
+    Object(Rect object, int camera_width, int camera_height)
     {
-        x = face.x;
-        y = face.y;
-        h = face.height;
-        w = face.width;
+        x = object.x;
+        y = object.y;
+        h = object.height;
+        w = object.width;
 
         center_x = x + (w / 2);
         center_y = y + (h / 2);
@@ -24,7 +24,7 @@ public:
     }
 };
 
-bool operator<(const Face &s1, const Face &s2)
+bool operator<(const Object &s1, const Object &s2)
 {
     return s1.distance < s2.distance;
 }

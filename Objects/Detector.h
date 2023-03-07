@@ -2,7 +2,7 @@
 #include <opencv4/opencv2/dnn.hpp>
 #include <opencv4/opencv2/imgproc.hpp>
 #include <opencv4/opencv2/highgui.hpp>
-#include "Face.h"
+#include "Object.h"
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -12,12 +12,12 @@ using namespace cv;
 using namespace dnn;
 using namespace std;
 
-class yolo_fast
+class Detector
 {
 public:
-	yolo_fast(string modelpath, float objThreshold, float confThreshold, float nmsThreshold, VideoCapture real_time);
+	Detector(string modelpath, float objThreshold, float confThreshold, float nmsThreshold, VideoCapture real_time);
 	void detect();
-	void sortFaces();
+	void sortObjs();
 	float getOffsetX();
 	float getOffsetY();
 	void drawCrossair(Mat &frame);
@@ -27,7 +27,7 @@ public:
 	void detectThread();
 	void detectT();
 	void persistence();
-	vector<Face> faces_vector, faces_vector_old, faces_vector_filter;
+	vector<Object> objs_vector, objs_vector_old, objs_vector_filtered;
 	VideoCapture real_time;
 	Mat frame;
 
@@ -48,7 +48,7 @@ private:
 	void drawPred(int classId, float conf, int left, int top, int right, int bottom, Mat &frame);
 };
 
-yolo_fast::yolo_fast(string modelpath, float obj_Threshold, float conf_Threshold, float nms_Threshold, VideoCapture real_time)
+Detector::Detector(string modelpath, float obj_Threshold, float conf_Threshold, float nms_Threshold, VideoCapture real_time)
 {
 	this->real_time = real_time;
 	this->objThreshold = obj_Threshold;
@@ -63,7 +63,7 @@ yolo_fast::yolo_fast(string modelpath, float obj_Threshold, float conf_Threshold
 	this->net = readNet(modelpath);
 }
 
-void yolo_fast::drawPred(int classId, float conf, int left, int top, int right, int bottom, Mat &frame) // Draw the predicted bounding box
+void Detector::drawPred(int classId, float conf, int left, int top, int right, int bottom, Mat &frame) // Draw the predicted bounding box
 {
 	// Draw a rectangle displaying the bounding box
 	rectangle(frame, Point(left, top), Point(right, bottom), Scalar(0, 0, 255), 2);
@@ -79,7 +79,7 @@ void yolo_fast::drawPred(int classId, float conf, int left, int top, int right, 
 	putText(frame, label, Point(left, top), FONT_HERSHEY_DUPLEX, 1, Scalar(0, 0, 255), 1.5);
 }
 
-void yolo_fast::detect()
+void Detector::detect()
 {
 	real_time.read(frame);
 	Mat blob;
@@ -136,7 +136,7 @@ void yolo_fast::detect()
 
 	// Perform non maximum suppression to eliminate redundant overlapping boxes with
 	// lower confidences
-	faces_vector.clear();
+	objs_vector.clear();
 	vector<int> indices;
 	NMSBoxes(boxes, confidences, this->confThreshold, this->nmsThreshold, indices);
 	for (size_t i = 0; i < indices.size(); ++i)
@@ -149,90 +149,90 @@ void yolo_fast::detect()
 			this->drawPred(classIds[idx], confidences[idx], box.x, box.y,
 						   box.x + box.width, box.y + box.height, frame);
 			cv::Size s = frame.size();
-			Face f(box, s.width, s.height);
-			this->faces_vector.push_back(f);
+			Object f(box, s.width, s.height);
+			this->objs_vector.push_back(f);
 		}
 	}
-	this->sortFaces();
+	this->sortObjs();
 	this->show();
 }
 
-void yolo_fast::sortFaces()
+void Detector::sortObjs()
 {
-	sort(faces_vector.begin(), faces_vector.end());
+	sort(objs_vector.begin(), objs_vector.end());
 }
 
-float yolo_fast::getOffsetX()
+float Detector::getOffsetX()
 {
-	return this->faces_vector[0].offset_x;
+	return this->objs_vector[0].offset_x;
 }
 
-float yolo_fast::getOffsetY()
+float Detector::getOffsetY()
 {
-	return this->faces_vector[0].offset_y;
+	return this->objs_vector[0].offset_y;
 }
 
-void yolo_fast::drawCrossair(Mat &frame)
+void Detector::drawCrossair(Mat &frame)
 {
 	cv::Size s = frame.size();
 	line(frame, Point(s.width / 2, 0), Point(s.width / 2, s.height), Scalar(0, 255, 0), 1);
 	line(frame, Point(0, s.height / 2), Point(s.width, s.height / 2), Scalar(0, 255, 0), 1);
 }
 
-void yolo_fast::lineClosest(Mat &frame)
+void Detector::lineClosest(Mat &frame)
 {
 	cv::Size s = frame.size();
-	if (faces_vector.empty())
+	if (objs_vector.empty())
 		return;
 
-	line(frame, Point(s.width / 2, s.height / 2), Point(faces_vector[0].center_x, faces_vector[0].center_y), Scalar(0, 255, 0), 2);
+	line(frame, Point(s.width / 2, s.height / 2), Point(objs_vector[0].center_x, objs_vector[0].center_y), Scalar(0, 255, 0), 2);
 }
 
-void yolo_fast::showShooting()
+void Detector::showShooting()
 {
-	putText(this->frame, "Shooting", Point(faces_vector[0].x, faces_vector[0].y + 25), FONT_HERSHEY_DUPLEX, 0.75, Scalar(0, 0, 255), 1.5);
+	putText(this->frame, "Shooting", Point(objs_vector[0].x, objs_vector[0].y + 25), FONT_HERSHEY_DUPLEX, 0.75, Scalar(0, 0, 255), 1.5);
 }
 
-void yolo_fast::persistence()
+void Detector::persistence()
 {
-	if (faces_vector.empty())
+	if (objs_vector.empty())
 		return;
 
 	int dist_margin = 50;
-	faces_vector_filter.clear();
+	objs_vector_filtered.clear();
 
-	for (Face face_old : faces_vector_old)
+	for (Object obj_old : objs_vector_old)
 	{
-		for (Face face : faces_vector)
+		for (Object obj : objs_vector)
 		{
-			int offset_x = face_old.center_x - face.center_x;
-			int offset_y = face_old.center_y - face.center_y;
+			int offset_x = obj_old.center_x - obj.center_x;
+			int offset_y = obj_old.center_y - obj.center_y;
 			int distance = (offset_x * offset_x) + (offset_y * offset_y);
 
 			if (distance < dist_margin * dist_margin)
 			{
-				faces_vector_filter.push_back(face);
+				objs_vector_filtered.push_back(obj);
 			}
 		}
 	}
 
-	for (Face face_old : faces_vector_old)
+	for (Object face_old : objs_vector_old)
 	{
 		circle(frame, Point(face_old.center_x, face_old.center_y), 5, Scalar(0, 0, 255), -1);
 	}
-	for (Face face : faces_vector)
+	for (Object object : objs_vector)
 	{
-		circle(frame, Point(face.center_x, face.center_y), 5, Scalar(255, 0, 0), -1);
+		circle(frame, Point(object.center_x, object.center_y), 5, Scalar(255, 0, 0), -1);
 	}
-	for (Face face : faces_vector_filter)
+	for (Object object : objs_vector_filtered)
 	{
-		circle(frame, Point(face.center_x, face.center_y), dist_margin, Scalar(255, 0, 0));
+		circle(frame, Point(object.center_x, object.center_y), dist_margin, Scalar(255, 0, 0));
 	}
 
-	faces_vector_old = faces_vector;
+	objs_vector_old = objs_vector;
 }
 
-void yolo_fast::show()
+void Detector::show()
 {
 	if (!frame.empty())
 	{
@@ -247,15 +247,15 @@ void yolo_fast::show()
 	}
 }
 
-void yolo_fast::detectThread()
+void Detector::detectThread()
 {
 	while (true)
 	{
 		this->detect();
 	}
 }
-void yolo_fast::detectT()
+void Detector::detectT()
 {
-	thread t1(&yolo_fast::detectThread, this);
+	thread t1(&Detector::detectThread, this);
 	t1.detach();
 }
