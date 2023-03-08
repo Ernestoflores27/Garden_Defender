@@ -7,7 +7,7 @@ int main ()
 {
 
    cout << "Content-type:text/html\r\n\r\n";
-   fstream f("index.html");
+   fstream f("video.html");
    string line;
    while(getline(f,line)){
     cout << line << endl;
