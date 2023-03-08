@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>videoShow</title>
+    <style>
+        #container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+
+        }
+
+        .controls {
+            padding: 0 10px;
+        }
+
+        video {
+            width: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+
+        .layui-body {
+            width: 500px;
+            height: 50px;
+            background-color: transparent;
+            position: relative;
+            z-index: 0;
+            margin-bottom: 0%;
+        }
+        .sector {
+            z-index: 3;
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin: 0 auto;
+            border: 5px solid #cbc8c8;
+            border-radius: 50%;
+            background: transparent;
+            margin-right: 50px;
+            margin-top: 20%;
+        }
+
+        .sector .box {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            clip: rect(0px, 99px, 99px, 0);
+        }
+
+        .sector .box,
+        .sector .center {
+            transition: 0.5s;
+            background: transparent;
+            cursor: pointer;
+        }
+
+        .sector.box.s1:hover {
+            width: "60px";
+            height: "60px";
+            position: relative;
+            right: -17px;
+            top: 19px;
+        }
+
+
+        .sector .s1 {
+            transform: rotate(45deg);
+        }
+
+        .sector .s2 {
+            transform: rotate(135deg);
+        }
+
+        .sector .s3 {
+            transform: rotate(-135deg);
+        }
+
+        .sector .s4 {
+            transform: rotate(-45deg);
+        }
+
+        .sector .center {
+            width: 90px;
+            height: 90px;
+            position: absolute;
+            left: 54px;
+            top: 54px;
+            border: 5px solid #cbc8c8;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="logoDiv">
+        <img src="/files/logo.png" style="position: absolute; left:30px; top: 30px; z-index: 3; width: 15%;"/>
+    </div>
+    <div class="box">
+
+        <video id="gum" autoplay muted
+            style="object-fit:fill;  position: absolute; top: 0; left: 0; object-fit: contain;"></video>
+
+        <div class="sector">
+
+            <div class="box s1"><img id="upButton" src="/files/up.png" width="60px" height="60px" 
+                    style="transform: rotate(-45deg); position: relative; right: -17px; top: 19px;"></div>
+            <div class="box s2"><img src="/files/right.png" width="60px" height="60px"
+                    style="transform: rotate(-135deg); position: relative; right: -17px; top: 19px;"></div>
+            <div class="box s3"><img src="/files/down.png" width="60px" height="60px"
+                    style="transform: rotate(135deg); position: relative; right: -17px; top: 19px;"></div>
+            <div class="box s4"><img src="/files/left.png" width="60px" height="60px"
+                    style="transform: rotate(45deg); position: relative; right: -17px; top: 19px;"></div>
+            <div class="center"><img src="/files/ok.png" width="99px" height="88px"></div>
+        </div>
+        <div class="layui-body">
+            <div id="container">
+                <div class="controls" hidden>
+                    <button id="record" disabled>Start Record/button>
+                        <button id="play" disabled>Play</button>
+                        <button id="download" disabled>Download</button>
+                        <span id="tEl"></span>
+                </div>
+                <video id="gum2" controls="controls" autoplay style="display:none"></video>
+            </div>
+        </div>
+    </div>
+
+</body>
+<script  type="text/javascript">
+    $().ready(function () {
+        $("#upButton").click(function() {
+            var buttonType = 'up';
+            //采用POST方式调用服务
+            $.post('up_control', { t: buttonType }, function (text, status) { alert(text); });
+        })
+    })
+</script>
+
+<script>
+   
+
+    class RecordingVideo {
+        //start 1
+        //upButton = document.querySelector('#up')
+        //end
+        duration = 0
+        mediaRecorder
+        recordedBlobs
+        intervalId
+        stream
+        maxD = 15
+        count = 15
+        gumVideo = document.querySelector('#gum')
+        gumVideo2 = document.querySelector('#gum2')
+        recordButton = document.querySelector('#record')
+        playButton = document.querySelector('#play')
+        downloadButton = document.querySelector('#download')
+        tEL = document.getElementById('tEl')
+        constructor() {
+            const constraints = {
+                audio: true,
+                video: {
+                    facingMode: "user",
+                    frameRate: 60,
+                }
+            }
+            const isSecureOrigin = location.protocol === 'https:' || location.hostname === 'localhost'
+            // if (!isSecureOrigin) {
+            //     alert('getUserMedia() has to be used after \'https\' or \'localhost\'')
+            //     location.protocol = 'HTTPS'
+            // }
+            //start 2
+            //this.upButton.onclick = () => this.upGum()
+            //end
+
+            this.recordButton.onclick = () => this.toggleRecording()
+            this.playButton.onclick = () => this.play()
+            this.downloadButton.onclick = () => this.download()
+            this.gumVideo2.width = constraints.video.width
+            this.gumVideo2.height = constraints.video.height
+            // get video stream
+            this.getUserMedia(constraints, (stream) => {
+
+                this.recordButton.disabled = false
+                this.stream = stream
+                this.gumVideo.srcObject = stream
+            }, (e) => {
+                // failure
+                if (error.message === 'Permission denied') {
+                    alert('You have disabled the use of camera, please go to Settings - General - WeChat Storage - Manage WeChat Storage - Click \'Clean up chat data from other WeChat accounts\'')
+                }
+                console.log('navigator.getUserMedia error: ', error)
+            })
+
+        }
+        // get video stream
+        getUserMedia(constraints, success, error) {
+            if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+                //latest standard API
+                navigator.mediaDevices.getUserMedia(constraints).then(success).catch(error)
+            } else if (navigator.webkitGetUserMedia) {
+                //webkit core
+                navigator.webkitGetUserMedia(constraints, success, error)
+            } else if (navigator.mozGetUserMedia) {
+                //firfox
+                navigator.mozGetUserMedia(constraints, success, error)
+            } else if (navigator.getUserMedia) {
+                //outed API
+                navigator.getUserMedia(constraints, success, error)
+            }
+        }
+
+        //start 3
+       
+        //end
+        // start to record
+        toggleRecording() {
+            const tEl = this.tEL
+            if (this.recordButton.textContent === 'start to record') {
+                tEl.innerHTML = ''
+                this.startRecording()
+                clearInterval(this.intervalId)
+                tEl.innerHTML = 'remained:' + this.count + 's'
+                this.count--
+                this.intervalId = setInterval(() => {
+                    tEl.innerHTML = 'remaind:' + this.count + 's'
+                    if (this.count <= 0) {
+                        clearInterval(this.intervalId)
+                        this.duration = this.maxD - this.count
+                        this.count = this.maxD
+                        this.stopRecording()
+                        this.recordButton.textContent = 'start to record'
+                        this.downloadButton.disabled = false
+                        this.playButton.disabled = false
+                    } else {
+                        this.count--
+                    }
+
+                }, 1000)
+            } else {
+                clearInterval(this.intervalId)
+
+                this.duration = this.maxD - this.count
+                this.count = this.maxD
+                this.stopRecording()
+                this.recordButton.textContent = 'start to record'
+                this.playButton.disabled = false
+                this.downloadButton.disabled = false
+            }
+        }
+        // start to record
+        startRecording() {
+            const isSafari = !(!(/Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent)))
+
+            this.recordedBlobs = []
+            const options = {
+                audioBitsPerSecond: 128000,
+                videoBitsPerSecond: 2500000,
+                mimeType: isSafari ? 'video/mp4' : 'video/webm'
+            }
+            try {
+                this.mediaRecorder = new MediaRecorder(this.stream, options)
+            } catch (e) {
+                alert('MediaRecorder failed to be created: ' + e + '. mimeType: ' + options.mimeType)
+                return
+            }
+            this.recordButton.textContent = 'record end'
+            this.downloadButton.disabled = true
+            this.playButton.disabled = true
+
+            // recording
+            this.mediaRecorder.ondataavailable = event => {
+                if (event.data && event.data.size > 0) {
+                    this.recordedBlobs.push(event.data)
+                }
+            }
+            // end
+            this.mediaRecorder.onstop = event => {
+                console.log('Recorder stopped: ', event)
+            }
+            // start to record
+            this.mediaRecorder.start(10);
+        }
+        // stop recording
+        stopRecording() {
+            tEl.innerHTML = 'finished record'
+            this.mediaRecorder.stop()
+        }
+        // download video
+        download() {
+            const blob = new Blob(this.recordedBlobs, { type: 'video/mp4' })
+            const a = document.createElement('a')
+            a.setAttribute('download', Date.now() + '.mp4')
+            a.href = URL.createObjectURL(blob)
+            a.click()
+        }
+        play() {
+            const { recordedBlobs, gumVideo2 } = this
+            const blob = new Blob(recordedBlobs, { type: 'video/mp4' })
+            const size = parseInt(blob.size / 1024)
+            let strSize = ''
+            if (size < 1024) {
+                strSize = size + 'KB'
+            } else {
+                strSize = (size / 1024).toFixed(2) + 'MB'
+            }
+            alert('' + this.duration + 's, ' + strSize)
+            const videoURL = URL.createObjectURL(blob)
+            gumVideo2.style.display = ''
+            gumVideo2.src = videoURL
+
+        }
+
+    }
+    new RecordingVideo()
+
+</script>
+
+</html>
