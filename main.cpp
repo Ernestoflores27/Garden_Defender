@@ -5,6 +5,7 @@
 #include <unistd.h>
 
 #define MARGIN 0.2
+#define SPEED 1
 
 int main()
 {
@@ -29,8 +30,8 @@ int main()
             float error_x = detector_model.getOffsetX() * 2 / 320;
             float error_y = detector_model.getOffsetY() * 2 / 320;
 
-            turret.movePitch(2 * error_x);
-            turret.moveYaw(-2 * error_y);
+            turret.movePitch(SPEED * error_x);
+            turret.moveYaw(-SPEED * error_y);
 
             if (abs(error_x) < MARGIN and abs(error_y) < MARGIN)
             {
@@ -44,7 +45,7 @@ int main()
         {
             break;
         }
-        std::this_thread::sleep_for(50ms);
+        std::this_thread::sleep_for(10ms);
     }
 
     real_time.release();
