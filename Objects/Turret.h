@@ -4,7 +4,7 @@
 #include <thread>
 #include <iostream>
 
-using namespace std;
+using namespace std::chrono_literals;
 
 class Turret
 {
@@ -54,7 +54,7 @@ public:
     }
     void moveT()
     {
-        thread t1(&Turret::moveThread, this);
+        std::thread t1(&Turret::moveThread, this);
         t1.detach();
     }
     void moveThread()
@@ -67,16 +67,16 @@ public:
             old_yaw = new_yaw;
             servos.servoMove(0, new_yaw);
             servos.servoMove(1, new_pitch);
-            this_thread::sleep_for(10ms);
+            std::this_thread::sleep_for(10ms);
         }
     }
     void shoot()
     {
         if (difftime(time(0), start_shooting_time) > 3)
         {
-            cout << "Shooting! \n";
+            std::cout << "Shooting! \n";
             start_shooting_time = time(0);
-            thread t1(&Turret::shootThread, this);
+            std::thread t1(&Turret::shootThread, this);
             t1.detach();
         }
     }
@@ -84,7 +84,7 @@ public:
     void shootThread()
     {
         gpioWrite(Turret_GPIO, 0);
-        this_thread::sleep_for(500ms);
+        std::this_thread::sleep_for(500ms);
         gpioWrite(Turret_GPIO, 1);
     }
 

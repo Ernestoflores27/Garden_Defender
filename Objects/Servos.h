@@ -1,8 +1,6 @@
 #include <PiPCA9685/PCA9685.h>
 #include <unistd.h>
 
-using namespace std;
-
 class Servos
 {
 public:
@@ -22,7 +20,7 @@ public:
     void servoMove(int idx, float angle)
     {
         float pwm = mapAngleToPWM(angle);
-        
+
         pca.set_pwm(idx, 0, pwm);
     }
 

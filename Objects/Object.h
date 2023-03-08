@@ -1,13 +1,9 @@
-#include <cmath>
-
-using namespace std;
-
 class Object
 {
 public:
     int64_t x, y, h, w, center_x, center_y, offset_x, offset_y;
     int64_t distance;
-    Object(Rect object, int camera_width, int camera_height)
+    Object(cv::Rect object, int camera_width, int camera_height)
     {
         x = object.x;
         y = object.y;

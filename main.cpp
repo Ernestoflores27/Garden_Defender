@@ -4,15 +4,13 @@
 #include <opencv4/opencv2/opencv.hpp>
 #include <unistd.h>
 
-using namespace std;
-
 #define MARGIN 0.2
 
 int main()
 {
-    Mat video_stream;
+    cv::Mat video_stream;
     Camera cam1(640, 480);
-    VideoCapture real_time = cam1.getVideoCapture();
+    cv::VideoCapture real_time = cam1.getVideoCapture();
 
     Detector detector_model("Garden_Defender/yoloFastestV2.onnx", 0.3, 0.4, 0.4, real_time);
     detector_model.detectT();
@@ -41,12 +39,12 @@ int main()
             }
         }
 
-        char c = (char)waitKey(25);
+        char c = (char)cv::waitKey(25);
         if (c == 27)
         {
             break;
         }
-        this_thread::sleep_for(50ms);
+        std::this_thread::sleep_for(50ms);
     }
 
     real_time.release();
