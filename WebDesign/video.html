@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
+<script type="text/javascript" src="/files/jquery-3.6.3.min.js"></script>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -111,15 +111,15 @@
 
         <div class="sector">
 
-            <div class="box s1"><img id="upButton" src="/files/up.png" width="60px" height="60px" 
+            <div class="box s1"><img id="upButton" src="/files/up.png" width="60px" height="60px"
                     style="transform: rotate(-45deg); position: relative; right: -17px; top: 19px;"></div>
-            <div class="box s2"><img src="/files/right.png" width="60px" height="60px"
+            <div class="box s2"><img id="rightButton" src="/files/right.png" width="60px" height="60px"
                     style="transform: rotate(-135deg); position: relative; right: -17px; top: 19px;"></div>
-            <div class="box s3"><img src="/files/down.png" width="60px" height="60px"
+            <div class="box s3"><img id="downButton" src="/files/down.png" width="60px" height="60px"
                     style="transform: rotate(135deg); position: relative; right: -17px; top: 19px;"></div>
-            <div class="box s4"><img src="/files/left.png" width="60px" height="60px"
+            <div class="box s4"><img id="leftButton" src="/files/left.png" width="60px" height="60px"
                     style="transform: rotate(45deg); position: relative; right: -17px; top: 19px;"></div>
-            <div class="center"><img src="/files/ok.png" width="99px" height="88px"></div>
+            <div class="center"><img id="okButton" src="/files/ok.png" width="99px" height="88px"></div>
         </div>
         <div class="layui-body">
             <div id="container">
@@ -136,13 +136,84 @@
 
 </body>
 <script  type="text/javascript">
-    $().ready(function () {
+    $(document).ready(function () {
         $("#upButton").click(function() {
-            var buttonType = 'up';
-            //采用POST方式调用服务
-            $.post('up_control', { t: buttonType }, function (text, status) { alert(text); });
+            s = "";
+            $.post("control.exe",'up',function(data,status){
+                console.log(data);
+                console.log(status);
+                alert("Control Button Name:" + data);
+            });
         })
-    })
+    });
+    $(document).ready(function () {
+        $("#downButton").click(function() {
+            s = "";
+            $.post("control.exe",'down',function(data,status){
+                console.log(data);
+                console.log(status);
+                alert("Control Button Name:" + data);
+            });
+        })
+    });
+    $(document).ready(function () {
+        $("#rightButton").click(function() {
+            s = "";
+            $.post("control.exe",'right',function(data,status){
+                console.log(data);
+                console.log(status);
+                alert("Control Button Name:" + data);
+            });
+        })
+    });
+    $(document).ready(function () {
+        $("#leftButton").click(function() {
+            s = "";
+            $.post("control.exe",'left',function(data,status){
+                console.log(data);
+                console.log(status);
+                alert("Control Button Name:" + data);
+            });
+        })
+    });
+    $(document).ready(function () {
+        $("#okButton").click(function() {
+            s = "";
+            $.post("control.exe",'ok',function(data,status){
+                console.log(data);
+                console.log(status);
+                alert("Control Button Name:" + data);
+            });
+        })
+    });
+    // function ClickUp1(){
+    //     var buttonType = 'up';
+    //         //采用POST方式调用服务
+    //         $.post('up_control', { t: buttonType }, function (text, status) { alert(text); });
+    // }
+    // function ClickUp() {
+        
+    //         var line = 'blank';
+    //         //先通过ajax去后台请求数据，成功后携带数据进行跳转
+    //         $.ajax({
+    //             url : "up_control.exe",
+    //             type : "POST",
+    //             dataType : 'json',
+    //             data : 'up',
+    //             success:function (data) {
+    //                 alert('data');
+    //                 if(data.success){
+    //                     alert(1);
+    //                     var params = {
+    //                         'line':data.line,
+    //                         '_token':"{{ csrf_token() }}"
+    //                     }
+    //                     alert(line);
+    //                     //httpPost("video.html", params);   //test1为跳转的路由地址，params为携带的参数
+    //                 }
+    //             }
+    //         })
+    //     }
 </script>
 
 <script>
@@ -150,7 +221,7 @@
 
     class RecordingVideo {
         //start 1
-        //upButton = document.querySelector('#up')
+        // upButton = document.querySelector('#upButton')
         //end
         duration = 0
         mediaRecorder
@@ -179,7 +250,7 @@
             //     location.protocol = 'HTTPS'
             // }
             //start 2
-            //this.upButton.onclick = () => this.upGum()
+            // this.upButton.onclick = () => this.upGum()
             //end
 
             this.recordButton.onclick = () => this.toggleRecording()
@@ -220,7 +291,12 @@
         }
 
         //start 3
-       
+        // upGum(){
+            
+    //         var buttonType = 'up';
+    // //         //采用POST方式调用服务
+    //         $.post('up_control', { t: buttonType }, function (text, status) { alert(text); });
+        // }
         //end
         // start to record
         toggleRecording() {
