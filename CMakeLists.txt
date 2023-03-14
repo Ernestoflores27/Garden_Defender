@@ -13,7 +13,7 @@ include_directories( ${OpenCV_INCLUDE_DIRS} ${pigpio_INCLUDE_DIR})
 SET(TARGET_H Objects/Camera.h
 Objects/Camera.h
 Objects/Detector.h
-Objects/Face.h
+Objects/Object.h
 Objects/Servos.h
 Objects/Turret.h
 )
