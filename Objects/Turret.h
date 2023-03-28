@@ -136,24 +136,4 @@ public:
     {
         gpioTerminate();
     }
-
-    void turret_move(Detector detector_model){
-        explore();
-        if (!detector_model.objs_vector.empty())
-        {
-            resetTime();
-
-            float error_x = detector_model.getOffsetX() * 2 / 320;
-            float error_y = detector_model.getOffsetY() * 2 / 320;
-
-            movePitch(SPEED * error_x);
-            moveYaw(-SPEED * error_y);
-
-            if (abs(error_x) < MARGIN and abs(error_y) < MARGIN)
-            {
-                shoot();
-                detector_model.showShooting();
-            }
-        }
-    }
 };

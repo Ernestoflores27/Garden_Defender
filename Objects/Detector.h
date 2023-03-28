@@ -3,6 +3,7 @@
 #include <opencv4/opencv2/imgproc.hpp>
 #include <opencv4/opencv2/highgui.hpp>
 #include "Object.h"
+#include "Turret.h"
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -11,7 +12,7 @@
 class Detector
 {
 public:
-	Detector(std::string modelpath, float objThreshold, float confThreshold, float nmsThreshold, cv::VideoCapture real_time);
+	Detector(std::string modelpath, float objThreshold, float confThreshold, float nmsThreshold, cv::VideoCapture real_time, Turret *turret);
 	void detectT();
 	void detect();
 	float getOffsetX();
@@ -23,6 +24,8 @@ public:
 	cv::Mat frame;
 
 private:
+	Turret *turret;
+	void turretCallback();
 	const float anchors[2][6] = {{12.64, 19.39, 37.88, 51.48, 55.71, 138.31}, {126.91, 78.23, 131.57, 214.55, 279.92, 258.87}};
 	const float stride[3] = {16.0, 32.0};
 	const int inpWidth = 352;
@@ -44,12 +47,13 @@ private:
 	void drawPred(int classId, float conf, int left, int top, int right, int bottom, cv::Mat &frame);
 };
 
-Detector::Detector(std::string modelpath, float obj_Threshold, float conf_Threshold, float nms_Threshold, cv::VideoCapture real_time)
+Detector::Detector(std::string modelpath, float obj_Threshold, float conf_Threshold, float nms_Threshold, cv::VideoCapture real_time, Turret *turret_)
 {
 	this->real_time = real_time;
 	this->objThreshold = obj_Threshold;
 	this->confThreshold = conf_Threshold;
 	this->nmsThreshold = nms_Threshold;
+	this->turret = turret_;
 
 	std::ifstream ifs(this->classesFile.c_str());
 	std::string line;
@@ -58,7 +62,6 @@ Detector::Detector(std::string modelpath, float obj_Threshold, float conf_Thresh
 	this->num_class = this->classes.size();
 	this->net = cv::dnn::readNet(modelpath);
 }
-
 void Detector::detect()
 {
 	real_time.read(frame);
@@ -106,8 +109,7 @@ void Detector::detect()
 						classIds.push_back(classIdPoint.x);
 						confidences.push_back(box_score * max_class_socre);
 						boxes.push_back(cv::Rect(left, top, (int)(w * ratiow), (int)(h * ratioh)));
-						//Add variable in if statement to variable to check status
-						std::cout << "Detected"; 
+						// TODO: Add variable in if statement to variable to check status
 					}
 				}
 				row_ind++;
@@ -136,6 +138,27 @@ void Detector::detect()
 	}
 	this->sortObjs();
 	this->show();
+	turretCallback();
+}
+void Detector::turretCallback()
+{
+	turret->explore();
+	if (!objs_vector.empty())
+	{
+		turret->resetTime();
+
+		float error_x = getOffsetX() * 2 / 320;
+		float error_y = getOffsetY() * 2 / 320;
+
+		turret->movePitch(SPEED * error_x);
+		turret->moveYaw(-SPEED * error_y);
+
+		if (abs(error_x) < MARGIN and abs(error_y) < MARGIN)
+		{
+			turret->shoot();
+			showShooting();
+		}
+	}
 }
 void Detector::persistence()
 {
@@ -248,7 +271,7 @@ void Detector::detectThread()
 	while (true)
 	{
 		this->detect();
-		//run callback
+		// run callback
 	}
 }
 void Detector::detectT()
