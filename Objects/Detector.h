@@ -106,6 +106,8 @@ void Detector::detect()
 						classIds.push_back(classIdPoint.x);
 						confidences.push_back(box_score * max_class_socre);
 						boxes.push_back(cv::Rect(left, top, (int)(w * ratiow), (int)(h * ratioh)));
+						//Add variable in if statement to variable to check status
+						std::cout << "Detected"; 
 					}
 				}
 				row_ind++;
@@ -246,6 +248,7 @@ void Detector::detectThread()
 	while (true)
 	{
 		this->detect();
+		//run callback
 	}
 }
 void Detector::detectT()
