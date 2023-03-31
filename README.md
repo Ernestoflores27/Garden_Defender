@@ -26,6 +26,12 @@ One solution to deter these “unwanted guest” is by shooting at them with a w
 # Documentation
 For code documentation go to: 
 
+# Installation
+- Download and install opencv for c++ with dnn support, following the guide:
+- Download and install pigpio, following the guide:
+- Clone this repo using:
+- Build using: 
+
 # Build
 For full building instructions go to:
 [Full build guide](https://maeldorne.notion.site/Garden-Defender-f2392ed58dae446e874e89c7e9c0607c)
