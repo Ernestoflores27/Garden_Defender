@@ -6,6 +6,8 @@
 
 using namespace std::chrono_literals;
 #define SMOOTHING 0.9
+#define MARGIN 0.2
+#define SPEED 1
 
 class Turret
 {
