@@ -35,6 +35,7 @@ private:
 	float objThreshold;
 	float confThreshold;
 	float nmsThreshold;
+	bool manual = false;
 	std::vector<std::string> classes;
 	const std::string classesFile = "Garden_Defender/object_detection.txt";
 	int num_class;
@@ -138,7 +139,7 @@ void Detector::detect()
 	}
 	this->sortObjs();
 	this->show();
-	turretCallback();
+	if (manual==false) turretCallback();
 }
 void Detector::turretCallback()
 {
@@ -259,10 +260,40 @@ void Detector::show()
 		this->lineClosest(frame);
 		this->persistence();
 
+
 		static const std::string kWinName = "Garden Defender";
 		cv::namedWindow(kWinName);
 		cv::imshow(kWinName, frame);
-		cv::waitKey(1);
+		int k = cv::waitKey(1);
+		
+		
+		if (k == 82)
+        {
+            turret->moveYaw(-5);
+        }
+        else if (k == 84)
+        {
+            turret->moveYaw(5);
+        }
+        else if (k == 81)
+        {
+            turret->movePitch(5);
+        }
+        else if (k == 83)
+        {
+            turret->movePitch(-5);
+        }
+		else if (k == 113)
+        {
+            manual = !manual;
+        }
+		else if (k == 32)
+        {
+            turret->shoot();
+        }
+        else
+        {
+        }
 	}
 }
 
