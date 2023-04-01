@@ -11,7 +11,7 @@ jobs:
         uses: langroodi/doxygenize@v1.7.0
         with:
           # Doxygen configuration file path
-          doxygenconf: ./Doxyfile
+          doxygenconf: Doxyfile
           # Generated HTML documents output folder
           htmloutput: ./docs/
           # GitHub Pages branch name
