@@ -36,6 +36,8 @@ For code documentation go to:
 For full building instructions go to:
 [Full build guide](https://maeldorne.notion.site/Garden-Defender-f2392ed58dae446e874e89c7e9c0607c)
 
+Printables: https://www.printables.com/model/439424-garden-defender
+
 or to the instructables guide:
 
 
@@ -45,5 +47,3 @@ or to the instructables guide:
 Youtube:
 
 Instructables: 
-
-Printables:
