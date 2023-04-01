@@ -30,8 +30,8 @@ https://ernestoflores27.github.io/Garden_Defender/html/index.html
 # Installation
 - Download and install opencv for c++ with dnn support, following the guide:
 - Download and install pigpio, following the guide:
-- Clone this repo using:
-- Build using: 
+- Clone this repo using
+- Build using cmake
 
 # Build
 For full building instructions go to:
