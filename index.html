@@ -1,23 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
-<script type="text/javascript" src="/files/jquery-3.6.3.min.js"></script>
+<html>
+    <script type="text/javascript" src="/files/jquery-3.6.3.min.js"></script>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>videoShow</title>
     <style>
-        #container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            align-items: center;
-
-        }
-
-        .controls {
-            padding: 0 10px;
-        }
+      
 
         video {
             width: 100%;
@@ -99,14 +89,17 @@
         }
     </style>
 </head>
-
-<body>
+  <body>
+    
+    <br>
+    <button id="Manual" style="position: absolute; left:60px; top: 580px; z-index: 3;">Manual</button>
+    <button id="Automatic" style="position: absolute; left:160px; top: 580px; z-index: 3;">Automatic</button>
     <div class="logoDiv">
         <img src="/files/logo.png" style="position: absolute; left:30px; top: 30px; z-index: 3; width: 15%;"/>
     </div>
     <div class="box">
 
-        <video id="gum" autoplay muted
+        <video id="video" autoplay muted
             style="object-fit:fill;  position: absolute; top: 0; left: 0; object-fit: contain;"></video>
 
         <div class="sector">
@@ -133,281 +126,130 @@
             </div>
         </div>
     </div>
+    <script>
+      let video = document.getElementById('video');
+      let Manual = document.getElementById('Manual');
+      let Automatic = document.getElementById('Automatic');
+      let stream;
 
-</body>
-<script  type="text/javascript">
+	Manual.onclick = function() {
+  navigator.mediaDevices.getUserMedia({ video: true })
+    .then(function(mediaStream) {
+      stream = mediaStream;
+      video.srcObject = mediaStream;
+      video.play();
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", "/controlbutton", true);
+      xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+      xhr.onreadystatechange = function() {
+          if (xhr.readyState === 4 && xhr.status === 200) {
+              console.log("The direction is :"+xhr.responseText);
+          }
+      };
+      xhr.send("Manual");
+    })
+    .catch(function(error) {
+      console.log('Unable to access camera: ' + error);
+    });
+};
+
+Automatic.onclick = function() {
+  if (stream) {
+    stream.getTracks().forEach(function(track) {
+      track.stop();
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", "/controlbutton", true);
+      xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+      xhr.onreadystatechange = function() {
+          if (xhr.readyState === 4 && xhr.status === 200) {
+              console.log("The direction is :"+xhr.responseText);
+           }
+      };
+      xhr.send("Automatic");
+    });
+    video.srcObject = null;
+  }
+};
+    </script>
+  </body>
+  <script  type="text/javascript">
 	$(document).ready(function () {
-        $("#upButton").click(function() {
-            var number = 3;
+        $("#upButton").click(function() {  
             var xhr = new XMLHttpRequest();
             xhr.open("POST", "/controlupbutton", true);
             xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
             xhr.onreadystatechange = function() {
                 if (xhr.readyState === 4 && xhr.status === 200) {
-		alert("The direction is :"+xhr.responseText);
+		        console.log("The direction is :"+xhr.responseText);
                 //var result = JSON.parse(xhr.responseText).result;
                //alert("The square is " + result);
                 }
             };
-            xhr.send("number=" + number);
-
+            xhr.send("up");
         })
     });
 
     $(document).ready(function () {
         $("#downButton").click(function() {
-		this.MediaStreamTrack && this.MediaStreamTrack.stop();
-            s = "";
-            $.post("control.exe",'down',function(data,status){
-                console.log(data);
-                console.log(status);
-                alert("Control Button Name:" + data);
-            });
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/controlupbutton", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+		        console.log("The direction is :"+xhr.responseText);
+                //var result = JSON.parse(xhr.responseText).result;
+               //alert("The square is " + result);
+                }
+            };
+            xhr.send("down");
         })
     });
     $(document).ready(function () {
         $("#rightButton").click(function() {
-            s = "";
-            $.post("control.exe",'right',function(data,status){
-                console.log(data);
-                console.log(status);
-                alert("Control Button Name:" + data);
-            });
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/controlupbutton", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+		        console.log("The direction is :"+xhr.responseText);
+                //var result = JSON.parse(xhr.responseText).result;
+               //alert("The square is " + result);
+                }
+            };
+            xhr.send("right");
         })
     });
     $(document).ready(function () {
         $("#leftButton").click(function() {
-            s = "";
-            $.post("control.exe",'left',function(data,status){
-                console.log(data);
-                console.log(status);
-                alert("Control Button Name:" + data);
-            });
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/controlupbutton", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+		        console.log("The direction is :"+xhr.responseText);
+                //var result = JSON.parse(xhr.responseText).result;
+               //alert("The square is " + result);
+                }
+            };
+            xhr.send("left");
         })
     });
     $(document).ready(function () {
         $("#okButton").click(function() {
-            s = "";
-            $.post("control.exe",'ok',function(data,status){
-                console.log(data);
-                console.log(status);
-                alert("Control Button Name:" + data);
-            });
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/controlupbutton", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+		        console.log("The direction is :"+xhr.responseText);
+                //var result = JSON.parse(xhr.responseText).result;
+               //alert("The square is " + result);
+                }
+            };
+            xhr.send("ok");
         })
     });
-    // function ClickUp1(){
-    //     var buttonType = 'up';
-    //         //采用POST方式调用服务
-    //         $.post('up_control', { t: buttonType }, function (text, status) { alert(text); });
-    // }
-    // function ClickUp() {
-        
-    //         var line = 'blank';
-    //         //先通过ajax去后台请求数据，成功后携带数据进行跳转
-    //         $.ajax({
-    //             url : "up_control.exe",
-    //             type : "POST",
-    //             dataType : 'json',
-    //             data : 'up',
-    //             success:function (data) {
-    //                 alert('data');
-    //                 if(data.success){
-    //                     alert(1);
-    //                     var params = {
-    //                         'line':data.line,
-    //                         '_token':"{{ csrf_token() }}"
-    //                     }
-    //                     alert(line);
-    //                     //httpPost("video.html", params);   //test1为跳转的路由地址，params为携带的参数
-    //                 }
-    //             }
-    //         })
-    //     }
+
+    
 </script>
-
-<script>
-   
-
-    class RecordingVideo {
-        //start 1
-        // upButton = document.querySelector('#upButton')
-        //end
-        duration = 0
-        mediaRecorder
-        recordedBlobs
-        intervalId
-        stream
-        maxD = 15
-        count = 15
-        gumVideo = document.querySelector('#gum')
-        gumVideo2 = document.querySelector('#gum2')
-        recordButton = document.querySelector('#record')
-        playButton = document.querySelector('#play')
-        downloadButton = document.querySelector('#download')
-        tEL = document.getElementById('tEl')
-        constructor() {
-            const constraints = {
-                audio: true,
-                video: {
-                    facingMode: "user",
-                    frameRate: 60,
-                }
-            }
-            const isSecureOrigin = location.protocol === 'https:' || location.hostname === 'localhost'
-            // if (!isSecureOrigin) {
-            //     alert('getUserMedia() has to be used after \'https\' or \'localhost\'')
-            //     location.protocol = 'HTTPS'
-            // }
-            //start 2
-            // this.upButton.onclick = () => this.upGum()
-            //end
-
-            this.recordButton.onclick = () => this.toggleRecording()
-            this.playButton.onclick = () => this.play()
-            this.downloadButton.onclick = () => this.download()
-            this.gumVideo2.width = constraints.video.width
-            this.gumVideo2.height = constraints.video.height
-            // get video stream
-            this.getUserMedia(constraints, (stream) => {
-
-                this.recordButton.disabled = false
-                this.stream = stream
-                this.gumVideo.srcObject = stream
-            }, (e) => {
-                // failure
-                if (error.message === 'Permission denied') {
-                    alert('You have disabled the use of camera, please go to Settings - General - WeChat Storage - Manage WeChat Storage - Click \'Clean up chat data from other WeChat accounts\'')
-                }
-                console.log('navigator.getUserMedia error: ', error)
-            })
-
-        }
-        // get video stream
-        getUserMedia(constraints, success, error) {
-            if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-                //latest standard API
-                navigator.mediaDevices.getUserMedia(constraints).then(success).catch(error)
-            } else if (navigator.webkitGetUserMedia) {
-                //webkit core
-                navigator.webkitGetUserMedia(constraints, success, error)
-            } else if (navigator.mozGetUserMedia) {
-                //firfox
-                navigator.mozGetUserMedia(constraints, success, error)
-            } else if (navigator.getUserMedia) {
-                //outed API
-                navigator.getUserMedia(constraints, success, error)
-            }
-        }
-
-        //start 3
-        // upGum(){
-            
-    //         var buttonType = 'up';
-    // //         //采用POST方式调用服务
-    //         $.post('up_control', { t: buttonType }, function (text, status) { alert(text); });
-        // }
-        //end
-        // start to record
-        toggleRecording() {
-            const tEl = this.tEL
-            if (this.recordButton.textContent === 'start to record') {
-                tEl.innerHTML = ''
-                this.startRecording()
-                clearInterval(this.intervalId)
-                tEl.innerHTML = 'remained:' + this.count + 's'
-                this.count--
-                this.intervalId = setInterval(() => {
-                    tEl.innerHTML = 'remaind:' + this.count + 's'
-                    if (this.count <= 0) {
-                        clearInterval(this.intervalId)
-                        this.duration = this.maxD - this.count
-                        this.count = this.maxD
-                        this.stopRecording()
-                        this.recordButton.textContent = 'start to record'
-                        this.downloadButton.disabled = false
-                        this.playButton.disabled = false
-                    } else {
-                        this.count--
-                    }
-
-                }, 1000)
-            } else {
-                clearInterval(this.intervalId)
-
-                this.duration = this.maxD - this.count
-                this.count = this.maxD
-                this.stopRecording()
-                this.recordButton.textContent = 'start to record'
-                this.playButton.disabled = false
-                this.downloadButton.disabled = false
-            }
-        }
-        // start to record
-        startRecording() {
-            const isSafari = !(!(/Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent)))
-
-            this.recordedBlobs = []
-            const options = {
-                audioBitsPerSecond: 128000,
-                videoBitsPerSecond: 2500000,
-                mimeType: isSafari ? 'video/mp4' : 'video/webm'
-            }
-            try {
-                this.mediaRecorder = new MediaRecorder(this.stream, options)
-            } catch (e) {
-                alert('MediaRecorder failed to be created: ' + e + '. mimeType: ' + options.mimeType)
-                return
-            }
-            this.recordButton.textContent = 'record end'
-            this.downloadButton.disabled = true
-            this.playButton.disabled = true
-
-            // recording
-            this.mediaRecorder.ondataavailable = event => {
-                if (event.data && event.data.size > 0) {
-                    this.recordedBlobs.push(event.data)
-                }
-            }
-            // end
-            this.mediaRecorder.onstop = event => {
-                console.log('Recorder stopped: ', event)
-            }
-            // start to record
-            this.mediaRecorder.start(10);
-        }
-        // stop recording
-        stopRecording() {
-            tEl.innerHTML = 'finished record'
-            this.mediaRecorder.stop()
-        }
-        // download video
-        download() {
-            const blob = new Blob(this.recordedBlobs, { type: 'video/mp4' })
-            const a = document.createElement('a')
-            a.setAttribute('download', Date.now() + '.mp4')
-            a.href = URL.createObjectURL(blob)
-            a.click()
-        }
-        play() {
-            const { recordedBlobs, gumVideo2 } = this
-            const blob = new Blob(recordedBlobs, { type: 'video/mp4' })
-            const size = parseInt(blob.size / 1024)
-            let strSize = ''
-            if (size < 1024) {
-                strSize = size + 'KB'
-            } else {
-                strSize = (size / 1024).toFixed(2) + 'MB'
-            }
-            alert('' + this.duration + 's, ' + strSize)
-            const videoURL = URL.createObjectURL(blob)
-            gumVideo2.style.display = ''
-            gumVideo2.src = videoURL
-
-        }
-
-    }
-    new RecordingVideo()
-
-</script>
-
 </html>
