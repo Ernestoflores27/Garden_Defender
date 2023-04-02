@@ -139,7 +139,8 @@ void Detector::detect()
 	}
 	this->sortObjs();
 	this->show();
-	if (manual==false) turretCallback();
+	if (manual == false)
+		turretCallback();
 }
 void Detector::turretCallback()
 {
@@ -260,40 +261,53 @@ void Detector::show()
 		this->lineClosest(frame);
 		this->persistence();
 
+		if (manual == false)
+		{
+			putText(this->frame, "Mode: Auto", cv::Point(10, 20), cv::FONT_HERSHEY_DUPLEX, 0.75, cv::Scalar(0, 0, 255), 1.5);
+			putText(this->frame, "To change modes press Q", cv::Point(10, 40), cv::FONT_HERSHEY_DUPLEX, 0.75, cv::Scalar(0, 0, 255), 1.5);
+			putText(this->frame, "To move use arrow keys", cv::Point(10, 60), cv::FONT_HERSHEY_DUPLEX, 0.75, cv::Scalar(0, 0, 255), 1.5);
+			putText(this->frame, "To shoot press the space key", cv::Point(10, 80), cv::FONT_HERSHEY_DUPLEX, 0.75, cv::Scalar(0, 0, 255), 1.5);
+		}
+		else
+		{
+			putText(this->frame, "Mode: Manual", cv::Point(10, 20), cv::FONT_HERSHEY_DUPLEX, 0.75, cv::Scalar(0, 0, 255), 1.5);
+			putText(this->frame, "To change modes press Q", cv::Point(10, 40), cv::FONT_HERSHEY_DUPLEX, 0.75, cv::Scalar(0, 0, 255), 1.5);
+		}
 
 		static const std::string kWinName = "Garden Defender";
-		cv::namedWindow(kWinName);
+		cv::namedWindow(kWinName, cv::WINDOW_NORMAL);
+		cv::setWindowProperty(kWinName, cv::WND_PROP_FULLSCREEN, cv::WINDOW_FULLSCREEN);
+		cv::resize(frame, frame, cv::Size(frame.cols * 2, frame.rows * 2), 0, 0, cv::INTER_LINEAR);
 		cv::imshow(kWinName, frame);
 		int k = cv::waitKey(1);
-		
-		
+
 		if (k == 82)
-        {
-            turret->moveYaw(-5);
-        }
-        else if (k == 84)
-        {
-            turret->moveYaw(5);
-        }
-        else if (k == 81)
-        {
-            turret->movePitch(5);
-        }
-        else if (k == 83)
-        {
-            turret->movePitch(-5);
-        }
+		{
+			turret->moveYaw(-5);
+		}
+		else if (k == 84)
+		{
+			turret->moveYaw(5);
+		}
+		else if (k == 81)
+		{
+			turret->movePitch(5);
+		}
+		else if (k == 83)
+		{
+			turret->movePitch(-5);
+		}
 		else if (k == 113)
-        {
-            manual = !manual;
-        }
+		{
+			manual = !manual;
+		}
 		else if (k == 32)
-        {
-            turret->shoot();
-        }
-        else
-        {
-        }
+		{
+			turret->shoot();
+		}
+		else
+		{
+		}
 	}
 }
 
