@@ -13,13 +13,15 @@ class Turret
 {
 public:
     int Turret_GPIO;
+    int shootingLed_GPIO;
+    int lookingLed_GPIO;
     float pitch, yaw, min_pitch, max_pitch, min_yaw, max_yaw;
     float old_pitch = 0, old_yaw = 0, new_pitch = 0, new_yaw = 0;
     float dir = 5;
     Servos servos;
     time_t start_shooting_time, start_exploring_time;
 
-    Turret(int GPIO_, int min_pitch_ = -90, int max_pitch_ = 90, int min_yaw_ = -45, int max_yaw_ = 30)
+    Turret(int GPIO_, int shootingLed_GPIO_, int lookingLed_GPIO_, int min_pitch_ = -90, int max_pitch_ = 90, int min_yaw_ = -45, int max_yaw_ = 30)
     {
         // Servo Setup
         servos.servoInit(104, 514, -90, 90);
@@ -36,6 +38,11 @@ public:
 
         start_shooting_time = time(0);
         start_exploring_time = time(0);
+
+        shootingLed_GPIO = shootingLed_GPIO_;
+        lookingLed_GPIO = lookingLed_GPIO_;
+        gpioWrite(shootingLed_GPIO, 0);
+        gpioWrite(lookingLed_GPIO, 0);
     }
     void changePosition(int pitch_, int yaw_)
     {
@@ -87,8 +94,10 @@ public:
     void shootThread()
     {
         gpioWrite(Turret_GPIO, 0);
+        gpioWrite(shootingLed_GPIO, 1);
         std::this_thread::sleep_for(500ms);
         gpioWrite(Turret_GPIO, 1);
+        gpioWrite(shootingLed_GPIO, 0);
     }
 
     void explore()

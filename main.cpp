@@ -10,7 +10,7 @@ int main()
         Camera cam1(640, 480);
         cv::VideoCapture real_time = cam1.getVideoCapture();
 
-        Turret turret(23);
+        Turret turret(23, 24, 25);
         turret.changePosition(0, 0);
         turret.moveT();
 
@@ -19,9 +19,9 @@ int main()
 
         do
         {
-            std::cout << '\n'
-                    << "Press a Enter to close...";
-            
+                std::cout << '\n'
+                          << "Press a Enter to close...";
+
         } while (std::cin.get() != '\n');
 
         real_time.release();
