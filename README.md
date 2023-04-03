@@ -1,4 +1,7 @@
 # Garden_Defender
+
+![Garden Defender Logo](https://user-images.githubusercontent.com/56697327/229611357-d4004de5-1c50-4bf8-9a71-7ab838b35830.png)
+
 # Description
 
 Protect your garden from unwanted animals with the garden defender. The garden defender is a robotic water pellet gun that deters unwanted animals by shooting at them with a water pellet. The robotic gun will continuously scan your garden with a webcam. With the combination of computer vision and a deep learning algorithm “YOLO”, the garden defender can detect and distinguish between a “friendly” and “unwanted guest” before shooting a water pellet. 
@@ -22,6 +25,9 @@ One solution to deter these “unwanted guest” is by shooting at them with a w
 - Garden surveillance - large field of view
     
     Robot will continuously move web cam left and right to maximise the field of view when an unwanted guest not detected.
+    
+[![Alt text](https://img.youtube.com/vi/YOUTUBE_VIDEO_ID/0.jpg)](https://www.youtube.com/watch?v=-97-if4tLNQ)
+    
 
 # Documentation
 For code documentation go to: 
