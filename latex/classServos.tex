@@ -1,17 +1,26 @@
 \hypertarget{classServos}{}\doxysection{Servos Class Reference}
 \label{classServos}\index{Servos@{Servos}}
+
+
+A class to control servos using PCA9685 PWM driver.  
+
+
+
+
+{\ttfamily \#include $<$Servos.\+h$>$}
+
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{classServos_ae6fd3b02d54b9a443db1ee289f9574f2}\label{classServos_ae6fd3b02d54b9a443db1ee289f9574f2}} 
-void {\bfseries servo\+Init} (float min\+PWM\+\_\+, float max\+PWM\+\_\+, float min\+Angle\+\_\+, float max\+Angle\+\_\+)
-\item 
-\mbox{\Hypertarget{classServos_aa11558c86fbadd7643aa71be87b76f72}\label{classServos_aa11558c86fbadd7643aa71be87b76f72}} 
-void {\bfseries servo\+Move} (int idx, float angle)
-\item 
-\mbox{\Hypertarget{classServos_ade375cfa77b0fcb34b3d5300f2026a21}\label{classServos_ade375cfa77b0fcb34b3d5300f2026a21}} 
-float {\bfseries map\+Angle\+To\+PWM} (float angle)
-\end{DoxyCompactItemize}
+\mbox{\Hypertarget{classServos_a85ea161aaf5925b3797714b901f81f04}\label{classServos_a85ea161aaf5925b3797714b901f81f04}} 
+\mbox{\hyperlink{classServos_a85ea161aaf5925b3797714b901f81f04}{Servos}} ()
+\begin{DoxyCompactList}\small\item\em Default constructor. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classServos_ae6fd3b02d54b9a443db1ee289f9574f2}{servo\+Init}} (float min\+PWM\+\_\+, float max\+PWM\+\_\+, float min\+Angle\+\_\+, float max\+Angle\+\_\+)
+\begin{DoxyCompactList}\small\item\em Initializes the servos. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classServos_aa11558c86fbadd7643aa71be87b76f72}{servo\+Move}} (int idx, float angle)
+\begin{DoxyCompactList}\small\item\em Moves a servo to a given angle. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{classServos_ade375cfa77b0fcb34b3d5300f2026a21}{map\+Angle\+To\+PWM}} (float angle)
+\begin{DoxyCompactList}\small\item\em Maps an angle to PWM value. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
@@ -32,6 +41,68 @@ float {\bfseries max\+Angle}
 \end{DoxyCompactItemize}
 
 
+\doxysubsection{Detailed Description}
+A class to control servos using PCA9685 PWM driver. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classServos_ade375cfa77b0fcb34b3d5300f2026a21}\label{classServos_ade375cfa77b0fcb34b3d5300f2026a21}} 
+\index{Servos@{Servos}!mapAngleToPWM@{mapAngleToPWM}}
+\index{mapAngleToPWM@{mapAngleToPWM}!Servos@{Servos}}
+\doxysubsubsection{\texorpdfstring{mapAngleToPWM()}{mapAngleToPWM()}}
+{\footnotesize\ttfamily float Servos\+::map\+Angle\+To\+PWM (\begin{DoxyParamCaption}\item[{float}]{angle }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Maps an angle to PWM value. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em angle} & The angle to map. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The corresponding PWM value. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classServos_ae6fd3b02d54b9a443db1ee289f9574f2}\label{classServos_ae6fd3b02d54b9a443db1ee289f9574f2}} 
+\index{Servos@{Servos}!servoInit@{servoInit}}
+\index{servoInit@{servoInit}!Servos@{Servos}}
+\doxysubsubsection{\texorpdfstring{servoInit()}{servoInit()}}
+{\footnotesize\ttfamily void Servos\+::servo\+Init (\begin{DoxyParamCaption}\item[{float}]{min\+PWM\+\_\+,  }\item[{float}]{max\+PWM\+\_\+,  }\item[{float}]{min\+Angle\+\_\+,  }\item[{float}]{max\+Angle\+\_\+ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Initializes the servos. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em min\+PWM\+\_\+} & The minimum PWM value for the servos. \\
+\hline
+{\em max\+PWM\+\_\+} & The maximum PWM value for the servos. \\
+\hline
+{\em min\+Angle\+\_\+} & The minimum angle value for the servos. \\
+\hline
+{\em max\+Angle\+\_\+} & The maximum angle value for the servos. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classServos_aa11558c86fbadd7643aa71be87b76f72}\label{classServos_aa11558c86fbadd7643aa71be87b76f72}} 
+\index{Servos@{Servos}!servoMove@{servoMove}}
+\index{servoMove@{servoMove}!Servos@{Servos}}
+\doxysubsubsection{\texorpdfstring{servoMove()}{servoMove()}}
+{\footnotesize\ttfamily void Servos\+::servo\+Move (\begin{DoxyParamCaption}\item[{int}]{idx,  }\item[{float}]{angle }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Moves a servo to a given angle. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em idx} & The index of the servo to move. \\
+\hline
+{\em angle} & The angle to move the servo to. \\
+\hline
+\end{DoxyParams}
+
+
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-Objects/Servos.\+h\end{DoxyCompactItemize}
+Objects/\mbox{\hyperlink{Servos_8h}{Servos.\+h}}\end{DoxyCompactItemize}
