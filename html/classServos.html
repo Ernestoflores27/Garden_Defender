@@ -70,17 +70,26 @@ $(function() {
 <div class="title">Servos Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>A class to control servos using PCA9685 PWM driver.  
+ <a href="classServos.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="Servos_8h_source.html">Servos.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ae6fd3b02d54b9a443db1ee289f9574f2"><td class="memItemLeft" align="right" valign="top"><a id="ae6fd3b02d54b9a443db1ee289f9574f2"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>servoInit</b> (float minPWM_, float maxPWM_, float minAngle_, float maxAngle_)</td></tr>
+<tr class="memitem:a85ea161aaf5925b3797714b901f81f04"><td class="memItemLeft" align="right" valign="top"><a id="a85ea161aaf5925b3797714b901f81f04"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classServos.html#a85ea161aaf5925b3797714b901f81f04">Servos</a> ()</td></tr>
+<tr class="memdesc:a85ea161aaf5925b3797714b901f81f04"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor. <br /></td></tr>
+<tr class="separator:a85ea161aaf5925b3797714b901f81f04"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae6fd3b02d54b9a443db1ee289f9574f2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classServos.html#ae6fd3b02d54b9a443db1ee289f9574f2">servoInit</a> (float minPWM_, float maxPWM_, float minAngle_, float maxAngle_)</td></tr>
+<tr class="memdesc:ae6fd3b02d54b9a443db1ee289f9574f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the servos.  <a href="classServos.html#ae6fd3b02d54b9a443db1ee289f9574f2">More...</a><br /></td></tr>
 <tr class="separator:ae6fd3b02d54b9a443db1ee289f9574f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa11558c86fbadd7643aa71be87b76f72"><td class="memItemLeft" align="right" valign="top"><a id="aa11558c86fbadd7643aa71be87b76f72"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>servoMove</b> (int idx, float angle)</td></tr>
+<tr class="memitem:aa11558c86fbadd7643aa71be87b76f72"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classServos.html#aa11558c86fbadd7643aa71be87b76f72">servoMove</a> (int idx, float angle)</td></tr>
+<tr class="memdesc:aa11558c86fbadd7643aa71be87b76f72"><td class="mdescLeft">&#160;</td><td class="mdescRight">Moves a servo to a given angle.  <a href="classServos.html#aa11558c86fbadd7643aa71be87b76f72">More...</a><br /></td></tr>
 <tr class="separator:aa11558c86fbadd7643aa71be87b76f72"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ade375cfa77b0fcb34b3d5300f2026a21"><td class="memItemLeft" align="right" valign="top"><a id="ade375cfa77b0fcb34b3d5300f2026a21"></a>
-float&#160;</td><td class="memItemRight" valign="bottom"><b>mapAngleToPWM</b> (float angle)</td></tr>
+<tr class="memitem:ade375cfa77b0fcb34b3d5300f2026a21"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classServos.html#ade375cfa77b0fcb34b3d5300f2026a21">mapAngleToPWM</a> (float angle)</td></tr>
+<tr class="memdesc:ade375cfa77b0fcb34b3d5300f2026a21"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maps an angle to PWM value.  <a href="classServos.html#ade375cfa77b0fcb34b3d5300f2026a21">More...</a><br /></td></tr>
 <tr class="separator:ade375cfa77b0fcb34b3d5300f2026a21"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
@@ -101,6 +110,148 @@ float&#160;</td><td class="memItemRight" valign="bottom"><b>minAngle</b></td></t
 float&#160;</td><td class="memItemRight" valign="bottom"><b>maxAngle</b></td></tr>
 <tr class="separator:a332fddedfd593d9d32d0c689c0703863"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>A class to control servos using PCA9685 PWM driver. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="ade375cfa77b0fcb34b3d5300f2026a21"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade375cfa77b0fcb34b3d5300f2026a21">&#9670;&nbsp;</a></span>mapAngleToPWM()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float Servos::mapAngleToPWM </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>angle</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Maps an angle to PWM value. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">angle</td><td>The angle to map. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The corresponding PWM value. </dd></dl>
+
+</div>
+</div>
+<a id="ae6fd3b02d54b9a443db1ee289f9574f2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae6fd3b02d54b9a443db1ee289f9574f2">&#9670;&nbsp;</a></span>servoInit()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Servos::servoInit </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>minPWM_</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>maxPWM_</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>minAngle_</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>maxAngle_</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Initializes the servos. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">minPWM_</td><td>The minimum PWM value for the servos. </td></tr>
+    <tr><td class="paramname">maxPWM_</td><td>The maximum PWM value for the servos. </td></tr>
+    <tr><td class="paramname">minAngle_</td><td>The minimum angle value for the servos. </td></tr>
+    <tr><td class="paramname">maxAngle_</td><td>The maximum angle value for the servos. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aa11558c86fbadd7643aa71be87b76f72"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa11558c86fbadd7643aa71be87b76f72">&#9670;&nbsp;</a></span>servoMove()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Servos::servoMove </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>idx</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>angle</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Moves a servo to a given angle. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">idx</td><td>The index of the servo to move. </td></tr>
+    <tr><td class="paramname">angle</td><td>The angle to move the servo to. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>Objects/<a class="el" href="Servos_8h_source.html">Servos.h</a></li>
 </ul>

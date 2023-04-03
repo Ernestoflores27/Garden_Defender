@@ -70,35 +70,45 @@ $(function() {
 <div class="title">Detector Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Class that handles object detection using a neural network.  
+ <a href="classDetector.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="Detector_8h_source.html">Detector.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a614a198aac6cdaaa16ec8d1e90bef2da"><td class="memItemLeft" align="right" valign="top"><a id="a614a198aac6cdaaa16ec8d1e90bef2da"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>Detector</b> (std::string modelpath, float objThreshold, float confThreshold, float nmsThreshold, cv::VideoCapture real_time, <a class="el" href="classTurret.html">Turret</a> *turret)</td></tr>
+&#160;</td><td class="memItemRight" valign="bottom"><b>Detector</b> (std::string modelpath, float objThreshold, float confThreshold, float nmsThreshold, cv::VideoCapture <a class="el" href="classDetector.html#addf12e0b4b4b07fe034d258db4c9ff36">real_time</a>, <a class="el" href="classTurret.html">Turret</a> *turret)</td></tr>
 <tr class="separator:a614a198aac6cdaaa16ec8d1e90bef2da"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2a9a4ca53f575a9e73555618e50ef224"><td class="memItemLeft" align="right" valign="top"><a id="a2a9a4ca53f575a9e73555618e50ef224"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>detectT</b> ()</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDetector.html#a2a9a4ca53f575a9e73555618e50ef224">detectT</a> ()</td></tr>
+<tr class="memdesc:a2a9a4ca53f575a9e73555618e50ef224"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method for detecting objects in a frame and showing them with a crosshair on the turret. <br /></td></tr>
 <tr class="separator:a2a9a4ca53f575a9e73555618e50ef224"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae0c0a72fef22d6521e82c18424a4dd04"><td class="memItemLeft" align="right" valign="top"><a id="ae0c0a72fef22d6521e82c18424a4dd04"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>detect</b> ()</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDetector.html#ae0c0a72fef22d6521e82c18424a4dd04">detect</a> ()</td></tr>
+<tr class="memdesc:ae0c0a72fef22d6521e82c18424a4dd04"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method for detecting objects in a frame and showing them. <br /></td></tr>
 <tr class="separator:ae0c0a72fef22d6521e82c18424a4dd04"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3e45dc1715aceeac42a2dbe5594f2bc2"><td class="memItemLeft" align="right" valign="top"><a id="a3e45dc1715aceeac42a2dbe5594f2bc2"></a>
-float&#160;</td><td class="memItemRight" valign="bottom"><b>getOffsetX</b> ()</td></tr>
+<tr class="memitem:a3e45dc1715aceeac42a2dbe5594f2bc2"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDetector.html#a3e45dc1715aceeac42a2dbe5594f2bc2">getOffsetX</a> ()</td></tr>
+<tr class="memdesc:a3e45dc1715aceeac42a2dbe5594f2bc2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method for getting the x-offset of the detected object from the center of the frame.  <a href="classDetector.html#a3e45dc1715aceeac42a2dbe5594f2bc2">More...</a><br /></td></tr>
 <tr class="separator:a3e45dc1715aceeac42a2dbe5594f2bc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a61e535935ccab24830265713ae73a906"><td class="memItemLeft" align="right" valign="top"><a id="a61e535935ccab24830265713ae73a906"></a>
-float&#160;</td><td class="memItemRight" valign="bottom"><b>getOffsetY</b> ()</td></tr>
+<tr class="memitem:a61e535935ccab24830265713ae73a906"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDetector.html#a61e535935ccab24830265713ae73a906">getOffsetY</a> ()</td></tr>
+<tr class="memdesc:a61e535935ccab24830265713ae73a906"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method for getting the y-offset of the detected object from the center of the frame.  <a href="classDetector.html#a61e535935ccab24830265713ae73a906">More...</a><br /></td></tr>
 <tr class="separator:a61e535935ccab24830265713ae73a906"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abe004377aef67ba682c8a0da636d43b5"><td class="memItemLeft" align="right" valign="top"><a id="abe004377aef67ba682c8a0da636d43b5"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>show</b> ()</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDetector.html#abe004377aef67ba682c8a0da636d43b5">show</a> ()</td></tr>
+<tr class="memdesc:abe004377aef67ba682c8a0da636d43b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method for showing the frame with detected objects. <br /></td></tr>
 <tr class="separator:abe004377aef67ba682c8a0da636d43b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5ab979084e65b78a5d725d4fcd0949a2"><td class="memItemLeft" align="right" valign="top"><a id="a5ab979084e65b78a5d725d4fcd0949a2"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>showShooting</b> ()</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDetector.html#a5ab979084e65b78a5d725d4fcd0949a2">showShooting</a> ()</td></tr>
+<tr class="memdesc:a5ab979084e65b78a5d725d4fcd0949a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method for showing the frame with detected objects and the crosshair on the turret. <br /></td></tr>
 <tr class="separator:a5ab979084e65b78a5d725d4fcd0949a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:a379e5cac91f1101ca82514565d53bca1"><td class="memItemLeft" align="right" valign="top"><a id="a379e5cac91f1101ca82514565d53bca1"></a>
-std::vector&lt; <a class="el" href="classObject.html">Object</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>objs_vector</b></td></tr>
+std::vector&lt; <a class="el" href="classObject.html">Object</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDetector.html#a379e5cac91f1101ca82514565d53bca1">objs_vector</a></td></tr>
+<tr class="memdesc:a379e5cac91f1101ca82514565d53bca1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vector of <a class="el" href="classObject.html">Object</a> objects containing the detected objects. <br /></td></tr>
 <tr class="separator:a379e5cac91f1101ca82514565d53bca1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab14fd2343c66f2e9a440a963631d9211"><td class="memItemLeft" align="right" valign="top"><a id="ab14fd2343c66f2e9a440a963631d9211"></a>
 std::vector&lt; <a class="el" href="classObject.html">Object</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>objs_vector_old</b></td></tr>
@@ -107,15 +117,60 @@ std::vector&lt; <a class="el" href="classObject.html">Object</a> &gt;&#160;</td>
 std::vector&lt; <a class="el" href="classObject.html">Object</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>objs_vector_filtered</b></td></tr>
 <tr class="separator:a45a97b4d8944282cd2b93f7b02c8eb9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:addf12e0b4b4b07fe034d258db4c9ff36"><td class="memItemLeft" align="right" valign="top"><a id="addf12e0b4b4b07fe034d258db4c9ff36"></a>
-cv::VideoCapture&#160;</td><td class="memItemRight" valign="bottom"><b>real_time</b></td></tr>
+cv::VideoCapture&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDetector.html#addf12e0b4b4b07fe034d258db4c9ff36">real_time</a></td></tr>
+<tr class="memdesc:addf12e0b4b4b07fe034d258db4c9ff36"><td class="mdescLeft">&#160;</td><td class="mdescRight">OpenCV VideoCapture object for real-time video capture. <br /></td></tr>
 <tr class="separator:addf12e0b4b4b07fe034d258db4c9ff36"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a96270e50553cc5c9169899bcdd305d61"><td class="memItemLeft" align="right" valign="top"><a id="a96270e50553cc5c9169899bcdd305d61"></a>
-cv::Mat&#160;</td><td class="memItemRight" valign="bottom"><b>frame</b></td></tr>
+cv::Mat&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDetector.html#a96270e50553cc5c9169899bcdd305d61">frame</a></td></tr>
+<tr class="memdesc:a96270e50553cc5c9169899bcdd305d61"><td class="mdescLeft">&#160;</td><td class="mdescRight">OpenCV Mat object containing the current frame. <br /></td></tr>
 <tr class="separator:a96270e50553cc5c9169899bcdd305d61"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Class that handles object detection using a neural network. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a3e45dc1715aceeac42a2dbe5594f2bc2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3e45dc1715aceeac42a2dbe5594f2bc2">&#9670;&nbsp;</a></span>getOffsetX()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float Detector::getOffsetX </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Method for getting the x-offset of the detected object from the center of the frame. </p>
+<dl class="section return"><dt>Returns</dt><dd>Float value of the x-offset. </dd></dl>
+
+</div>
+</div>
+<a id="a61e535935ccab24830265713ae73a906"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a61e535935ccab24830265713ae73a906">&#9670;&nbsp;</a></span>getOffsetY()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float Detector::getOffsetY </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Method for getting the y-offset of the detected object from the center of the frame. </p>
+<dl class="section return"><dt>Returns</dt><dd>Float value of the y-offset. </dd></dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>Objects/<a class="el" href="Detector_8h_source.html">Detector.h</a></li>
-<li>Objects/Detector.cpp</li>
+<li>Objects/<a class="el" href="Detector_8cpp.html">Detector.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

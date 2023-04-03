@@ -70,57 +70,78 @@ $(function() {
 <div class="title">Detector.h</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;opencv4/opencv2/opencv.hpp&gt;</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &lt;opencv4/opencv2/dnn.hpp&gt;</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;opencv4/opencv2/imgproc.hpp&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;opencv4/opencv2/highgui.hpp&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;Object.h&quot;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &quot;Turret.h&quot;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;iostream&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;fstream&gt;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;sstream&gt;</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;thread&gt;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
-<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="classDetector.html">   12</a></span>&#160;<span class="keyword">class </span><a class="code" href="classDetector.html">Detector</a></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <a class="code" href="classDetector.html">Detector</a>(std::string modelpath, <span class="keywordtype">float</span> objThreshold, <span class="keywordtype">float</span> confThreshold, <span class="keywordtype">float</span> nmsThreshold, cv::VideoCapture real_time, <a class="code" href="classTurret.html">Turret</a> *turret);</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="keywordtype">void</span> detectT();</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keywordtype">void</span> detect();</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keywordtype">float</span> getOffsetX();</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keywordtype">float</span> getOffsetY();</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keywordtype">void</span> show();</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <span class="keywordtype">void</span> showShooting();</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    std::vector&lt;Object&gt; objs_vector, objs_vector_old, objs_vector_filtered;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    cv::VideoCapture real_time;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    cv::Mat frame;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <a class="code" href="classTurret.html">Turret</a> *turret;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keywordtype">void</span> turretCallback();</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> anchors[2][6] = {{12.64, 19.39, 37.88, 51.48, 55.71, 138.31}, {126.91, 78.23, 131.57, 214.55, 279.92, 258.87}};</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> stride[3] = {16.0, 32.0};</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">int</span> inpWidth = 352;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">int</span> inpHeight = 352;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">int</span> num_stage = 2;</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">int</span> anchor_num = 3;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keywordtype">float</span> objThreshold;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keywordtype">float</span> confThreshold;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordtype">float</span> nmsThreshold;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keywordtype">bool</span> manual = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    std::vector&lt;std::string&gt; classes;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keyword">const</span> std::string classesFile = <span class="stringliteral">&quot;Garden_Defender/object_detection.txt&quot;</span>;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keywordtype">int</span> num_class;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    cv::dnn::Net net;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordtype">void</span> sortObjs();</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordtype">void</span> drawCrossair(cv::Mat &amp;frame);</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keywordtype">void</span> lineClosest(cv::Mat &amp;frame);</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keywordtype">void</span> detectThread();</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordtype">void</span> persistence();</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keywordtype">void</span> drawPred(<span class="keywordtype">int</span> classId, <span class="keywordtype">float</span> conf, <span class="keywordtype">int</span> left, <span class="keywordtype">int</span> top, <span class="keywordtype">int</span> right, <span class="keywordtype">int</span> bottom, cv::Mat &amp;frame);</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;};</div>
-<div class="ttc" id="aclassDetector_html"><div class="ttname"><a href="classDetector.html">Detector</a></div><div class="ttdef"><b>Definition:</b> Detector.h:13</div></div>
-<div class="ttc" id="aclassTurret_html"><div class="ttname"><a href="classTurret.html">Turret</a></div><div class="ttdef"><b>Definition:</b> Turret.cpp:13</div></div>
+<a href="Detector_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;opencv4/opencv2/opencv.hpp&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;opencv4/opencv2/dnn.hpp&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;opencv4/opencv2/imgproc.hpp&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;opencv4/opencv2/highgui.hpp&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &quot;Object.h&quot;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="Turret_8h.html">Turret.h</a>&quot;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;iostream&gt;</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;fstream&gt;</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;sstream&gt;</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;thread&gt;</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="classDetector.html">   23</a></span>&#160;<span class="keyword">class </span><a class="code" href="classDetector.html">Detector</a></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;{</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment">@brief Constructor for Detector.</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment">@param modelpath Path to the model file.</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment">@param objThreshold Object detection threshold.</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment">@param confThreshold Confidence threshold.</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment">@param nmsThreshold NMS threshold.</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment">@param real_time OpenCV VideoCapture object for real-time video capture.</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment">@param turret Pointer to the Turret object.</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment">*/</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <a class="code" href="classDetector.html">Detector</a>(std::string modelpath, <span class="keywordtype">float</span> objThreshold, <span class="keywordtype">float</span> confThreshold, <span class="keywordtype">float</span> nmsThreshold, cv::VideoCapture <a class="code" href="classDetector.html#addf12e0b4b4b07fe034d258db4c9ff36">real_time</a>, <a class="code" href="classTurret.html">Turret</a> *turret);</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classDetector.html#a2a9a4ca53f575a9e73555618e50ef224">detectT</a>();</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classDetector.html#ae0c0a72fef22d6521e82c18424a4dd04">detect</a>();</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keywordtype">float</span> <a class="code" href="classDetector.html#a3e45dc1715aceeac42a2dbe5594f2bc2">getOffsetX</a>();</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keywordtype">float</span> <a class="code" href="classDetector.html#a61e535935ccab24830265713ae73a906">getOffsetY</a>();</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classDetector.html#abe004377aef67ba682c8a0da636d43b5">show</a>();</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classDetector.html#a5ab979084e65b78a5d725d4fcd0949a2">showShooting</a>();</div>
+<div class="line"><a name="l00073"></a><span class="lineno"><a class="line" href="classDetector.html#a379e5cac91f1101ca82514565d53bca1">   73</a></span>&#160;    std::vector&lt;Object&gt; <a class="code" href="classDetector.html#a379e5cac91f1101ca82514565d53bca1">objs_vector</a>, objs_vector_old, objs_vector_filtered;</div>
+<div class="line"><a name="l00078"></a><span class="lineno"><a class="line" href="classDetector.html#addf12e0b4b4b07fe034d258db4c9ff36">   78</a></span>&#160;    cv::VideoCapture <a class="code" href="classDetector.html#addf12e0b4b4b07fe034d258db4c9ff36">real_time</a>;</div>
+<div class="line"><a name="l00083"></a><span class="lineno"><a class="line" href="classDetector.html#a96270e50553cc5c9169899bcdd305d61">   83</a></span>&#160;    cv::Mat <a class="code" href="classDetector.html#a96270e50553cc5c9169899bcdd305d61">frame</a>;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <a class="code" href="classTurret.html">Turret</a> *turret;</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <span class="keywordtype">void</span> turretCallback();</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> anchors[2][6] = {{12.64, 19.39, 37.88, 51.48, 55.71, 138.31}, {126.91, 78.23, 131.57, 214.55, 279.92, 258.87}};</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> stride[3] = {16.0, 32.0};</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">int</span> inpWidth = 352;</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">int</span> inpHeight = 352;</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">int</span> num_stage = 2;</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">int</span> anchor_num = 3;</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    <span class="keywordtype">float</span> objThreshold;</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    <span class="keywordtype">float</span> confThreshold;</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    <span class="keywordtype">float</span> nmsThreshold;</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    <span class="keywordtype">bool</span> manual = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    std::vector&lt;std::string&gt; classes;</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;    <span class="keyword">const</span> std::string classesFile = <span class="stringliteral">&quot;Garden_Defender/object_detection.txt&quot;</span>;</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;    <span class="keywordtype">int</span> num_class;</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;    cv::dnn::Net net;</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;    <span class="keywordtype">void</span> sortObjs();</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;    <span class="keywordtype">void</span> drawCrossair(cv::Mat &amp;<a class="code" href="classDetector.html#a96270e50553cc5c9169899bcdd305d61">frame</a>);</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;    <span class="keywordtype">void</span> lineClosest(cv::Mat &amp;<a class="code" href="classDetector.html#a96270e50553cc5c9169899bcdd305d61">frame</a>);</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;    <span class="keywordtype">void</span> detectThread();</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;    <span class="keywordtype">void</span> persistence();</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;    <span class="keywordtype">void</span> drawPred(<span class="keywordtype">int</span> classId, <span class="keywordtype">float</span> conf, <span class="keywordtype">int</span> left, <span class="keywordtype">int</span> top, <span class="keywordtype">int</span> right, <span class="keywordtype">int</span> bottom, cv::Mat &amp;<a class="code" href="classDetector.html#a96270e50553cc5c9169899bcdd305d61">frame</a>);</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;};</div>
+<div class="ttc" id="aTurret_8h_html"><div class="ttname"><a href="Turret_8h.html">Turret.h</a></div><div class="ttdoc">Class definition for the Turret class.</div></div>
+<div class="ttc" id="aclassDetector_html"><div class="ttname"><a href="classDetector.html">Detector</a></div><div class="ttdoc">Class that handles object detection using a neural network.</div><div class="ttdef"><b>Definition:</b> Detector.h:24</div></div>
+<div class="ttc" id="aclassDetector_html_a2a9a4ca53f575a9e73555618e50ef224"><div class="ttname"><a href="classDetector.html#a2a9a4ca53f575a9e73555618e50ef224">Detector::detectT</a></div><div class="ttdeci">void detectT()</div><div class="ttdoc">Method for detecting objects in a frame and showing them with a crosshair on the turret.</div><div class="ttdef"><b>Definition:</b> Detector.cpp:316</div></div>
+<div class="ttc" id="aclassDetector_html_a379e5cac91f1101ca82514565d53bca1"><div class="ttname"><a href="classDetector.html#a379e5cac91f1101ca82514565d53bca1">Detector::objs_vector</a></div><div class="ttdeci">std::vector&lt; Object &gt; objs_vector</div><div class="ttdoc">Vector of Object objects containing the detected objects.</div><div class="ttdef"><b>Definition:</b> Detector.h:73</div></div>
+<div class="ttc" id="aclassDetector_html_a3e45dc1715aceeac42a2dbe5594f2bc2"><div class="ttname"><a href="classDetector.html#a3e45dc1715aceeac42a2dbe5594f2bc2">Detector::getOffsetX</a></div><div class="ttdeci">float getOffsetX()</div><div class="ttdoc">Method for getting the x-offset of the detected object from the center of the frame.</div><div class="ttdef"><b>Definition:</b> Detector.cpp:183</div></div>
+<div class="ttc" id="aclassDetector_html_a5ab979084e65b78a5d725d4fcd0949a2"><div class="ttname"><a href="classDetector.html#a5ab979084e65b78a5d725d4fcd0949a2">Detector::showShooting</a></div><div class="ttdeci">void showShooting()</div><div class="ttdoc">Method for showing the frame with detected objects and the crosshair on the turret.</div><div class="ttdef"><b>Definition:</b> Detector.cpp:237</div></div>
+<div class="ttc" id="aclassDetector_html_a61e535935ccab24830265713ae73a906"><div class="ttname"><a href="classDetector.html#a61e535935ccab24830265713ae73a906">Detector::getOffsetY</a></div><div class="ttdeci">float getOffsetY()</div><div class="ttdoc">Method for getting the y-offset of the detected object from the center of the frame.</div><div class="ttdef"><b>Definition:</b> Detector.cpp:192</div></div>
+<div class="ttc" id="aclassDetector_html_a96270e50553cc5c9169899bcdd305d61"><div class="ttname"><a href="classDetector.html#a96270e50553cc5c9169899bcdd305d61">Detector::frame</a></div><div class="ttdeci">cv::Mat frame</div><div class="ttdoc">OpenCV Mat object containing the current frame.</div><div class="ttdef"><b>Definition:</b> Detector.h:83</div></div>
+<div class="ttc" id="aclassDetector_html_abe004377aef67ba682c8a0da636d43b5"><div class="ttname"><a href="classDetector.html#abe004377aef67ba682c8a0da636d43b5">Detector::show</a></div><div class="ttdeci">void show()</div><div class="ttdoc">Method for showing the frame with detected objects.</div><div class="ttdef"><b>Definition:</b> Detector.cpp:246</div></div>
+<div class="ttc" id="aclassDetector_html_addf12e0b4b4b07fe034d258db4c9ff36"><div class="ttname"><a href="classDetector.html#addf12e0b4b4b07fe034d258db4c9ff36">Detector::real_time</a></div><div class="ttdeci">cv::VideoCapture real_time</div><div class="ttdoc">OpenCV VideoCapture object for real-time video capture.</div><div class="ttdef"><b>Definition:</b> Detector.h:78</div></div>
+<div class="ttc" id="aclassDetector_html_ae0c0a72fef22d6521e82c18424a4dd04"><div class="ttname"><a href="classDetector.html#ae0c0a72fef22d6521e82c18424a4dd04">Detector::detect</a></div><div class="ttdeci">void detect()</div><div class="ttdoc">Method for detecting objects in a frame and showing them.</div><div class="ttdef"><b>Definition:</b> Detector.cpp:37</div></div>
+<div class="ttc" id="aclassTurret_html"><div class="ttname"><a href="classTurret.html">Turret</a></div><div class="ttdoc">Turret class definition.</div><div class="ttdef"><b>Definition:</b> Turret.cpp:13</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

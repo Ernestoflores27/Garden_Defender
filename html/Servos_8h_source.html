@@ -70,38 +70,42 @@ $(function() {
 <div class="title">Servos.h</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;PiPCA9685/PCA9685.h&gt;</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &lt;unistd.h&gt;</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno"><a class="line" href="classServos.html">    4</a></span>&#160;<span class="keyword">class </span><a class="code" href="classServos.html">Servos</a></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;{</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;    PiPCA9685::PCA9685 pca{};</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;    <span class="keywordtype">float</span> minPWM, maxPWM, minAngle, maxAngle;</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;    <a class="code" href="classServos.html">Servos</a>()</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    {</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    }</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <span class="keywordtype">void</span> servoInit(<span class="keywordtype">float</span> minPWM_, <span class="keywordtype">float</span> maxPWM_, <span class="keywordtype">float</span> minAngle_, <span class="keywordtype">float</span> maxAngle_)</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    {</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;        minPWM = minPWM_;</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;        maxPWM = maxPWM_;</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;        minAngle = minAngle_;</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        maxAngle = maxAngle_;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        pca.set_pwm_freq(50.0);</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    }</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keywordtype">void</span> servoMove(<span class="keywordtype">int</span> idx, <span class="keywordtype">float</span> angle)</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    {</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        <span class="keywordtype">float</span> pwm = mapAngleToPWM(angle);</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        pca.set_pwm(idx, 0, pwm);</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    }</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="keywordtype">float</span> mapAngleToPWM(<span class="keywordtype">float</span> angle)</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    {</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        <span class="keywordflow">return</span> minPWM + (((maxPWM - minPWM) / (maxAngle - minAngle)) * (angle - minAngle));</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    }</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;};</div>
-<div class="ttc" id="aclassServos_html"><div class="ttname"><a href="classServos.html">Servos</a></div><div class="ttdef"><b>Definition:</b> Servos.h:5</div></div>
+<a href="Servos_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160; </div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;PiPCA9685/PCA9685.h&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;unistd.h&gt;</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="classServos.html">   14</a></span>&#160;<span class="keyword">class </span><a class="code" href="classServos.html">Servos</a></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;{</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    PiPCA9685::PCA9685 pca{};</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    </div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keywordtype">float</span> minPWM, maxPWM, minAngle, maxAngle;</div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="classServos.html#a85ea161aaf5925b3797714b901f81f04">   24</a></span>&#160;    <a class="code" href="classServos.html#a85ea161aaf5925b3797714b901f81f04">Servos</a>()</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    {</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    }</div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="classServos.html#ae6fd3b02d54b9a443db1ee289f9574f2">   35</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classServos.html#ae6fd3b02d54b9a443db1ee289f9574f2">servoInit</a>(<span class="keywordtype">float</span> minPWM_, <span class="keywordtype">float</span> maxPWM_, <span class="keywordtype">float</span> minAngle_, <span class="keywordtype">float</span> maxAngle_)</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    {</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        minPWM = minPWM_;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        maxPWM = maxPWM_;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        minAngle = minAngle_;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        maxAngle = maxAngle_;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        pca.set_pwm_freq(50.0);</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    }</div>
+<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="classServos.html#aa11558c86fbadd7643aa71be87b76f72">   49</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classServos.html#aa11558c86fbadd7643aa71be87b76f72">servoMove</a>(<span class="keywordtype">int</span> idx, <span class="keywordtype">float</span> angle)</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    {</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        <span class="keywordtype">float</span> pwm = <a class="code" href="classServos.html#ade375cfa77b0fcb34b3d5300f2026a21">mapAngleToPWM</a>(angle);</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        pca.set_pwm(idx, 0, pwm);</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    }</div>
+<div class="line"><a name="l00061"></a><span class="lineno"><a class="line" href="classServos.html#ade375cfa77b0fcb34b3d5300f2026a21">   61</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="classServos.html#ade375cfa77b0fcb34b3d5300f2026a21">mapAngleToPWM</a>(<span class="keywordtype">float</span> angle)</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    {</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        <span class="keywordflow">return</span> minPWM + (((maxPWM - minPWM) / (maxAngle - minAngle)) * (angle - minAngle));</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    }</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;};</div>
+<div class="ttc" id="aclassServos_html"><div class="ttname"><a href="classServos.html">Servos</a></div><div class="ttdoc">A class to control servos using PCA9685 PWM driver.</div><div class="ttdef"><b>Definition:</b> Servos.h:15</div></div>
+<div class="ttc" id="aclassServos_html_a85ea161aaf5925b3797714b901f81f04"><div class="ttname"><a href="classServos.html#a85ea161aaf5925b3797714b901f81f04">Servos::Servos</a></div><div class="ttdeci">Servos()</div><div class="ttdoc">Default constructor.</div><div class="ttdef"><b>Definition:</b> Servos.h:24</div></div>
+<div class="ttc" id="aclassServos_html_aa11558c86fbadd7643aa71be87b76f72"><div class="ttname"><a href="classServos.html#aa11558c86fbadd7643aa71be87b76f72">Servos::servoMove</a></div><div class="ttdeci">void servoMove(int idx, float angle)</div><div class="ttdoc">Moves a servo to a given angle.</div><div class="ttdef"><b>Definition:</b> Servos.h:49</div></div>
+<div class="ttc" id="aclassServos_html_ade375cfa77b0fcb34b3d5300f2026a21"><div class="ttname"><a href="classServos.html#ade375cfa77b0fcb34b3d5300f2026a21">Servos::mapAngleToPWM</a></div><div class="ttdeci">float mapAngleToPWM(float angle)</div><div class="ttdoc">Maps an angle to PWM value.</div><div class="ttdef"><b>Definition:</b> Servos.h:61</div></div>
+<div class="ttc" id="aclassServos_html_ae6fd3b02d54b9a443db1ee289f9574f2"><div class="ttname"><a href="classServos.html#ae6fd3b02d54b9a443db1ee289f9574f2">Servos::servoInit</a></div><div class="ttdeci">void servoInit(float minPWM_, float maxPWM_, float minAngle_, float maxAngle_)</div><div class="ttdoc">Initializes the servos.</div><div class="ttdef"><b>Definition:</b> Servos.h:35</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

@@ -1,5 +1,20 @@
+/**
+
+@file Detector.cpp
+@brief Header file containing the declaration of the Detector class.
+*/
 #include "Detector.h"
 
+/*
+
+@brief Constructor for Detector.
+@param modelpath Path to the model file.
+@param objThreshold Object detection threshold.
+@param confThreshold Confidence threshold.
+@param nmsThreshold NMS threshold.
+@param real_time OpenCV VideoCapture object for real-time video capture.
+@param turret Pointer to the Turret object.
+*/
 Detector::Detector(std::string modelpath, float obj_Threshold, float conf_Threshold, float nms_Threshold, cv::VideoCapture real_time, Turret *turret_)
 {
 	this->real_time = real_time;
@@ -15,6 +30,10 @@ Detector::Detector(std::string modelpath, float obj_Threshold, float conf_Thresh
 	this->num_class = this->classes.size();
 	this->net = cv::dnn::readNet(modelpath);
 }
+	/**
+
+@brief Method for detecting objects in a frame and showing them.
+*/
 void Detector::detect()
 {
 	real_time.read(frame);
@@ -94,6 +113,9 @@ void Detector::detect()
 	if (manual == false)
 		turretCallback();
 }
+/**
+ * @brief Callback function to control the turret.
+ */
 void Detector::turretCallback()
 {
 	turret->explore();
@@ -153,11 +175,20 @@ void Detector::persistence()
 	objs_vector_old = objs_vector;
 }
 
+/**
+
+@brief Method for getting the x-offset of the detected object from the center of the frame.
+@return Float value of the x-offset.
+*/
 float Detector::getOffsetX()
 {
 	return this->objs_vector[0].offset_x;
 }
+	/**
 
+@brief Method for getting the y-offset of the detected object from the center of the frame.
+@return Float value of the y-offset.
+*/
 float Detector::getOffsetY()
 {
 	return this->objs_vector[0].offset_y;
@@ -199,12 +230,19 @@ void Detector::lineClosest(cv::Mat &frame)
 
 	line(frame, cv::Point(s.width / 2, s.height / 2), cv::Point(objs_vector[0].center_x, objs_vector[0].center_y), cv::Scalar(0, 255, 0), 2);
 }
+/**
 
+@brief Method for showing the frame with detected objects and the crosshair on the turret.
+*/
 void Detector::showShooting()
 {
 	putText(this->frame, "Shooting", cv::Point(objs_vector[0].x, objs_vector[0].y + 25), cv::FONT_HERSHEY_DUPLEX, 0.75, cv::Scalar(0, 0, 255), 1.5);
 }
 
+/**
+
+@brief Method for showing the frame with detected objects.
+*/
 void Detector::show()
 {
 	if (!frame.empty())
@@ -217,13 +255,13 @@ void Detector::show()
 		{
 			putText(this->frame, "Mode: Auto", cv::Point(10, 20), cv::FONT_HERSHEY_DUPLEX, 0.75, cv::Scalar(0, 0, 255), 1.5);
 			putText(this->frame, "To change modes press Q", cv::Point(10, 40), cv::FONT_HERSHEY_DUPLEX, 0.75, cv::Scalar(0, 0, 255), 1.5);
-			putText(this->frame, "To move use arrow keys", cv::Point(10, 60), cv::FONT_HERSHEY_DUPLEX, 0.75, cv::Scalar(0, 0, 255), 1.5);
-			putText(this->frame, "To shoot press the space key", cv::Point(10, 80), cv::FONT_HERSHEY_DUPLEX, 0.75, cv::Scalar(0, 0, 255), 1.5);
 		}
 		else
 		{
 			putText(this->frame, "Mode: Manual", cv::Point(10, 20), cv::FONT_HERSHEY_DUPLEX, 0.75, cv::Scalar(0, 0, 255), 1.5);
 			putText(this->frame, "To change modes press Q", cv::Point(10, 40), cv::FONT_HERSHEY_DUPLEX, 0.75, cv::Scalar(0, 0, 255), 1.5);
+			putText(this->frame, "To move use arrow keys", cv::Point(10, 60), cv::FONT_HERSHEY_DUPLEX, 0.75, cv::Scalar(0, 0, 255), 1.5);
+			putText(this->frame, "To shoot press the space key", cv::Point(10, 80), cv::FONT_HERSHEY_DUPLEX, 0.75, cv::Scalar(0, 0, 255), 1.5);
 		}
 
 		static const std::string kWinName = "Garden Defender";
@@ -271,6 +309,10 @@ void Detector::detectThread()
 		// run callback
 	}
 }
+	/**
+
+@brief Method for detecting objects in a frame and showing them with a crosshair on the turret.
+*/
 void Detector::detectT()
 {
 	std::thread t1(&Detector::detectThread, this);

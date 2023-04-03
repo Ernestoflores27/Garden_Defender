@@ -70,6 +70,11 @@ $(function() {
 <div class="title">Turret Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p><a class="el" href="classTurret.html" title="Turret class definition.">Turret</a> class definition.  
+ <a href="classTurret.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="Turret_8h_source.html">Turret.h</a>&gt;</code></p>
 <div class="dynheader">
 Collaboration diagram for Turret:</div>
 <div class="dyncontent">
@@ -120,47 +125,57 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>resetTime</b> ()</td>
 <tr class="memitem:a51d06c87fe2b16deb9cad1776a27057f"><td class="memItemLeft" align="right" valign="top"><a id="a51d06c87fe2b16deb9cad1776a27057f"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>release</b> ()</td></tr>
 <tr class="separator:a51d06c87fe2b16deb9cad1776a27057f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3ca924446931de785fe597e02f7a4b73"><td class="memItemLeft" align="right" valign="top"><a id="a3ca924446931de785fe597e02f7a4b73"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>Turret</b> (int GPIO_, int shootingLed_GPIO_, int lookingLed_GPIO_, int min_pitch_=-90, int max_pitch_=90, int min_yaw_=-45, int max_yaw_=30)</td></tr>
+<tr class="memitem:a3ca924446931de785fe597e02f7a4b73"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTurret.html#a3ca924446931de785fe597e02f7a4b73">Turret</a> (int GPIO_, int shootingLed_GPIO_, int lookingLed_GPIO_, int min_pitch_=-90, int max_pitch_=90, int min_yaw_=-45, int max_yaw_=30)</td></tr>
+<tr class="memdesc:a3ca924446931de785fe597e02f7a4b73"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for <a class="el" href="classTurret.html" title="Turret class definition.">Turret</a> class. Initializes the servo and GPIO pins for the turret and shooting LED. Sets the start times for shooting and exploring.  <a href="classTurret.html#a3ca924446931de785fe597e02f7a4b73">More...</a><br /></td></tr>
 <tr class="separator:a3ca924446931de785fe597e02f7a4b73"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3dbe4be4e82d9e32f4e0a6ed57e30b67"><td class="memItemLeft" align="right" valign="top"><a id="a3dbe4be4e82d9e32f4e0a6ed57e30b67"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>changePosition</b> (int pitch_, int yaw_)</td></tr>
+<tr class="memitem:a3dbe4be4e82d9e32f4e0a6ed57e30b67"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTurret.html#a3dbe4be4e82d9e32f4e0a6ed57e30b67">changePosition</a> (int pitch_, int yaw_)</td></tr>
+<tr class="memdesc:a3dbe4be4e82d9e32f4e0a6ed57e30b67"><td class="mdescLeft">&#160;</td><td class="mdescRight">Changes the pitch and yaw angles of the turret. Clamps the pitch and yaw angles to their respective minimum and maximum values.  <a href="classTurret.html#a3dbe4be4e82d9e32f4e0a6ed57e30b67">More...</a><br /></td></tr>
 <tr class="separator:a3dbe4be4e82d9e32f4e0a6ed57e30b67"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6dd9412fe37034b543eaa775088515c5"><td class="memItemLeft" align="right" valign="top"><a id="a6dd9412fe37034b543eaa775088515c5"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>movePitch</b> (float dir)</td></tr>
+<tr class="memitem:a6dd9412fe37034b543eaa775088515c5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTurret.html#a6dd9412fe37034b543eaa775088515c5">movePitch</a> (float dir)</td></tr>
+<tr class="memdesc:a6dd9412fe37034b543eaa775088515c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Moves the pitch angle of the turret by a certain amount. Clamps the pitch angle to its respective minimum and maximum values.  <a href="classTurret.html#a6dd9412fe37034b543eaa775088515c5">More...</a><br /></td></tr>
 <tr class="separator:a6dd9412fe37034b543eaa775088515c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab7d9e28407b6572a5d69add76dc7c2ed"><td class="memItemLeft" align="right" valign="top"><a id="ab7d9e28407b6572a5d69add76dc7c2ed"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>moveYaw</b> (float dir)</td></tr>
+<tr class="memitem:ab7d9e28407b6572a5d69add76dc7c2ed"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTurret.html#ab7d9e28407b6572a5d69add76dc7c2ed">moveYaw</a> (float dir)</td></tr>
+<tr class="memdesc:ab7d9e28407b6572a5d69add76dc7c2ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Moves the yaw angle of the turret by a certain amount. Clamps the yaw angle to its respective minimum and maximum values.  <a href="classTurret.html#ab7d9e28407b6572a5d69add76dc7c2ed">More...</a><br /></td></tr>
 <tr class="separator:ab7d9e28407b6572a5d69add76dc7c2ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5e23fb0d6a5667bfb14e814fe6800007"><td class="memItemLeft" align="right" valign="top"><a id="a5e23fb0d6a5667bfb14e814fe6800007"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>moveTurret</b> ()</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTurret.html#a5e23fb0d6a5667bfb14e814fe6800007">moveTurret</a> ()</td></tr>
+<tr class="memdesc:a5e23fb0d6a5667bfb14e814fe6800007"><td class="mdescLeft">&#160;</td><td class="mdescRight">Moves the turret to its new pitch and yaw angles. <br /></td></tr>
 <tr class="separator:a5e23fb0d6a5667bfb14e814fe6800007"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af88472151284540ae18a1365b02cf811"><td class="memItemLeft" align="right" valign="top"><a id="af88472151284540ae18a1365b02cf811"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>moveT</b> ()</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTurret.html#af88472151284540ae18a1365b02cf811">moveT</a> ()</td></tr>
+<tr class="memdesc:af88472151284540ae18a1365b02cf811"><td class="mdescLeft">&#160;</td><td class="mdescRight">Moves the turret to its new pitch and yaw angles in a separate thread. <br /></td></tr>
 <tr class="separator:af88472151284540ae18a1365b02cf811"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a16946e3e3c82729d222d89c43a000b81"><td class="memItemLeft" align="right" valign="top"><a id="a16946e3e3c82729d222d89c43a000b81"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>moveThread</b> ()</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTurret.html#a16946e3e3c82729d222d89c43a000b81">moveThread</a> ()</td></tr>
+<tr class="memdesc:a16946e3e3c82729d222d89c43a000b81"><td class="mdescLeft">&#160;</td><td class="mdescRight">Thread function for moving the turret. <br /></td></tr>
 <tr class="separator:a16946e3e3c82729d222d89c43a000b81"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad68c2922e7abdde7ae30dd0ac715afbf"><td class="memItemLeft" align="right" valign="top"><a id="ad68c2922e7abdde7ae30dd0ac715afbf"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>shoot</b> ()</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTurret.html#ad68c2922e7abdde7ae30dd0ac715afbf">shoot</a> ()</td></tr>
+<tr class="memdesc:ad68c2922e7abdde7ae30dd0ac715afbf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shoots the turret by activating the shooting relay. <br /></td></tr>
 <tr class="separator:ad68c2922e7abdde7ae30dd0ac715afbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aba1f294ddaaad65f5816ec1c2b195856"><td class="memItemLeft" align="right" valign="top"><a id="aba1f294ddaaad65f5816ec1c2b195856"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>shootThread</b> ()</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTurret.html#aba1f294ddaaad65f5816ec1c2b195856">shootThread</a> ()</td></tr>
+<tr class="memdesc:aba1f294ddaaad65f5816ec1c2b195856"><td class="mdescLeft">&#160;</td><td class="mdescRight">Thread function for Shooting the turret by activating the shooting relay. <br /></td></tr>
 <tr class="separator:aba1f294ddaaad65f5816ec1c2b195856"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a404d9fd5f0f146495d92a47da59bc339"><td class="memItemLeft" align="right" valign="top"><a id="a404d9fd5f0f146495d92a47da59bc339"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>explore</b> ()</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTurret.html#a404d9fd5f0f146495d92a47da59bc339">explore</a> ()</td></tr>
+<tr class="memdesc:a404d9fd5f0f146495d92a47da59bc339"><td class="mdescLeft">&#160;</td><td class="mdescRight">To search where there is no detection. <br /></td></tr>
 <tr class="separator:a404d9fd5f0f146495d92a47da59bc339"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac247e4abb214b55f5fd108fcd4a7359b"><td class="memItemLeft" align="right" valign="top"><a id="ac247e4abb214b55f5fd108fcd4a7359b"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>turretTerminate</b> ()</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTurret.html#ac247e4abb214b55f5fd108fcd4a7359b">turretTerminate</a> ()</td></tr>
+<tr class="memdesc:ac247e4abb214b55f5fd108fcd4a7359b"><td class="mdescLeft">&#160;</td><td class="mdescRight">To terminate the turret. <br /></td></tr>
 <tr class="separator:ac247e4abb214b55f5fd108fcd4a7359b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2e0ec8c66d827b64847cb93512d83393"><td class="memItemLeft" align="right" valign="top"><a id="a2e0ec8c66d827b64847cb93512d83393"></a>
-float&#160;</td><td class="memItemRight" valign="bottom"><b>clamp</b> (float value, float min, float max)</td></tr>
+float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTurret.html#a2e0ec8c66d827b64847cb93512d83393">clamp</a> (float value, float min, float max)</td></tr>
+<tr class="memdesc:a2e0ec8c66d827b64847cb93512d83393"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clamp value. <br /></td></tr>
 <tr class="separator:a2e0ec8c66d827b64847cb93512d83393"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5d3970b79573cbfd736863eaf45eb9b2"><td class="memItemLeft" align="right" valign="top"><a id="a5d3970b79573cbfd736863eaf45eb9b2"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>resetTime</b> ()</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTurret.html#a5d3970b79573cbfd736863eaf45eb9b2">resetTime</a> ()</td></tr>
+<tr class="memdesc:a5d3970b79573cbfd736863eaf45eb9b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">reset exploring time. <br /></td></tr>
 <tr class="separator:a5d3970b79573cbfd736863eaf45eb9b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a51d06c87fe2b16deb9cad1776a27057f"><td class="memItemLeft" align="right" valign="top"><a id="a51d06c87fe2b16deb9cad1776a27057f"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>release</b> ()</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTurret.html#a51d06c87fe2b16deb9cad1776a27057f">release</a> ()</td></tr>
+<tr class="memdesc:a51d06c87fe2b16deb9cad1776a27057f"><td class="mdescLeft">&#160;</td><td class="mdescRight">release resources. <br /></td></tr>
 <tr class="separator:a51d06c87fe2b16deb9cad1776a27057f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
@@ -217,6 +232,203 @@ time_t&#160;</td><td class="memItemRight" valign="bottom"><b>start_shooting_time
 time_t&#160;</td><td class="memItemRight" valign="bottom"><b>start_exploring_time</b></td></tr>
 <tr class="separator:a2e4fb3ece911a153659d5996fd4834f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p><a class="el" href="classTurret.html" title="Turret class definition.">Turret</a> class definition. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a3ca924446931de785fe597e02f7a4b73"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3ca924446931de785fe597e02f7a4b73">&#9670;&nbsp;</a></span>Turret()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Turret::Turret </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>GPIO_</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>shootingLed_GPIO_</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>lookingLed_GPIO_</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>min_pitch_</em> = <code>-90</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>max_pitch_</em> = <code>90</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>min_yaw_</em> = <code>-45</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>max_yaw_</em> = <code>30</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Constructor for <a class="el" href="classTurret.html" title="Turret class definition.">Turret</a> class. Initializes the servo and GPIO pins for the turret and shooting LED. Sets the start times for shooting and exploring. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">GPIO_</td><td>GPIO pin number for the turret. </td></tr>
+    <tr><td class="paramname">shootingLed_GPIO_</td><td>GPIO pin number for the shooting LED. </td></tr>
+    <tr><td class="paramname">lookingLed_GPIO_</td><td>GPIO pin number for the looking LED. </td></tr>
+    <tr><td class="paramname">min_pitch_</td><td>Minimum pitch angle. </td></tr>
+    <tr><td class="paramname">max_pitch_</td><td>Maximum pitch angle. </td></tr>
+    <tr><td class="paramname">min_yaw_</td><td>Minimum yaw angle. </td></tr>
+    <tr><td class="paramname">max_yaw_</td><td>Maximum yaw angle. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a3dbe4be4e82d9e32f4e0a6ed57e30b67"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3dbe4be4e82d9e32f4e0a6ed57e30b67">&#9670;&nbsp;</a></span>changePosition()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Turret::changePosition </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>pitch_</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>yaw_</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Changes the pitch and yaw angles of the turret. Clamps the pitch and yaw angles to their respective minimum and maximum values. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pitch_</td><td>New pitch angle. </td></tr>
+    <tr><td class="paramname">yaw_</td><td>New yaw angle. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a6dd9412fe37034b543eaa775088515c5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6dd9412fe37034b543eaa775088515c5">&#9670;&nbsp;</a></span>movePitch()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Turret::movePitch </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>dir</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Moves the pitch angle of the turret by a certain amount. Clamps the pitch angle to its respective minimum and maximum values. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dir</td><td>Direction to move the pitch angle. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ab7d9e28407b6572a5d69add76dc7c2ed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab7d9e28407b6572a5d69add76dc7c2ed">&#9670;&nbsp;</a></span>moveYaw()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Turret::moveYaw </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>dir</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Moves the yaw angle of the turret by a certain amount. Clamps the yaw angle to its respective minimum and maximum values. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dir</td><td>Direction to move the yaw angle. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>Objects/Turret.cpp</li>
 <li>Objects/<a class="el" href="Turret_8h_source.html">Turret.h</a></li>

@@ -1,35 +1,42 @@
 \hypertarget{classDetector}{}\doxysection{Detector Class Reference}
 \label{classDetector}\index{Detector@{Detector}}
+
+
+Class that handles object detection using a neural network.  
+
+
+
+
+{\ttfamily \#include $<$Detector.\+h$>$}
+
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{classDetector_a614a198aac6cdaaa16ec8d1e90bef2da}\label{classDetector_a614a198aac6cdaaa16ec8d1e90bef2da}} 
-{\bfseries Detector} (std\+::string modelpath, float obj\+Threshold, float conf\+Threshold, float nms\+Threshold, cv\+::\+Video\+Capture real\+\_\+time, \mbox{\hyperlink{classTurret}{Turret}} $\ast$turret)
+{\bfseries Detector} (std\+::string modelpath, float obj\+Threshold, float conf\+Threshold, float nms\+Threshold, cv\+::\+Video\+Capture \mbox{\hyperlink{classDetector_addf12e0b4b4b07fe034d258db4c9ff36}{real\+\_\+time}}, \mbox{\hyperlink{classTurret}{Turret}} $\ast$turret)
 \item 
 \mbox{\Hypertarget{classDetector_a2a9a4ca53f575a9e73555618e50ef224}\label{classDetector_a2a9a4ca53f575a9e73555618e50ef224}} 
-void {\bfseries detectT} ()
-\item 
+void \mbox{\hyperlink{classDetector_a2a9a4ca53f575a9e73555618e50ef224}{detectT}} ()
+\begin{DoxyCompactList}\small\item\em Method for detecting objects in a frame and showing them with a crosshair on the turret. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classDetector_ae0c0a72fef22d6521e82c18424a4dd04}\label{classDetector_ae0c0a72fef22d6521e82c18424a4dd04}} 
-void {\bfseries detect} ()
-\item 
-\mbox{\Hypertarget{classDetector_a3e45dc1715aceeac42a2dbe5594f2bc2}\label{classDetector_a3e45dc1715aceeac42a2dbe5594f2bc2}} 
-float {\bfseries get\+OffsetX} ()
-\item 
-\mbox{\Hypertarget{classDetector_a61e535935ccab24830265713ae73a906}\label{classDetector_a61e535935ccab24830265713ae73a906}} 
-float {\bfseries get\+OffsetY} ()
-\item 
+void \mbox{\hyperlink{classDetector_ae0c0a72fef22d6521e82c18424a4dd04}{detect}} ()
+\begin{DoxyCompactList}\small\item\em Method for detecting objects in a frame and showing them. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{classDetector_a3e45dc1715aceeac42a2dbe5594f2bc2}{get\+OffsetX}} ()
+\begin{DoxyCompactList}\small\item\em Method for getting the x-\/offset of the detected object from the center of the frame. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{classDetector_a61e535935ccab24830265713ae73a906}{get\+OffsetY}} ()
+\begin{DoxyCompactList}\small\item\em Method for getting the y-\/offset of the detected object from the center of the frame. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classDetector_abe004377aef67ba682c8a0da636d43b5}\label{classDetector_abe004377aef67ba682c8a0da636d43b5}} 
-void {\bfseries show} ()
-\item 
+void \mbox{\hyperlink{classDetector_abe004377aef67ba682c8a0da636d43b5}{show}} ()
+\begin{DoxyCompactList}\small\item\em Method for showing the frame with detected objects. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classDetector_a5ab979084e65b78a5d725d4fcd0949a2}\label{classDetector_a5ab979084e65b78a5d725d4fcd0949a2}} 
-void {\bfseries show\+Shooting} ()
-\end{DoxyCompactItemize}
+void \mbox{\hyperlink{classDetector_a5ab979084e65b78a5d725d4fcd0949a2}{show\+Shooting}} ()
+\begin{DoxyCompactList}\small\item\em Method for showing the frame with detected objects and the crosshair on the turret. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{classDetector_a379e5cac91f1101ca82514565d53bca1}\label{classDetector_a379e5cac91f1101ca82514565d53bca1}} 
-std\+::vector$<$ \mbox{\hyperlink{classObject}{Object}} $>$ {\bfseries objs\+\_\+vector}
-\item 
+std\+::vector$<$ \mbox{\hyperlink{classObject}{Object}} $>$ \mbox{\hyperlink{classDetector_a379e5cac91f1101ca82514565d53bca1}{objs\+\_\+vector}}
+\begin{DoxyCompactList}\small\item\em Vector of \mbox{\hyperlink{classObject}{Object}} objects containing the detected objects. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classDetector_ab14fd2343c66f2e9a440a963631d9211}\label{classDetector_ab14fd2343c66f2e9a440a963631d9211}} 
 std\+::vector$<$ \mbox{\hyperlink{classObject}{Object}} $>$ {\bfseries objs\+\_\+vector\+\_\+old}
 \item 
@@ -37,14 +44,46 @@ std\+::vector$<$ \mbox{\hyperlink{classObject}{Object}} $>$ {\bfseries objs\+\_\
 std\+::vector$<$ \mbox{\hyperlink{classObject}{Object}} $>$ {\bfseries objs\+\_\+vector\+\_\+filtered}
 \item 
 \mbox{\Hypertarget{classDetector_addf12e0b4b4b07fe034d258db4c9ff36}\label{classDetector_addf12e0b4b4b07fe034d258db4c9ff36}} 
-cv\+::\+Video\+Capture {\bfseries real\+\_\+time}
-\item 
+cv\+::\+Video\+Capture \mbox{\hyperlink{classDetector_addf12e0b4b4b07fe034d258db4c9ff36}{real\+\_\+time}}
+\begin{DoxyCompactList}\small\item\em Open\+CV Video\+Capture object for real-\/time video capture. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classDetector_a96270e50553cc5c9169899bcdd305d61}\label{classDetector_a96270e50553cc5c9169899bcdd305d61}} 
-cv\+::\+Mat {\bfseries frame}
-\end{DoxyCompactItemize}
+cv\+::\+Mat \mbox{\hyperlink{classDetector_a96270e50553cc5c9169899bcdd305d61}{frame}}
+\begin{DoxyCompactList}\small\item\em Open\+CV Mat object containing the current frame. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Class that handles object detection using a neural network. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classDetector_a3e45dc1715aceeac42a2dbe5594f2bc2}\label{classDetector_a3e45dc1715aceeac42a2dbe5594f2bc2}} 
+\index{Detector@{Detector}!getOffsetX@{getOffsetX}}
+\index{getOffsetX@{getOffsetX}!Detector@{Detector}}
+\doxysubsubsection{\texorpdfstring{getOffsetX()}{getOffsetX()}}
+{\footnotesize\ttfamily float Detector\+::get\+OffsetX (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Method for getting the x-\/offset of the detected object from the center of the frame. 
+
+\begin{DoxyReturn}{Returns}
+Float value of the x-\/offset. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classDetector_a61e535935ccab24830265713ae73a906}\label{classDetector_a61e535935ccab24830265713ae73a906}} 
+\index{Detector@{Detector}!getOffsetY@{getOffsetY}}
+\index{getOffsetY@{getOffsetY}!Detector@{Detector}}
+\doxysubsubsection{\texorpdfstring{getOffsetY()}{getOffsetY()}}
+{\footnotesize\ttfamily float Detector\+::get\+OffsetY (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Method for getting the y-\/offset of the detected object from the center of the frame. 
+
+\begin{DoxyReturn}{Returns}
+Float value of the y-\/offset. 
+\end{DoxyReturn}
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-Objects/Detector.\+h\item 
-Objects/Detector.\+cpp\end{DoxyCompactItemize}
+Objects/\mbox{\hyperlink{Detector_8h}{Detector.\+h}}\item 
+Objects/\mbox{\hyperlink{Detector_8cpp}{Detector.\+cpp}}\end{DoxyCompactItemize}
