@@ -3,7 +3,7 @@ var indexSectionsWithContent =
   0: "cdefgmorst",
   1: "cdost",
   2: "cdst",
-  3: "cdegmrst",
+  3: "cdegmorst",
   4: "for",
   5: "g"
 };
