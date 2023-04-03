@@ -1,0 +1,110 @@
+\hypertarget{classTurret}{}\doxysection{Turret Class Reference}
+\label{classTurret}\index{Turret@{Turret}}
+
+
+Collaboration diagram for Turret\+:
+% FIG 0
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classTurret_a3ca924446931de785fe597e02f7a4b73}\label{classTurret_a3ca924446931de785fe597e02f7a4b73}} 
+{\bfseries Turret} (int GPIO\+\_\+, int shooting\+Led\+\_\+\+GPIO\+\_\+, int looking\+Led\+\_\+\+GPIO\+\_\+, int min\+\_\+pitch\+\_\+=-\/90, int max\+\_\+pitch\+\_\+=90, int min\+\_\+yaw\+\_\+=-\/45, int max\+\_\+yaw\+\_\+=30)
+\item 
+\mbox{\Hypertarget{classTurret_a3dbe4be4e82d9e32f4e0a6ed57e30b67}\label{classTurret_a3dbe4be4e82d9e32f4e0a6ed57e30b67}} 
+void {\bfseries change\+Position} (int pitch\+\_\+, int yaw\+\_\+)
+\item 
+\mbox{\Hypertarget{classTurret_a6dd9412fe37034b543eaa775088515c5}\label{classTurret_a6dd9412fe37034b543eaa775088515c5}} 
+void {\bfseries move\+Pitch} (float dir)
+\item 
+\mbox{\Hypertarget{classTurret_ab7d9e28407b6572a5d69add76dc7c2ed}\label{classTurret_ab7d9e28407b6572a5d69add76dc7c2ed}} 
+void {\bfseries move\+Yaw} (float dir)
+\item 
+\mbox{\Hypertarget{classTurret_a5e23fb0d6a5667bfb14e814fe6800007}\label{classTurret_a5e23fb0d6a5667bfb14e814fe6800007}} 
+void {\bfseries move\+Turret} ()
+\item 
+\mbox{\Hypertarget{classTurret_af88472151284540ae18a1365b02cf811}\label{classTurret_af88472151284540ae18a1365b02cf811}} 
+void {\bfseries moveT} ()
+\item 
+\mbox{\Hypertarget{classTurret_a16946e3e3c82729d222d89c43a000b81}\label{classTurret_a16946e3e3c82729d222d89c43a000b81}} 
+void {\bfseries move\+Thread} ()
+\item 
+\mbox{\Hypertarget{classTurret_ad68c2922e7abdde7ae30dd0ac715afbf}\label{classTurret_ad68c2922e7abdde7ae30dd0ac715afbf}} 
+void {\bfseries shoot} ()
+\item 
+\mbox{\Hypertarget{classTurret_aba1f294ddaaad65f5816ec1c2b195856}\label{classTurret_aba1f294ddaaad65f5816ec1c2b195856}} 
+void {\bfseries shoot\+Thread} ()
+\item 
+\mbox{\Hypertarget{classTurret_a404d9fd5f0f146495d92a47da59bc339}\label{classTurret_a404d9fd5f0f146495d92a47da59bc339}} 
+void {\bfseries explore} ()
+\item 
+\mbox{\Hypertarget{classTurret_ac247e4abb214b55f5fd108fcd4a7359b}\label{classTurret_ac247e4abb214b55f5fd108fcd4a7359b}} 
+void {\bfseries turret\+Terminate} ()
+\item 
+\mbox{\Hypertarget{classTurret_a2e0ec8c66d827b64847cb93512d83393}\label{classTurret_a2e0ec8c66d827b64847cb93512d83393}} 
+float {\bfseries clamp} (float value, float min, float max)
+\item 
+\mbox{\Hypertarget{classTurret_a5d3970b79573cbfd736863eaf45eb9b2}\label{classTurret_a5d3970b79573cbfd736863eaf45eb9b2}} 
+void {\bfseries reset\+Time} ()
+\item 
+\mbox{\Hypertarget{classTurret_a51d06c87fe2b16deb9cad1776a27057f}\label{classTurret_a51d06c87fe2b16deb9cad1776a27057f}} 
+void {\bfseries release} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classTurret_a88e4e30bfc2547b3758fe3560eb92eac}\label{classTurret_a88e4e30bfc2547b3758fe3560eb92eac}} 
+int {\bfseries Turret\+\_\+\+GPIO}
+\item 
+\mbox{\Hypertarget{classTurret_a68bf4516ef8c7896c49eac7b9b3c39d7}\label{classTurret_a68bf4516ef8c7896c49eac7b9b3c39d7}} 
+int {\bfseries shooting\+Led\+\_\+\+GPIO}
+\item 
+\mbox{\Hypertarget{classTurret_af8f2fcf55923d24e6d975578d1127e6c}\label{classTurret_af8f2fcf55923d24e6d975578d1127e6c}} 
+int {\bfseries looking\+Led\+\_\+\+GPIO}
+\item 
+\mbox{\Hypertarget{classTurret_aa279ef8f040463f4f4d28dfeb30171b2}\label{classTurret_aa279ef8f040463f4f4d28dfeb30171b2}} 
+float {\bfseries pitch}
+\item 
+\mbox{\Hypertarget{classTurret_a9b29dd4a9858cc463a5697e913188607}\label{classTurret_a9b29dd4a9858cc463a5697e913188607}} 
+float {\bfseries yaw}
+\item 
+\mbox{\Hypertarget{classTurret_a2a47e239c684154d13f1315c166f92d8}\label{classTurret_a2a47e239c684154d13f1315c166f92d8}} 
+float {\bfseries min\+\_\+pitch}
+\item 
+\mbox{\Hypertarget{classTurret_a4220a6f52c1ab3af2a0c9dd5aa3a6aa7}\label{classTurret_a4220a6f52c1ab3af2a0c9dd5aa3a6aa7}} 
+float {\bfseries max\+\_\+pitch}
+\item 
+\mbox{\Hypertarget{classTurret_a491c5f5f2bc7ee2eae8efa849dd7ddd0}\label{classTurret_a491c5f5f2bc7ee2eae8efa849dd7ddd0}} 
+float {\bfseries min\+\_\+yaw}
+\item 
+\mbox{\Hypertarget{classTurret_a5df9976461ad8ffe59e171cc5557a2d8}\label{classTurret_a5df9976461ad8ffe59e171cc5557a2d8}} 
+float {\bfseries max\+\_\+yaw}
+\item 
+\mbox{\Hypertarget{classTurret_aca34e3b728b58fd12b03aa8528db63e5}\label{classTurret_aca34e3b728b58fd12b03aa8528db63e5}} 
+float {\bfseries old\+\_\+pitch} = 0
+\item 
+\mbox{\Hypertarget{classTurret_adb2d958a1f1f1f9517f40679730247f7}\label{classTurret_adb2d958a1f1f1f9517f40679730247f7}} 
+float {\bfseries old\+\_\+yaw} = 0
+\item 
+\mbox{\Hypertarget{classTurret_a0ff6c489ebdafe282e3da0f87bd258a3}\label{classTurret_a0ff6c489ebdafe282e3da0f87bd258a3}} 
+float {\bfseries new\+\_\+pitch} = 0
+\item 
+\mbox{\Hypertarget{classTurret_aed17e00f4e3f2a4edb81c34f80ee968f}\label{classTurret_aed17e00f4e3f2a4edb81c34f80ee968f}} 
+float {\bfseries new\+\_\+yaw} = 0
+\item 
+\mbox{\Hypertarget{classTurret_a5b565e98e943b84f61b29559c7704a71}\label{classTurret_a5b565e98e943b84f61b29559c7704a71}} 
+float {\bfseries dir} = 5
+\item 
+\mbox{\Hypertarget{classTurret_ab606589754b06b266e7de69ccd94f672}\label{classTurret_ab606589754b06b266e7de69ccd94f672}} 
+\mbox{\hyperlink{classServos}{Servos}} {\bfseries servos}
+\item 
+\mbox{\Hypertarget{classTurret_a100a89450219eeef808f76c75104f0fe}\label{classTurret_a100a89450219eeef808f76c75104f0fe}} 
+time\+\_\+t {\bfseries start\+\_\+shooting\+\_\+time}
+\item 
+\mbox{\Hypertarget{classTurret_a2e4fb3ece911a153659d5996fd4834f7}\label{classTurret_a2e4fb3ece911a153659d5996fd4834f7}} 
+time\+\_\+t {\bfseries start\+\_\+exploring\+\_\+time}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Objects/Turret.\+h\end{DoxyCompactItemize}
