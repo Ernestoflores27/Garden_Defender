@@ -5,7 +5,7 @@
 
 int main()
 {
-        // Declare variable video stream (type: matrix from OpenCV library)
+        //! Declare variable video stream (type: matrix from OpenCV library)
         cv::Mat video_stream;
         Camera cam1(640, 480);
         cv::VideoCapture real_time = cam1.getVideoCapture();
