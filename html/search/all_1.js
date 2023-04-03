@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['detector_2',['Detector',['../classDetector.html',1,'']]]
+  ['detector_3',['Detector',['../classDetector.html',1,'']]]
 ];

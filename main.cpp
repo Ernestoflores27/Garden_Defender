@@ -1,5 +1,5 @@
 #include "Objects/Camera.h"
-#include "Objects/Detector.h"
+#include "Objects/Detector.cpp"
 #include <opencv4/opencv2/opencv.hpp>
 #include <unistd.h>
 
