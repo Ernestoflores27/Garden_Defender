@@ -27,6 +27,7 @@ One solution to deter these “unwanted guest” is by shooting at them with a w
     Robot will continuously move web cam left and right to maximise the field of view when an unwanted guest not detected.
     
 Please, watch our video:
+
 [![Garden_Defender](https://img.youtube.com/vi/-97-if4tLNQ/0.jpg)](https://www.youtube.com/watch?v=-97-if4tLNQ)
 
 # Documentation
