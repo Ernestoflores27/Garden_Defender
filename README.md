@@ -1,6 +1,4 @@
-# Garden_Defender
-
-![Garden Defender Logo](https://user-images.githubusercontent.com/56697327/229611357-d4004de5-1c50-4bf8-9a71-7ab838b35830.png)
+# Garden_Defender   ![Garden Defender Logo](https://user-images.githubusercontent.com/56697327/229754456-5e34f1b4-b3b8-435d-b763-7635a71a4984.png)
 
 # Description
 
