@@ -12,17 +12,11 @@ One solution to deter these “unwanted guest” is by shooting at them with a w
 
 ## Features
 
-- Detect unwanted guests
+- Detect unwanted guests: OpenCV and a deep learning algorithm “YOLO” was used for object detection. 
     
-    OpenCV and a deep learning algorithm “YOLO” was used for object detection. 
+- Aim and shoot: When an unwanted guest is detected will aim and shoot
     
-- Aim and shoot
-    
-    When an unwanted guest is detected will aim and shoot
-    
-- Garden surveillance - large field of view
-    
-    Robot will continuously move web cam left and right to maximise the field of view when an unwanted guest not detected.
+- Garden surveillance - large field of view: Robot will continuously move web cam left and right to maximise the field of view when an unwanted guest not detected.
     
 Please, watch our video:
 
