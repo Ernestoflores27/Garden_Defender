@@ -7,8 +7,8 @@
 #include <opencv4/opencv2/dnn.hpp>
 #include <opencv4/opencv2/imgproc.hpp>
 #include <opencv4/opencv2/highgui.hpp>
-#include "Object.h"
-#include "Turret.h"
+#include "Object.cpp"
+#include "Turret.cpp"
 #include <iostream>
 #include <fstream>
 #include <sstream>
