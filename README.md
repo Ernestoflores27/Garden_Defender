@@ -130,8 +130,23 @@ sudo apt-get install libxvidcore-dev libx264-dev
 cd ~
 echo 'export LD_LIBRARY_PATH=/opt/opencv-4.1.0/lib:$LD_LIBRARY_PATH' >> .bashrc. .bashrc
 ```
-
 8.-Clone config file:
+```bash
+cd ~
+echo 'export LD_LIBRARY_PATH=/opt/opencv-4.1.0/lib:$LD_LIBRARY_PATH' >> .bashrc. .bashrc
+```
+
+Clone this repo using 
+```bash
+git clone https://github.com/Ernestoflores27/Garden_Defender.git
+```
+Build using cmake
+```bash
+cd Garden_Defender
+make
+```
+
+
 
 # Build
 For full building instructions go to:
