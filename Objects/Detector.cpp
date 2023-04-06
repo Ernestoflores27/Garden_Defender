@@ -30,9 +30,9 @@ Detector::Detector(std::string modelpath, float obj_Threshold, float conf_Thresh
 	this->num_class = this->classes.size();
 	this->net = cv::dnn::readNet(modelpath);
 }
-	/**
+/**
 
-@brief Method for detecting objects in a frame and showing them.
+@brief Method for detecting objects in a frame and showing them. Performs non-maximum suppression to eliminate redundant overlapping boxes with lower confidences. Draws predicted bounding boxes on the frame and saves them to the vector.
 */
 void Detector::detect()
 {
@@ -114,7 +114,7 @@ void Detector::detect()
 		turretCallback();
 }
 /**
- * @brief Callback function to control the turret.
+ * @brief Callback function to control the turret. Calculates the horizontal and vertical errors between the center of the frame and the center of the first object in objs_vector. Calls the Turret::move() method to move the turret in the direction of the object.
  */
 void Detector::turretCallback()
 {
@@ -136,6 +136,10 @@ void Detector::turretCallback()
 		}
 	}
 }
+/**
+
+@brief Method for getting the x-offset of the detected object from the center of the frame.
+*/
 void Detector::persistence()
 {
 	if (objs_vector.empty())

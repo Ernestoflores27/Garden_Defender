@@ -18,7 +18,6 @@ Class that handles object detection using a neural network.
 \mbox{\Hypertarget{classDetector_a2a9a4ca53f575a9e73555618e50ef224}\label{classDetector_a2a9a4ca53f575a9e73555618e50ef224}} 
 void \mbox{\hyperlink{classDetector_a2a9a4ca53f575a9e73555618e50ef224}{detectT}} ()
 \begin{DoxyCompactList}\small\item\em Method for detecting objects in a frame and showing them with a crosshair on the turret. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classDetector_ae0c0a72fef22d6521e82c18424a4dd04}\label{classDetector_ae0c0a72fef22d6521e82c18424a4dd04}} 
 void \mbox{\hyperlink{classDetector_ae0c0a72fef22d6521e82c18424a4dd04}{detect}} ()
 \begin{DoxyCompactList}\small\item\em Method for detecting objects in a frame and showing them. \end{DoxyCompactList}\item 
 float \mbox{\hyperlink{classDetector_a3e45dc1715aceeac42a2dbe5594f2bc2}{get\+OffsetX}} ()
@@ -55,7 +54,17 @@ cv\+::\+Mat \mbox{\hyperlink{classDetector_a96270e50553cc5c9169899bcdd305d61}{fr
 Class that handles object detection using a neural network. 
 
 \doxysubsection{Member Function Documentation}
-\mbox{\Hypertarget{classDetector_a3e45dc1715aceeac42a2dbe5594f2bc2}\label{classDetector_a3e45dc1715aceeac42a2dbe5594f2bc2}} 
+\mbox{\Hypertarget{classDetector_ae0c0a72fef22d6521e82c18424a4dd04}\label{classDetector_ae0c0a72fef22d6521e82c18424a4dd04}} 
+\index{Detector@{Detector}!detect@{detect}}
+\index{detect@{detect}!Detector@{Detector}}
+\doxysubsubsection{\texorpdfstring{detect()}{detect()}}
+{\footnotesize\ttfamily void Detector\+::detect (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Method for detecting objects in a frame and showing them. 
+
+Method for detecting objects in a frame and showing them. Performs non-\/maximum suppression to eliminate redundant overlapping boxes with lower confidences. Draws predicted bounding boxes on the frame and saves them to the vector. \mbox{\Hypertarget{classDetector_a3e45dc1715aceeac42a2dbe5594f2bc2}\label{classDetector_a3e45dc1715aceeac42a2dbe5594f2bc2}} 
 \index{Detector@{Detector}!getOffsetX@{getOffsetX}}
 \index{getOffsetX@{getOffsetX}!Detector@{Detector}}
 \doxysubsubsection{\texorpdfstring{getOffsetX()}{getOffsetX()}}

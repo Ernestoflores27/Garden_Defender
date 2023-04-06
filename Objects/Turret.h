@@ -106,7 +106,7 @@ Clamps the yaw angle to its respective minimum and maximum values.
     float clamp(float value, float min, float max);
      /**
 
-    @brief reset exploring time.
+    @brief Reset the time from the last time it detected the previous object.
     */
     void resetTime();
 

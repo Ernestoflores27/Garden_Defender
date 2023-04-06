@@ -1,7 +1,7 @@
 /**
 
 @file Detector.h
-@brief Header file containing the declaration of the Detector class.
+@brief Header file containing the declaration of references needed in the Detector class.
 */
 #include <opencv4/opencv2/opencv.hpp>
 #include <opencv4/opencv2/dnn.hpp>
@@ -17,7 +17,6 @@
 /**
 
 @class Detector
-
 @brief Class that handles object detection using a neural network.
 */
 class Detector

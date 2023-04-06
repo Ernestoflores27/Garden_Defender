@@ -21,7 +21,7 @@ public:
 
 /**
 
-@brief Gets a video capture object with the specified width and height.
+@brief Gets a video capture object with the specified width, height, and setup.
 @return A cv::VideoCapture object with the specified width and height.
 */
     cv::VideoCapture getVideoCapture();

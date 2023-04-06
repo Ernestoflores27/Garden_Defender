@@ -16,48 +16,6 @@ Collaboration diagram for Turret\+:
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{classTurret_a3ca924446931de785fe597e02f7a4b73}\label{classTurret_a3ca924446931de785fe597e02f7a4b73}} 
-{\bfseries Turret} (int GPIO\+\_\+, int shooting\+Led\+\_\+\+GPIO\+\_\+, int looking\+Led\+\_\+\+GPIO\+\_\+, int min\+\_\+pitch\+\_\+=-\/90, int max\+\_\+pitch\+\_\+=90, int min\+\_\+yaw\+\_\+=-\/45, int max\+\_\+yaw\+\_\+=30)
-\item 
-\mbox{\Hypertarget{classTurret_a3dbe4be4e82d9e32f4e0a6ed57e30b67}\label{classTurret_a3dbe4be4e82d9e32f4e0a6ed57e30b67}} 
-void {\bfseries change\+Position} (int pitch\+\_\+, int yaw\+\_\+)
-\item 
-\mbox{\Hypertarget{classTurret_a6dd9412fe37034b543eaa775088515c5}\label{classTurret_a6dd9412fe37034b543eaa775088515c5}} 
-void {\bfseries move\+Pitch} (float dir)
-\item 
-\mbox{\Hypertarget{classTurret_ab7d9e28407b6572a5d69add76dc7c2ed}\label{classTurret_ab7d9e28407b6572a5d69add76dc7c2ed}} 
-void {\bfseries move\+Yaw} (float dir)
-\item 
-\mbox{\Hypertarget{classTurret_a5e23fb0d6a5667bfb14e814fe6800007}\label{classTurret_a5e23fb0d6a5667bfb14e814fe6800007}} 
-void {\bfseries move\+Turret} ()
-\item 
-\mbox{\Hypertarget{classTurret_af88472151284540ae18a1365b02cf811}\label{classTurret_af88472151284540ae18a1365b02cf811}} 
-void {\bfseries moveT} ()
-\item 
-\mbox{\Hypertarget{classTurret_a16946e3e3c82729d222d89c43a000b81}\label{classTurret_a16946e3e3c82729d222d89c43a000b81}} 
-void {\bfseries move\+Thread} ()
-\item 
-\mbox{\Hypertarget{classTurret_ad68c2922e7abdde7ae30dd0ac715afbf}\label{classTurret_ad68c2922e7abdde7ae30dd0ac715afbf}} 
-void {\bfseries shoot} ()
-\item 
-\mbox{\Hypertarget{classTurret_aba1f294ddaaad65f5816ec1c2b195856}\label{classTurret_aba1f294ddaaad65f5816ec1c2b195856}} 
-void {\bfseries shoot\+Thread} ()
-\item 
-\mbox{\Hypertarget{classTurret_a404d9fd5f0f146495d92a47da59bc339}\label{classTurret_a404d9fd5f0f146495d92a47da59bc339}} 
-void {\bfseries explore} ()
-\item 
-\mbox{\Hypertarget{classTurret_ac247e4abb214b55f5fd108fcd4a7359b}\label{classTurret_ac247e4abb214b55f5fd108fcd4a7359b}} 
-void {\bfseries turret\+Terminate} ()
-\item 
-\mbox{\Hypertarget{classTurret_a2e0ec8c66d827b64847cb93512d83393}\label{classTurret_a2e0ec8c66d827b64847cb93512d83393}} 
-float {\bfseries clamp} (float value, float min, float max)
-\item 
-\mbox{\Hypertarget{classTurret_a5d3970b79573cbfd736863eaf45eb9b2}\label{classTurret_a5d3970b79573cbfd736863eaf45eb9b2}} 
-void {\bfseries reset\+Time} ()
-\item 
-\mbox{\Hypertarget{classTurret_a51d06c87fe2b16deb9cad1776a27057f}\label{classTurret_a51d06c87fe2b16deb9cad1776a27057f}} 
-void {\bfseries release} ()
-\item 
 \mbox{\hyperlink{classTurret_a3ca924446931de785fe597e02f7a4b73}{Turret}} (int GPIO\+\_\+, int shooting\+Led\+\_\+\+GPIO\+\_\+, int looking\+Led\+\_\+\+GPIO\+\_\+, int min\+\_\+pitch\+\_\+=-\/90, int max\+\_\+pitch\+\_\+=90, int min\+\_\+yaw\+\_\+=-\/45, int max\+\_\+yaw\+\_\+=30)
 \begin{DoxyCompactList}\small\item\em Constructor for \mbox{\hyperlink{classTurret}{Turret}} class. Initializes the servo and GPIO pins for the turret and shooting LED. Sets the start times for shooting and exploring. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classTurret_a3dbe4be4e82d9e32f4e0a6ed57e30b67}{change\+Position}} (int pitch\+\_\+, int yaw\+\_\+)
@@ -92,7 +50,7 @@ float \mbox{\hyperlink{classTurret_a2e0ec8c66d827b64847cb93512d83393}{clamp}} (f
 \begin{DoxyCompactList}\small\item\em Clamp value. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classTurret_a5d3970b79573cbfd736863eaf45eb9b2}\label{classTurret_a5d3970b79573cbfd736863eaf45eb9b2}} 
 void \mbox{\hyperlink{classTurret_a5d3970b79573cbfd736863eaf45eb9b2}{reset\+Time}} ()
-\begin{DoxyCompactList}\small\item\em reset exploring time. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Reset the time from the last time it detected the previous object. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classTurret_a51d06c87fe2b16deb9cad1776a27057f}\label{classTurret_a51d06c87fe2b16deb9cad1776a27057f}} 
 void \mbox{\hyperlink{classTurret_a51d06c87fe2b16deb9cad1776a27057f}{release}} ()
 \begin{DoxyCompactList}\small\item\em release resources. \end{DoxyCompactList}\end{DoxyCompactItemize}
@@ -160,7 +118,7 @@ time\+\_\+t {\bfseries start\+\_\+exploring\+\_\+time}
 \index{Turret@{Turret}!Turret@{Turret}}
 \index{Turret@{Turret}!Turret@{Turret}}
 \doxysubsubsection{\texorpdfstring{Turret()}{Turret()}}
-{\footnotesize\ttfamily Turret\+::\+Turret (\begin{DoxyParamCaption}\item[{int}]{GPIO\+\_\+,  }\item[{int}]{shooting\+Led\+\_\+\+GPIO\+\_\+,  }\item[{int}]{looking\+Led\+\_\+\+GPIO\+\_\+,  }\item[{int}]{min\+\_\+pitch\+\_\+ = {\ttfamily -\/90},  }\item[{int}]{max\+\_\+pitch\+\_\+ = {\ttfamily 90},  }\item[{int}]{min\+\_\+yaw\+\_\+ = {\ttfamily -\/45},  }\item[{int}]{max\+\_\+yaw\+\_\+ = {\ttfamily 30} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily Turret\+::\+Turret (\begin{DoxyParamCaption}\item[{int}]{GPIO\+\_\+,  }\item[{int}]{shooting\+Led\+\_\+\+GPIO\+\_\+,  }\item[{int}]{looking\+Led\+\_\+\+GPIO\+\_\+,  }\item[{int}]{min\+\_\+pitch\+\_\+ = {\ttfamily -\/90},  }\item[{int}]{max\+\_\+pitch\+\_\+ = {\ttfamily 90},  }\item[{int}]{min\+\_\+yaw\+\_\+ = {\ttfamily -\/45},  }\item[{int}]{max\+\_\+yaw\+\_\+ = {\ttfamily 30} }\end{DoxyParamCaption})}
 
 
 
@@ -190,7 +148,7 @@ Constructor for \mbox{\hyperlink{classTurret}{Turret}} class. Initializes the se
 \index{Turret@{Turret}!changePosition@{changePosition}}
 \index{changePosition@{changePosition}!Turret@{Turret}}
 \doxysubsubsection{\texorpdfstring{changePosition()}{changePosition()}}
-{\footnotesize\ttfamily void Turret\+::change\+Position (\begin{DoxyParamCaption}\item[{int}]{pitch\+\_\+,  }\item[{int}]{yaw\+\_\+ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily void Turret\+::change\+Position (\begin{DoxyParamCaption}\item[{int}]{pitch\+\_\+,  }\item[{int}]{yaw\+\_\+ }\end{DoxyParamCaption})}
 
 
 
@@ -207,7 +165,7 @@ Changes the pitch and yaw angles of the turret. Clamps the pitch and yaw angles 
 \index{Turret@{Turret}!movePitch@{movePitch}}
 \index{movePitch@{movePitch}!Turret@{Turret}}
 \doxysubsubsection{\texorpdfstring{movePitch()}{movePitch()}}
-{\footnotesize\ttfamily void Turret\+::move\+Pitch (\begin{DoxyParamCaption}\item[{float}]{dir }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily void Turret\+::move\+Pitch (\begin{DoxyParamCaption}\item[{float}]{dir }\end{DoxyParamCaption})}
 
 
 
@@ -222,7 +180,7 @@ Moves the pitch angle of the turret by a certain amount. Clamps the pitch angle 
 \index{Turret@{Turret}!moveYaw@{moveYaw}}
 \index{moveYaw@{moveYaw}!Turret@{Turret}}
 \doxysubsubsection{\texorpdfstring{moveYaw()}{moveYaw()}}
-{\footnotesize\ttfamily void Turret\+::move\+Yaw (\begin{DoxyParamCaption}\item[{float}]{dir }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily void Turret\+::move\+Yaw (\begin{DoxyParamCaption}\item[{float}]{dir }\end{DoxyParamCaption})}
 
 
 
@@ -237,5 +195,5 @@ Moves the yaw angle of the turret by a certain amount. Clamps the yaw angle to i
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-Objects/Turret.\+cpp\item 
-Objects/\mbox{\hyperlink{Turret_8h}{Turret.\+h}}\end{DoxyCompactItemize}
+Objects/\mbox{\hyperlink{Turret_8h}{Turret.\+h}}\item 
+Objects/Turret.\+cpp\end{DoxyCompactItemize}

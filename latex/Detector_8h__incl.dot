@@ -3,7 +3,7 @@ digraph "Objects/Detector.h"
  // LATEX_PDF_SIZE
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
-  Node1 [label="Objects/Detector.h",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Header file containing the declaration of the Detector class."];
+  Node1 [label="Objects/Detector.h",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Header file containing the declaration of references needed in the Detector class."];
   Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid"];
   Node2 [label="opencv4/opencv2/opencv.hpp",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip=" "];
   Node1 -> Node3 [color="midnightblue",fontsize="10",style="solid"];
@@ -13,27 +13,11 @@ digraph "Objects/Detector.h"
   Node1 -> Node5 [color="midnightblue",fontsize="10",style="solid"];
   Node5 [label="opencv4/opencv2/highgui.hpp",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip=" "];
   Node1 -> Node6 [color="midnightblue",fontsize="10",style="solid"];
-  Node6 [label="Object.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$Object_8h_source.html",tooltip=" "];
+  Node6 [label="iostream",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip=" "];
   Node1 -> Node7 [color="midnightblue",fontsize="10",style="solid"];
-  Node7 [label="Turret.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$Turret_8h.html",tooltip="Class definition for the Turret class."];
-  Node7 -> Node8 [color="midnightblue",fontsize="10",style="solid"];
-  Node8 [label="pigpiod_if2.h",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip=" "];
-  Node7 -> Node9 [color="midnightblue",fontsize="10",style="solid"];
-  Node9 [label="Servos.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$Servos_8h.html",tooltip="A class to control servos using PCA9685. This class allows to control servos using PCA9685 PWM driver..."];
-  Node9 -> Node10 [color="midnightblue",fontsize="10",style="solid"];
-  Node10 [label="PiPCA9685/PCA9685.h",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip=" "];
-  Node9 -> Node11 [color="midnightblue",fontsize="10",style="solid"];
-  Node11 [label="unistd.h",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip=" "];
-  Node7 -> Node12 [color="midnightblue",fontsize="10",style="solid"];
-  Node12 [label="time.h",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip=" "];
-  Node7 -> Node13 [color="midnightblue",fontsize="10",style="solid"];
-  Node13 [label="thread",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip=" "];
-  Node7 -> Node14 [color="midnightblue",fontsize="10",style="solid"];
-  Node14 [label="iostream",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip=" "];
-  Node1 -> Node14 [color="midnightblue",fontsize="10",style="solid"];
-  Node1 -> Node15 [color="midnightblue",fontsize="10",style="solid"];
-  Node15 [label="fstream",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip=" "];
-  Node1 -> Node16 [color="midnightblue",fontsize="10",style="solid"];
-  Node16 [label="sstream",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip=" "];
-  Node1 -> Node13 [color="midnightblue",fontsize="10",style="solid"];
+  Node7 [label="fstream",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip=" "];
+  Node1 -> Node8 [color="midnightblue",fontsize="10",style="solid"];
+  Node8 [label="sstream",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip=" "];
+  Node1 -> Node9 [color="midnightblue",fontsize="10",style="solid"];
+  Node9 [label="thread",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip=" "];
 }

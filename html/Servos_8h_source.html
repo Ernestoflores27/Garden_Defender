@@ -9,10 +9,15 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -46,6 +51,23 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('Servos_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -60,11 +82,6 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="dir_5dafd4660615c7e05a84a5ee9d9fd12b.html">Objects</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="headertitle">
 <div class="title">Servos.h</div>  </div>
@@ -79,37 +96,24 @@ $(function() {
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    PiPCA9685::PCA9685 pca{};</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    </div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keywordtype">float</span> minPWM, maxPWM, minAngle, maxAngle;</div>
-<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="classServos.html#a85ea161aaf5925b3797714b901f81f04">   24</a></span>&#160;    <a class="code" href="classServos.html#a85ea161aaf5925b3797714b901f81f04">Servos</a>()</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    {</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    }</div>
-<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="classServos.html#ae6fd3b02d54b9a443db1ee289f9574f2">   35</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classServos.html#ae6fd3b02d54b9a443db1ee289f9574f2">servoInit</a>(<span class="keywordtype">float</span> minPWM_, <span class="keywordtype">float</span> maxPWM_, <span class="keywordtype">float</span> minAngle_, <span class="keywordtype">float</span> maxAngle_)</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    {</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        minPWM = minPWM_;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        maxPWM = maxPWM_;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        minAngle = minAngle_;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        maxAngle = maxAngle_;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        pca.set_pwm_freq(50.0);</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    }</div>
-<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="classServos.html#aa11558c86fbadd7643aa71be87b76f72">   49</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classServos.html#aa11558c86fbadd7643aa71be87b76f72">servoMove</a>(<span class="keywordtype">int</span> idx, <span class="keywordtype">float</span> angle)</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    {</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        <span class="keywordtype">float</span> pwm = <a class="code" href="classServos.html#ade375cfa77b0fcb34b3d5300f2026a21">mapAngleToPWM</a>(angle);</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        pca.set_pwm(idx, 0, pwm);</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    }</div>
-<div class="line"><a name="l00061"></a><span class="lineno"><a class="line" href="classServos.html#ade375cfa77b0fcb34b3d5300f2026a21">   61</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="classServos.html#ade375cfa77b0fcb34b3d5300f2026a21">mapAngleToPWM</a>(<span class="keywordtype">float</span> angle)</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    {</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        <span class="keywordflow">return</span> minPWM + (((maxPWM - minPWM) / (maxAngle - minAngle)) * (angle - minAngle));</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    }</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;};</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <a class="code" href="classServos.html#a85ea161aaf5925b3797714b901f81f04">Servos</a>();</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classServos.html#ae6fd3b02d54b9a443db1ee289f9574f2">servoInit</a>(<span class="keywordtype">float</span> minPWM_, <span class="keywordtype">float</span> maxPWM_, <span class="keywordtype">float</span> minAngle_, <span class="keywordtype">float</span> maxAngle_);</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classServos.html#aa11558c86fbadd7643aa71be87b76f72">servoMove</a>(<span class="keywordtype">int</span> idx, <span class="keywordtype">float</span> angle);</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keywordtype">float</span> <a class="code" href="classServos.html#ade375cfa77b0fcb34b3d5300f2026a21">mapAngleToPWM</a>(<span class="keywordtype">float</span> angle);</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;};</div>
 <div class="ttc" id="aclassServos_html"><div class="ttname"><a href="classServos.html">Servos</a></div><div class="ttdoc">A class to control servos using PCA9685 PWM driver.</div><div class="ttdef"><b>Definition:</b> Servos.h:15</div></div>
-<div class="ttc" id="aclassServos_html_a85ea161aaf5925b3797714b901f81f04"><div class="ttname"><a href="classServos.html#a85ea161aaf5925b3797714b901f81f04">Servos::Servos</a></div><div class="ttdeci">Servos()</div><div class="ttdoc">Default constructor.</div><div class="ttdef"><b>Definition:</b> Servos.h:24</div></div>
-<div class="ttc" id="aclassServos_html_aa11558c86fbadd7643aa71be87b76f72"><div class="ttname"><a href="classServos.html#aa11558c86fbadd7643aa71be87b76f72">Servos::servoMove</a></div><div class="ttdeci">void servoMove(int idx, float angle)</div><div class="ttdoc">Moves a servo to a given angle.</div><div class="ttdef"><b>Definition:</b> Servos.h:49</div></div>
-<div class="ttc" id="aclassServos_html_ade375cfa77b0fcb34b3d5300f2026a21"><div class="ttname"><a href="classServos.html#ade375cfa77b0fcb34b3d5300f2026a21">Servos::mapAngleToPWM</a></div><div class="ttdeci">float mapAngleToPWM(float angle)</div><div class="ttdoc">Maps an angle to PWM value.</div><div class="ttdef"><b>Definition:</b> Servos.h:61</div></div>
-<div class="ttc" id="aclassServos_html_ae6fd3b02d54b9a443db1ee289f9574f2"><div class="ttname"><a href="classServos.html#ae6fd3b02d54b9a443db1ee289f9574f2">Servos::servoInit</a></div><div class="ttdeci">void servoInit(float minPWM_, float maxPWM_, float minAngle_, float maxAngle_)</div><div class="ttdoc">Initializes the servos.</div><div class="ttdef"><b>Definition:</b> Servos.h:35</div></div>
+<div class="ttc" id="aclassServos_html_a85ea161aaf5925b3797714b901f81f04"><div class="ttname"><a href="classServos.html#a85ea161aaf5925b3797714b901f81f04">Servos::Servos</a></div><div class="ttdeci">Servos()</div><div class="ttdoc">Default constructor.</div><div class="ttdef"><b>Definition:</b> Servos.cpp:15</div></div>
+<div class="ttc" id="aclassServos_html_aa11558c86fbadd7643aa71be87b76f72"><div class="ttname"><a href="classServos.html#aa11558c86fbadd7643aa71be87b76f72">Servos::servoMove</a></div><div class="ttdeci">void servoMove(int idx, float angle)</div><div class="ttdoc">Moves a servo to a given angle.</div><div class="ttdef"><b>Definition:</b> Servos.cpp:40</div></div>
+<div class="ttc" id="aclassServos_html_ade375cfa77b0fcb34b3d5300f2026a21"><div class="ttname"><a href="classServos.html#ade375cfa77b0fcb34b3d5300f2026a21">Servos::mapAngleToPWM</a></div><div class="ttdeci">float mapAngleToPWM(float angle)</div><div class="ttdoc">Maps an angle to PWM value.</div><div class="ttdef"><b>Definition:</b> Servos.cpp:52</div></div>
+<div class="ttc" id="aclassServos_html_ae6fd3b02d54b9a443db1ee289f9574f2"><div class="ttname"><a href="classServos.html#ae6fd3b02d54b9a443db1ee289f9574f2">Servos::servoInit</a></div><div class="ttdeci">void servoInit(float minPWM_, float maxPWM_, float minAngle_, float maxAngle_)</div><div class="ttdoc">Initializes the servos.</div><div class="ttdef"><b>Definition:</b> Servos.cpp:26</div></div>
 </div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_5dafd4660615c7e05a84a5ee9d9fd12b.html">Objects</a></li><li class="navelem"><a class="el" href="Servos_8h.html">Servos.h</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
 </body>
 </html>
