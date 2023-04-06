@@ -1,5 +1,16 @@
 #include "Turret.h"
+/**
 
+@brief Constructor for Turret class.
+Initializes the servo and GPIO pins for the turret and shooting LED. Sets the start times for shooting and exploring.
+@param GPIO_ GPIO pin number for the turret.
+@param shootingLed_GPIO_ GPIO pin number for the shooting LED.
+@param lookingLed_GPIO_ GPIO pin number for the looking LED.
+@param min_pitch_ Minimum pitch angle.
+@param max_pitch_ Maximum pitch angle.
+@param min_yaw_ Minimum yaw angle.
+@param max_yaw_ Maximum yaw angle.
+*/
 Turret::Turret(int GPIO_, int shootingLed_GPIO_, int lookingLed_GPIO_, int min_pitch_, int max_pitch_, int min_yaw_, int max_yaw_)
 {
     // Servo Setup
@@ -23,35 +34,60 @@ Turret::Turret(int GPIO_, int shootingLed_GPIO_, int lookingLed_GPIO_, int min_p
     gpioWrite(shootingLed_GPIO, 0);
     gpioWrite(lookingLed_GPIO, 0);
 }
+    /**
 
+@brief Changes the pitch and yaw angles of the turret.
+Clamps the pitch and yaw angles to their respective minimum and maximum values.
+@param pitch_ New pitch angle.
+@param yaw_ New yaw angle.
+*/
 void Turret::changePosition(int pitch_, int yaw_)
 {
     pitch = clamp(pitch_, min_pitch, max_pitch);
     yaw = clamp(yaw_, min_yaw, max_yaw);
 }
+    /**
 
+@brief Moves the pitch angle of the turret by a certain amount.
+Clamps the pitch angle to its respective minimum and maximum values.
+@param dir Direction to move the pitch angle.
+*/
 void Turret::movePitch(float dir)
 {
     pitch = clamp(pitch + dir, min_pitch, max_pitch);
 }
+    /**
 
+@brief Moves the yaw angle of the turret by a certain amount.
+Clamps the yaw angle to its respective minimum and maximum values.
+@param dir Direction to move the yaw angle.
+*/
 void Turret::moveYaw(float dir)
 {
     yaw = clamp(yaw + dir, min_yaw, max_yaw);
 }
+    /**
 
+@brief Moves the turret to its new pitch and yaw angles.
+*/
 void Turret::moveTurret()
 {
     servos.servoMove(0, yaw);
     servos.servoMove(1, pitch);
 }
+    /**
 
+@brief Moves the turret to its new pitch and yaw angles in a separate thread.
+*/
 void Turret::moveT()
 {
     std::thread t1(&Turret::moveThread, this);
     t1.detach();
 }
+    /**
 
+@brief Thread function for moving the turret.
+*/
 void Turret::moveThread()
 {
     while (true)
@@ -65,7 +101,10 @@ void Turret::moveThread()
         std::this_thread::sleep_for(1ms);
     }
 }
+/**
 
+@brief Shoots the turret by activating the shooting relay.
+*/
 void Turret::shoot()
 {
     if (difftime(time(0), start_shooting_time) > 3)
@@ -76,7 +115,10 @@ void Turret::shoot()
         t1.detach();
     }
 }
+ /**
 
+@brief Thread function for Shooting the turret by activating the shooting relay.
+*/
 void Turret::shootThread()
 {
     gpioWrite(Turret_GPIO, 0);
@@ -85,7 +127,10 @@ void Turret::shootThread()
     gpioWrite(Turret_GPIO, 1);
     gpioWrite(shootingLed_GPIO, 0);
 }
+/**
 
+    @brief To search where there is no detection.
+    */
 void Turret::explore()
 {
     if (time(0) - start_exploring_time > 1)
@@ -103,13 +148,19 @@ void Turret::explore()
         dir = 2;
     }
 }
+/**
 
+    @brief To terminate the turret to detach GPIO
+    */
 void Turret::turretTerminate()
 {
     gpioWrite(Turret_GPIO, 1);
     gpioTerminate();
 }
+ /**
 
+    @brief Method to keep the values within the range.
+    */
 float Turret::clamp(float value, float min, float max)
 {
     if (value < min)
@@ -123,12 +174,18 @@ float Turret::clamp(float value, float min, float max)
     else
         return value;
 }
+/**
 
+@brief Reset the time from the last time it detected the previous object.
+*/
 void Turret::resetTime()
 {
     start_exploring_time = time(0);
 }
+/**
 
+    @brief Release resources.
+    */
 void Turret::release()
 {
     gpioTerminate();

@@ -1,7 +1,7 @@
 /**
 
 @file Turret.h
-@brief Class definition for the Turret class.
+@brief Class definition for the Turret class. It controls the turrent position by modifying the pitch and yaw.
 */
 #include <pigpiod_if2.h>
 #include "Servos.cpp"
@@ -101,7 +101,7 @@ Clamps the yaw angle to its respective minimum and maximum values.
     void turretTerminate();
  /**
 
-    @brief Clamp value.
+    @brief To terminate the turret to detach GPIO
     */
     float clamp(float value, float min, float max);
      /**
@@ -109,10 +109,9 @@ Clamps the yaw angle to its respective minimum and maximum values.
     @brief Reset the time from the last time it detected the previous object.
     */
     void resetTime();
-
      /**
 
-    @brief release resources.
+    @brief Release resources.
     */
     void release();
 };

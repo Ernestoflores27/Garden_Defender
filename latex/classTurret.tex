@@ -42,18 +42,16 @@ void \mbox{\hyperlink{classTurret_aba1f294ddaaad65f5816ec1c2b195856}{shoot\+Thre
 \mbox{\Hypertarget{classTurret_a404d9fd5f0f146495d92a47da59bc339}\label{classTurret_a404d9fd5f0f146495d92a47da59bc339}} 
 void \mbox{\hyperlink{classTurret_a404d9fd5f0f146495d92a47da59bc339}{explore}} ()
 \begin{DoxyCompactList}\small\item\em To search where there is no detection. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classTurret_ac247e4abb214b55f5fd108fcd4a7359b}\label{classTurret_ac247e4abb214b55f5fd108fcd4a7359b}} 
 void \mbox{\hyperlink{classTurret_ac247e4abb214b55f5fd108fcd4a7359b}{turret\+Terminate}} ()
 \begin{DoxyCompactList}\small\item\em To terminate the turret. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classTurret_a2e0ec8c66d827b64847cb93512d83393}\label{classTurret_a2e0ec8c66d827b64847cb93512d83393}} 
 float \mbox{\hyperlink{classTurret_a2e0ec8c66d827b64847cb93512d83393}{clamp}} (float value, float min, float max)
-\begin{DoxyCompactList}\small\item\em Clamp value. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em To terminate the turret to detach GPIO. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classTurret_a5d3970b79573cbfd736863eaf45eb9b2}\label{classTurret_a5d3970b79573cbfd736863eaf45eb9b2}} 
 void \mbox{\hyperlink{classTurret_a5d3970b79573cbfd736863eaf45eb9b2}{reset\+Time}} ()
 \begin{DoxyCompactList}\small\item\em Reset the time from the last time it detected the previous object. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classTurret_a51d06c87fe2b16deb9cad1776a27057f}\label{classTurret_a51d06c87fe2b16deb9cad1776a27057f}} 
 void \mbox{\hyperlink{classTurret_a51d06c87fe2b16deb9cad1776a27057f}{release}} ()
-\begin{DoxyCompactList}\small\item\em release resources. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Release resources. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
@@ -161,7 +159,17 @@ Changes the pitch and yaw angles of the turret. Clamps the pitch and yaw angles 
 {\em yaw\+\_\+} & New yaw angle. \\
 \hline
 \end{DoxyParams}
-\mbox{\Hypertarget{classTurret_a6dd9412fe37034b543eaa775088515c5}\label{classTurret_a6dd9412fe37034b543eaa775088515c5}} 
+\mbox{\Hypertarget{classTurret_a2e0ec8c66d827b64847cb93512d83393}\label{classTurret_a2e0ec8c66d827b64847cb93512d83393}} 
+\index{Turret@{Turret}!clamp@{clamp}}
+\index{clamp@{clamp}!Turret@{Turret}}
+\doxysubsubsection{\texorpdfstring{clamp()}{clamp()}}
+{\footnotesize\ttfamily float Turret\+::clamp (\begin{DoxyParamCaption}\item[{float}]{value,  }\item[{float}]{min,  }\item[{float}]{max }\end{DoxyParamCaption})}
+
+
+
+To terminate the turret to detach GPIO. 
+
+Method to keep the values within the range. \mbox{\Hypertarget{classTurret_a6dd9412fe37034b543eaa775088515c5}\label{classTurret_a6dd9412fe37034b543eaa775088515c5}} 
 \index{Turret@{Turret}!movePitch@{movePitch}}
 \index{movePitch@{movePitch}!Turret@{Turret}}
 \doxysubsubsection{\texorpdfstring{movePitch()}{movePitch()}}
@@ -191,7 +199,17 @@ Moves the yaw angle of the turret by a certain amount. Clamps the yaw angle to i
 {\em dir} & Direction to move the yaw angle. \\
 \hline
 \end{DoxyParams}
+\mbox{\Hypertarget{classTurret_ac247e4abb214b55f5fd108fcd4a7359b}\label{classTurret_ac247e4abb214b55f5fd108fcd4a7359b}} 
+\index{Turret@{Turret}!turretTerminate@{turretTerminate}}
+\index{turretTerminate@{turretTerminate}!Turret@{Turret}}
+\doxysubsubsection{\texorpdfstring{turretTerminate()}{turretTerminate()}}
+{\footnotesize\ttfamily void Turret\+::turret\+Terminate (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+
+
+To terminate the turret. 
+
+To terminate the turret to detach GPIO. 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 

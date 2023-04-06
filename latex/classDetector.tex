@@ -15,7 +15,6 @@ Class that handles object detection using a neural network.
 \mbox{\Hypertarget{classDetector_a614a198aac6cdaaa16ec8d1e90bef2da}\label{classDetector_a614a198aac6cdaaa16ec8d1e90bef2da}} 
 {\bfseries Detector} (std\+::string modelpath, float obj\+Threshold, float conf\+Threshold, float nms\+Threshold, cv\+::\+Video\+Capture \mbox{\hyperlink{classDetector_addf12e0b4b4b07fe034d258db4c9ff36}{real\+\_\+time}}, \mbox{\hyperlink{classTurret}{Turret}} $\ast$turret)
 \item 
-\mbox{\Hypertarget{classDetector_a2a9a4ca53f575a9e73555618e50ef224}\label{classDetector_a2a9a4ca53f575a9e73555618e50ef224}} 
 void \mbox{\hyperlink{classDetector_a2a9a4ca53f575a9e73555618e50ef224}{detectT}} ()
 \begin{DoxyCompactList}\small\item\em Method for detecting objects in a frame and showing them with a crosshair on the turret. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classDetector_ae0c0a72fef22d6521e82c18424a4dd04}{detect}} ()
@@ -24,7 +23,6 @@ float \mbox{\hyperlink{classDetector_a3e45dc1715aceeac42a2dbe5594f2bc2}{get\+Off
 \begin{DoxyCompactList}\small\item\em Method for getting the x-\/offset of the detected object from the center of the frame. \end{DoxyCompactList}\item 
 float \mbox{\hyperlink{classDetector_a61e535935ccab24830265713ae73a906}{get\+OffsetY}} ()
 \begin{DoxyCompactList}\small\item\em Method for getting the y-\/offset of the detected object from the center of the frame. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classDetector_abe004377aef67ba682c8a0da636d43b5}\label{classDetector_abe004377aef67ba682c8a0da636d43b5}} 
 void \mbox{\hyperlink{classDetector_abe004377aef67ba682c8a0da636d43b5}{show}} ()
 \begin{DoxyCompactList}\small\item\em Method for showing the frame with detected objects. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classDetector_a5ab979084e65b78a5d725d4fcd0949a2}\label{classDetector_a5ab979084e65b78a5d725d4fcd0949a2}} 
@@ -64,7 +62,17 @@ Class that handles object detection using a neural network.
 
 Method for detecting objects in a frame and showing them. 
 
-Method for detecting objects in a frame and showing them. Performs non-\/maximum suppression to eliminate redundant overlapping boxes with lower confidences. Draws predicted bounding boxes on the frame and saves them to the vector. \mbox{\Hypertarget{classDetector_a3e45dc1715aceeac42a2dbe5594f2bc2}\label{classDetector_a3e45dc1715aceeac42a2dbe5594f2bc2}} 
+Method for detecting objects in a frame and showing them. Performs non-\/maximum suppression to eliminate redundant overlapping boxes with lower confidences. Draws predicted bounding boxes on the frame and saves them to the vector. \mbox{\Hypertarget{classDetector_a2a9a4ca53f575a9e73555618e50ef224}\label{classDetector_a2a9a4ca53f575a9e73555618e50ef224}} 
+\index{Detector@{Detector}!detectT@{detectT}}
+\index{detectT@{detectT}!Detector@{Detector}}
+\doxysubsubsection{\texorpdfstring{detectT()}{detectT()}}
+{\footnotesize\ttfamily void Detector\+::detectT (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Method for detecting objects in a frame and showing them with a crosshair on the turret. 
+
+Method to enable a new thread for detection and and detach it from the main thread. \mbox{\Hypertarget{classDetector_a3e45dc1715aceeac42a2dbe5594f2bc2}\label{classDetector_a3e45dc1715aceeac42a2dbe5594f2bc2}} 
 \index{Detector@{Detector}!getOffsetX@{getOffsetX}}
 \index{getOffsetX@{getOffsetX}!Detector@{Detector}}
 \doxysubsubsection{\texorpdfstring{getOffsetX()}{getOffsetX()}}
@@ -73,6 +81,8 @@ Method for detecting objects in a frame and showing them. Performs non-\/maximum
 
 
 Method for getting the x-\/offset of the detected object from the center of the frame. 
+
+Method for calculating the x-\/offset of the detected object from the center of the frame.
 
 \begin{DoxyReturn}{Returns}
 Float value of the x-\/offset. 
@@ -90,9 +100,19 @@ Method for getting the y-\/offset of the detected object from the center of the 
 \begin{DoxyReturn}{Returns}
 Float value of the y-\/offset. 
 \end{DoxyReturn}
+\mbox{\Hypertarget{classDetector_abe004377aef67ba682c8a0da636d43b5}\label{classDetector_abe004377aef67ba682c8a0da636d43b5}} 
+\index{Detector@{Detector}!show@{show}}
+\index{show@{show}!Detector@{Detector}}
+\doxysubsubsection{\texorpdfstring{show()}{show()}}
+{\footnotesize\ttfamily void Detector\+::show (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+
+
+Method for showing the frame with detected objects. 
+
+Method for showing the frame with detected objects and the information to command the turret in manual or automatic mode. It also command the turrent when it is in Manual mode. 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
 Objects/\mbox{\hyperlink{Detector_8h}{Detector.\+h}}\item 
-Objects/\mbox{\hyperlink{Detector_8cpp}{Detector.\+cpp}}\end{DoxyCompactItemize}
+Objects/Detector.\+cpp\end{DoxyCompactItemize}

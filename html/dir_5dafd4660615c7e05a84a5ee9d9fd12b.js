@@ -3,7 +3,6 @@ var dir_5dafd4660615c7e05a84a5ee9d9fd12b =
     [ "Camera.h", "Camera_8h.html", [
       [ "Camera", "classCamera.html", "classCamera" ]
     ] ],
-    [ "Detector.cpp", "Detector_8cpp.html", null ],
     [ "Detector.h", "Detector_8h.html", [
       [ "Detector", "classDetector.html", "classDetector" ]
     ] ],

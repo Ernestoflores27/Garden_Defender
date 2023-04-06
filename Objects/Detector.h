@@ -85,25 +85,25 @@ private:
 /**
 * @brief Pointer to the Turret object.
 */
-	Turret *turret;
+	public Turret *turret;
 	/**
  * @brief Callback function to control the turret.
  */
-	void turretCallback();
+	public void turretCallback();
 	/**
- * @brief Array of anchor values for YOLOv3 model.
+ * @brief Array of anchor values for YOLOv5 model.
  */
 	const float anchors[2][6] = {{12.64, 19.39, 37.88, 51.48, 55.71, 138.31}, {126.91, 78.23, 131.57, 214.55, 279.92, 258.87}};
 /**
- * @brief Array of stride values for YOLOv3 model.
+ * @brief Array of stride values for YOLOv5 model.
  */
 	const float stride[3] = {16.0, 32.0};
 	/**
- * @brief Input width of the YOLOv3 model.
+ * @brief Input width of the YOLOv5 model.
  */
 	const int inpWidth = 352;
 	/**
- * @brief Input height of the YOLOv3 model.
+ * @brief Input height of the YOLOv5 model.
  */
 	const int inpHeight = 352;
 	/**
@@ -115,47 +115,47 @@ private:
  */
 	const int anchor_num = 3;
 		/**
- * @brief 
+ * @brief Minimum value for detection
  */
-	float objThreshold;
+	public float objThreshold;
 		/**
- * @brief c
+ * @brief Confidence threshold
  */
 	float confThreshold;
 		/**
- * @brief 
+ * @brief Minimum value for classification
  */
 	float nmsThreshold;
 		/**
- * @brief mark if it is manual
+ * @brief Mark if it is in Manual mode
  */
 	bool manual = false;
 		/**
- * @brief 
+ * @brief Variable that stores the possible classes
  */
 	std::vector<std::string> classes;
 		/**
- * @brief 
+ * @brief Classifier file path
  */
 	const std::string classesFile = "Garden_Defender/object_detection.txt";
 		/**
- * @brief 
+ * @brief Amount of classes in the classification
  */
 	int num_class;
 		/**
- * @brief 
+ * @brief Neural network
  */
 	cv::dnn::Net net;
 		/**
- * @brief 
+ * @brief Arrange the detected objects to calculate the closest to the center.
  */
 	void sortObjs();
 		/**
- * @brief 
+ * @brief Draws a crosshair in the center of a given frame for tracking.
  */
 	void drawCrossair(cv::Mat &frame);
 		/**
- * @brief 
+ * @brief Draws a green line between the center of the detected object and the center of the video frame for tracking.
  */
 	void lineClosest(cv::Mat &frame);
 		/**
@@ -163,7 +163,7 @@ private:
  */
 	void detectThread();
 		/**
- * @brief 
+ * @brief Improves the object detection by appliying a filter to the recognition.
  */
 	void persistence();
 		/**

@@ -1,5 +1,5 @@
 /**
- * @brief A Class about a detection
+ * @brief A Class to perform the algorithm that arranges the detected objects by distance.
  * 
  */
 class Object 
@@ -9,11 +9,3 @@ public:
     int64_t distance;
     Object(cv::Rect object, int camera_width, int camera_height);
 };
-
-/**
- * @brief Construct a new Object:: Object object()
- * 
- * @param object 
- * @param camera_width 
- * @param camera_height 
- */

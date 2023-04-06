@@ -25,7 +25,7 @@
 var NAVTREE =
 [
   [ "Garden Defender", "index.html", [
-    [ "Garden_Defender   <img src=\"https://user-images.githubusercontent.com/56697327/229754456-5e34f1b4-b3b8-435d-b763-7635a71a4984.png\" alt=\"Garden Defender Logo\"/>", "index.html", [
+    [ "Garden_Defender", "index.html", [
       [ "Description", "index.html#autotoc_md1", null ],
       [ "Details", "index.html#autotoc_md2", [
         [ "Features", "index.html#autotoc_md3", null ]

@@ -1,17 +1,10 @@
-/**
-
-@file Servos.h
-@brief A class to control servos using PCA9685.
-This class allows to control servos using PCA9685 PWM driver.
-It provides a function to initialize the servos and another function to move each servo to a given angle.
-*/
 #include "Servos.h"
 /**
-    /**
-    /**
-     * @brief Default constructor.
-     * 
-     */
+/**
+/**
+ * @brief Default constructor.
+ * 
+ */
 Servos::Servos()
 {
 }

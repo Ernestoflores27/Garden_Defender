@@ -1,10 +1,4 @@
-/**
-
-@file Detector.cpp
-@brief Header file containing the declaration of the Detector class.
-*/
 #include "Detector.h"
-
 /*
 
 @brief Constructor for Detector.
@@ -138,7 +132,7 @@ void Detector::turretCallback()
 }
 /**
 
-@brief Method for getting the x-offset of the detected object from the center of the frame.
+@brief Method to improve the object detection by appliying a filter to the recognition.
 */
 void Detector::persistence()
 {
@@ -181,14 +175,14 @@ void Detector::persistence()
 
 /**
 
-@brief Method for getting the x-offset of the detected object from the center of the frame.
+@brief Method for calculating the x-offset of the detected object from the center of the frame.
 @return Float value of the x-offset.
 */
 float Detector::getOffsetX()
 {
 	return this->objs_vector[0].offset_x;
 }
-	/**
+/**
 
 @brief Method for getting the y-offset of the detected object from the center of the frame.
 @return Float value of the y-offset.
@@ -197,12 +191,18 @@ float Detector::getOffsetY()
 {
 	return this->objs_vector[0].offset_y;
 }
+/**
 
+@brief Method to arrange the detected objects to calculate the closest to the center.
+*/
 void Detector::sortObjs()
 {
 	sort(objs_vector.begin(), objs_vector.end());
 }
+/**
 
+@brief Method to draws predicted bounding boxes on the frame.
+*/
 void Detector::drawPred(int classId, float conf, int left, int top, int right, int bottom, cv::Mat &frame)
 {
 	// Draw a rectangle displaying the bounding box
@@ -218,14 +218,20 @@ void Detector::drawPred(int classId, float conf, int left, int top, int right, i
 	top = std::max(top, labelSize.height);
 	cv::putText(frame, label, cv::Point(left, top), cv::FONT_HERSHEY_DUPLEX, 1, cv::Scalar(0, 0, 255), 1.5);
 }
+/**
 
+@brief Method to draw a crosshair in the center of a given frame for tracking.
+*/
 void Detector::drawCrossair(cv::Mat &frame)
 {
 	cv::Size s = frame.size();
 	cv::line(frame, cv::Point(s.width / 2, 0), cv::Point(s.width / 2, s.height), cv::Scalar(0, 255, 0), 1);
 	cv::line(frame, cv::Point(0, s.height / 2), cv::Point(s.width, s.height / 2), cv::Scalar(0, 255, 0), 1);
 }
+/**
 
+@brief Method draws a green line between the center of the detected object and the center of the video frame for tracking.
+*/
 void Detector::lineClosest(cv::Mat &frame)
 {
 	cv::Size s = frame.size();
@@ -245,7 +251,7 @@ void Detector::showShooting()
 
 /**
 
-@brief Method for showing the frame with detected objects.
+@brief Method for showing the frame with detected objects and the information to command the turret in manual or automatic mode. It also command the turrent when it is in Manual mode.
 */
 void Detector::show()
 {
@@ -304,18 +310,20 @@ void Detector::show()
 		}
 	}
 }
+/**
 
+@brief Method that calls the detect() function. It works in a separete thread without interrupting other operations in the program.
+*/
 void Detector::detectThread()
 {
 	while (true)
 	{
 		this->detect();
-		// run callback
 	}
 }
-	/**
+/**
 
-@brief Method for detecting objects in a frame and showing them with a crosshair on the turret.
+@brief Method to enable a new thread for detection and and detach it from the main thread.
 */
 void Detector::detectT()
 {

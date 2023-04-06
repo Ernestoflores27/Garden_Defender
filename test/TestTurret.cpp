@@ -63,14 +63,14 @@ TEST(TurretTest, testClamp)
 TEST(TurretTest, testResetTime)
 {
     Turret t(23, 24, 25);
-    t.resetTime();
+     ASSERT_NO_THROW(t.resetTime());
     // expect start_exploring_time to be current time
 }
 
 TEST(TurretTest, testRelease)
 {
     Turret t(23, 24, 25);
-    t.release();
+    ASSERT_NO_THROW(t.release());
     // expect all GPIOs to be high
 }
 
