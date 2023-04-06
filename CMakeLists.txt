@@ -26,3 +26,13 @@ target_link_libraries(garden_defender ${OpenCV_LIBS} ${pigpio_LIBRARY} ${pigpiod
 target_link_libraries(garden_defender -lpigpio -pthread)
 
 include(CPack)
+
+enable_testing()
+
+add_executable(TestTurret test/TestTurret.cpp)
+
+target_link_libraries(TestTurret ${OpenCV_LIBS} ${pigpio_LIBRARY} ${pigpiod_if_LIBRARY} ${pigpiod_if2_LIBRARY} ${PiPCA9685_LIBRARY})
+target_link_libraries(TestTurret -lpigpio -pthread -lgtest -lgtest_main)
+
+include(GoogleTest)
+gtest_discover_tests(TestTurret)
