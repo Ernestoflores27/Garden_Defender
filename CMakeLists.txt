@@ -30,14 +30,14 @@ include(CPack)
 enable_testing()
 
 add_executable(TestTurret test/TestTurret.cpp)
-add_executable(TestDetector test/TestDetector.cpp)
+add_executable(TestMain test/TestMain.cpp)
 add_executable(TestServos test/TestServos.cpp)
 
 target_link_libraries(TestTurret ${OpenCV_LIBS} ${pigpio_LIBRARY} ${pigpiod_if_LIBRARY} ${pigpiod_if2_LIBRARY} ${PiPCA9685_LIBRARY})
 target_link_libraries(TestTurret -lpigpio -pthread -lgtest -lgtest_main)
 
-target_link_libraries(TestDetector ${OpenCV_LIBS} ${pigpio_LIBRARY} ${pigpiod_if_LIBRARY} ${pigpiod_if2_LIBRARY} ${PiPCA9685_LIBRARY})
-target_link_libraries(TestDetector -lpigpio -pthread -lgtest -lgtest_main)
+target_link_libraries(TestMain ${OpenCV_LIBS} ${pigpio_LIBRARY} ${pigpiod_if_LIBRARY} ${pigpiod_if2_LIBRARY} ${PiPCA9685_LIBRARY})
+target_link_libraries(TestMain -lpigpio -pthread -lgtest -lgtest_main)
 
 
 target_link_libraries(TestServos ${OpenCV_LIBS} ${pigpio_LIBRARY} ${pigpiod_if_LIBRARY} ${pigpiod_if2_LIBRARY} ${PiPCA9685_LIBRARY})
@@ -45,5 +45,5 @@ target_link_libraries(TestServos -lpigpio -pthread -lgtest -lgtest_main)
 
 include(GoogleTest)
 gtest_discover_tests(TestTurret)
-gtest_discover_tests(TestDetector)
+gtest_discover_tests(TestMain)
 gtest_discover_tests(TestServos)

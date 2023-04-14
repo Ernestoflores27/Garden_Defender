@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 #include <pigpiod_if2.h>
-#include "../Objects/Servos.h"
+#include "../Objects/Servos.cpp"
 
 
 class ServosTest : public ::testing::Test {

@@ -85,11 +85,11 @@ private:
 /**
 * @brief Pointer to the Turret object.
 */
-	public Turret *turret;
+	Turret *turret;
 	/**
  * @brief Callback function to control the turret.
  */
-	public void turretCallback();
+	void turretCallback();
 	/**
  * @brief Array of anchor values for YOLOv5 model.
  */
@@ -117,7 +117,7 @@ private:
 		/**
  * @brief Minimum value for detection
  */
-	public float objThreshold;
+	float objThreshold;
 		/**
  * @brief Confidence threshold
  */
