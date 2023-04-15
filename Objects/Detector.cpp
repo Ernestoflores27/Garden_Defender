@@ -9,13 +9,12 @@
 @param real_time OpenCV VideoCapture object for real-time video capture.
 @param turret Pointer to the Turret object.
 */
-Detector::Detector(std::string modelpath, float obj_Threshold, float conf_Threshold, float nms_Threshold, cv::VideoCapture real_time, Turret *turret_)
+Detector::Detector(std::string modelpath, float obj_Threshold, float conf_Threshold, float nms_Threshold, cv::VideoCapture real_time)
 {
 	this->real_time = real_time;
 	this->objThreshold = obj_Threshold;
 	this->confThreshold = conf_Threshold;
 	this->nmsThreshold = nms_Threshold;
-	this->turret = turret_;
 
 	std::ifstream ifs(this->classesFile.c_str());
 	std::string line;
@@ -104,31 +103,6 @@ void Detector::detect()
 	}
 	this->sortObjs();
 	this->show();
-	// if (manual == false)
-	// 	turretCallback();
-}
-/**
- * @brief Callback function to control the turret. Calculates the horizontal and vertical errors between the center of the frame and the center of the first object in objs_vector. Calls the Turret::move() method to move the turret in the direction of the object.
- */
-void Detector::turretCallback()
-{
-	turret->explore();
-	if (!objs_vector.empty())
-	{
-		turret->resetTime();
-
-		float error_x = getOffsetX() * 2 / 320;
-		float error_y = getOffsetY() * 2 / 320;
-
-		turret->movePitch(SPEED * error_x);
-		turret->moveYaw(-SPEED * error_y);
-
-		if (abs(error_x) < MARGIN and abs(error_y) < MARGIN)
-		{
-			turret->shoot();
-			showShooting();
-		}
-	}
 }
 /**
 
@@ -281,33 +255,33 @@ void Detector::show()
 		cv::imshow(kWinName, frame);
 		int k = cv::waitKey(1);
 
-		if (k == 82)
-		{
-			turret->moveYaw(-5);
-		}
-		else if (k == 84)
-		{
-			turret->moveYaw(5);
-		}
-		else if (k == 81)
-		{
-			turret->movePitch(5);
-		}
-		else if (k == 83)
-		{
-			turret->movePitch(-5);
-		}
-		else if (k == 113)
-		{
-			manual = !manual;
-		}
-		else if (k == 32)
-		{
-			turret->shoot();
-		}
-		else
-		{
-		}
+		// if (k == 82)
+		// {
+		// 	turret->moveYaw(-5);
+		// }
+		// else if (k == 84)
+		// {
+		// 	turret->moveYaw(5);
+		// }
+		// else if (k == 81)
+		// {
+		// 	turret->movePitch(5);
+		// }
+		// else if (k == 83)
+		// {
+		// 	turret->movePitch(-5);
+		// }
+		// else if (k == 113)
+		// {
+		// 	manual = !manual;
+		// }
+		// else if (k == 32)
+		// {
+		// 	turret->shoot();
+		// }
+		// else
+		// {
+		// }
 	}
 }
 /**

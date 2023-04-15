@@ -5,6 +5,7 @@
 */
 #include <pigpiod_if2.h>
 #include "Servos.cpp"
+#include "Detector.cpp"
 #include <time.h>
 #include <thread>
 #include <iostream>
@@ -12,7 +13,7 @@
 using namespace std::chrono_literals;
 #define SMOOTHING 0.9
 #define MARGIN 0.2
-#define SPEED 3
+#define SPEED 1
 /**
 
 @brief Turret class definition.
@@ -28,19 +29,20 @@ public:
     float dir = 5;
     Servos servos;
     time_t start_shooting_time, start_exploring_time;
-/**
+    Detector *detector_model;
+    /**
 
-@brief Constructor for Turret class.
-Initializes the servo and GPIO pins for the turret and shooting LED. Sets the start times for shooting and exploring.
-@param GPIO_ GPIO pin number for the turret.
-@param shootingLed_GPIO_ GPIO pin number for the shooting LED.
-@param lookingLed_GPIO_ GPIO pin number for the looking LED.
-@param min_pitch_ Minimum pitch angle.
-@param max_pitch_ Maximum pitch angle.
-@param min_yaw_ Minimum yaw angle.
-@param max_yaw_ Maximum yaw angle.
-*/
-    Turret(int GPIO_, int shootingLed_GPIO_, int lookingLed_GPIO_, int min_pitch_ = -90, int max_pitch_ = 90, int min_yaw_ = -45, int max_yaw_ = 30);
+    @brief Constructor for Turret class.
+    Initializes the servo and GPIO pins for the turret and shooting LED. Sets the start times for shooting and exploring.
+    @param GPIO_ GPIO pin number for the turret.
+    @param shootingLed_GPIO_ GPIO pin number for the shooting LED.
+    @param lookingLed_GPIO_ GPIO pin number for the looking LED.
+    @param min_pitch_ Minimum pitch angle.
+    @param max_pitch_ Maximum pitch angle.
+    @param min_yaw_ Minimum yaw angle.
+    @param max_yaw_ Maximum yaw angle.
+    */
+    Turret(int GPIO_, int shootingLed_GPIO_, int lookingLed_GPIO_, Detector *detector_model_, int min_pitch_ = -90, int max_pitch_ = 90, int min_yaw_ = -45, int max_yaw_ = 30);
     /**
 
 @brief Changes the pitch and yaw angles of the turret.
@@ -80,38 +82,43 @@ Clamps the yaw angle to its respective minimum and maximum values.
     void moveThread();
     /**
 
+@brief Thread function for aiming the turret.
+*/
+    void aimThread();
+    /**
+
     @brief Shoots the turret by activating the shooting relay.
     */
     void shoot();
- /**
+    /**
 
-    @brief Thread function for Shooting the turret by activating the shooting relay.
-    */
+       @brief Thread function for Shooting the turret by activating the shooting relay.
+       */
     void shootThread();
 
- /**
+    /**
 
-    @brief To search where there is no detection.
-    */
+       @brief To search where there is no detection.
+       */
     void explore();
- /**
+    /**
 
-    @brief To terminate the turret
-    */
+       @brief To terminate the turret
+       */
     void turretTerminate();
- /**
+    /**
 
-    @brief To terminate the turret to detach GPIO
-    */
+       @brief To terminate the turret to detach GPIO
+       */
     float clamp(float value, float min, float max);
-     /**
+    /**
 
-    @brief Reset the time from the last time it detected the previous object.
-    */
+   @brief Reset the time from the last time it detected the previous object.
+   */
     void resetTime();
-     /**
+    /**
 
-    @brief Release resources.
-    */
+   @brief Release resources.
+   */
     void release();
 };

@@ -8,7 +8,6 @@
 #include <opencv4/opencv2/imgproc.hpp>
 #include <opencv4/opencv2/highgui.hpp>
 #include "Object.cpp"
-#include "Turret.cpp"
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -22,17 +21,17 @@
 class Detector
 {
 public:
-/*
+	/*
 
-@brief Constructor for Detector.
-@param modelpath Path to the model file.
-@param objThreshold Object detection threshold.
-@param confThreshold Confidence threshold.
-@param nmsThreshold NMS threshold.
-@param real_time OpenCV VideoCapture object for real-time video capture.
-@param turret Pointer to the Turret object.
-*/
-	Detector(std::string modelpath, float objThreshold, float confThreshold, float nmsThreshold, cv::VideoCapture real_time, Turret *turret);
+	@brief Constructor for Detector.
+	@param modelpath Path to the model file.
+	@param objThreshold Object detection threshold.
+	@param confThreshold Confidence threshold.
+	@param nmsThreshold NMS threshold.
+	@param real_time OpenCV VideoCapture object for real-time video capture.
+	@param turret Pointer to the Turret object.
+	*/
+	Detector(std::string modelpath, float objThreshold, float confThreshold, float nmsThreshold, cv::VideoCapture real_time);
 	/**
 
 @brief Method for detecting objects in a frame and showing them with a crosshair on the turret.
@@ -82,91 +81,83 @@ public:
 	cv::Mat frame;
 
 private:
-/**
-* @brief Pointer to the Turret object.
-*/
-	Turret *turret;
 	/**
- * @brief Callback function to control the turret.
- */
-	void turretCallback();
-	/**
- * @brief Array of anchor values for YOLOv5 model.
- */
+	 * @brief Array of anchor values for YOLOv5 model.
+	 */
 	const float anchors[2][6] = {{12.64, 19.39, 37.88, 51.48, 55.71, 138.31}, {126.91, 78.23, 131.57, 214.55, 279.92, 258.87}};
-/**
- * @brief Array of stride values for YOLOv5 model.
- */
+	/**
+	 * @brief Array of stride values for YOLOv5 model.
+	 */
 	const float stride[3] = {16.0, 32.0};
 	/**
- * @brief Input width of the YOLOv5 model.
- */
+	 * @brief Input width of the YOLOv5 model.
+	 */
 	const int inpWidth = 352;
 	/**
- * @brief Input height of the YOLOv5 model.
- */
+	 * @brief Input height of the YOLOv5 model.
+	 */
 	const int inpHeight = 352;
 	/**
- * @brief Number of stages in the YOLOv3 model.
- */
+	 * @brief Number of stages in the YOLOv3 model.
+	 */
 	const int num_stage = 2;
 	/**
- * @brief Number of anchor values in the YOLOv3 model.
- */
+	 * @brief Number of anchor values in the YOLOv3 model.
+	 */
 	const int anchor_num = 3;
-		/**
- * @brief Minimum value for detection
- */
+	/**
+	 * @brief Minimum value for detection
+	 */
 	float objThreshold;
-		/**
- * @brief Confidence threshold
- */
+	/**
+	 * @brief Confidence threshold
+	 */
 	float confThreshold;
-		/**
- * @brief Minimum value for classification
- */
+	/**
+	 * @brief Minimum value for classification
+	 */
 	float nmsThreshold;
-		/**
- * @brief Mark if it is in Manual mode
- */
+	/**
+	 * @brief Mark if it is in Manual mode
+	 */
 	bool manual = false;
-		/**
- * @brief Variable that stores the possible classes
- */
+	/**
+	 * @brief Variable that stores the possible classes
+	 */
 	std::vector<std::string> classes;
-		/**
- * @brief Classifier file path
- */
+	/**
+	 * @brief Classifier file path
+	 */
 	const std::string classesFile = "Garden_Defender/object_detection.txt";
-		/**
- * @brief Amount of classes in the classification
- */
+	/**
+	 * @brief Amount of classes in the classification
+	 */
 	int num_class;
-		/**
- * @brief Neural network
- */
+	/**
+	 * @brief Neural network
+	 */
 	cv::dnn::Net net;
-		/**
- * @brief Arrange the detected objects to calculate the closest to the center.
- */
+	/**
+	 * @brief Arrange the detected objects to calculate the closest to the center.
+	 */
 	void sortObjs();
-		/**
- * @brief Draws a crosshair in the center of a given frame for tracking.
- */
+	/**
+	 * @brief Draws a crosshair in the center of a given frame for tracking.
+	 */
 	void drawCrossair(cv::Mat &frame);
-		/**
- * @brief Draws a green line between the center of the detected object and the center of the video frame for tracking.
- */
+	/**
+	 * @brief Draws a green line between the center of the detected object and the center of the video frame for tracking.
+	 */
 	void lineClosest(cv::Mat &frame);
-		/**
- * @brief The thread to detect
- */
+	/**
+	 * @brief The thread to detect
+	 */
 	void detectThread();
-		/**
- * @brief Improves the object detection by appliying a filter to the recognition.
- */
+	/**
+	 * @brief Improves the object detection by appliying a filter to the recognition.
+	 */
 	void persistence();
-		/**
+	/**
 	 * @brief Draw a rectangle displaying the bounding box and display it
 	 */
 	void drawPred(int classId, float conf, int left, int top, int right, int bottom, cv::Mat &frame);
