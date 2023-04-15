@@ -29,7 +29,7 @@ Detector::Detector(std::string modelpath, float obj_Threshold, float conf_Thresh
 */
 void Detector::detect()
 {
-	real_time.read(frame);
+	real_time >> frame;
 	cv::Mat blob;
 	cv::dnn::blobFromImage(frame, blob, 1 / 255.0, cv::Size(this->inpWidth, this->inpHeight));
 	this->net.setInput(blob);
@@ -94,56 +94,16 @@ void Detector::detect()
 		if (classIds[idx] == 0)
 		{
 			cv::Rect box = boxes[idx];
-			// this->drawPred(classIds[idx], confidences[idx], box.x, box.y,
-			// 			   box.x + box.width, box.y + box.height, frame);
 			cv::Size s = frame.size();
 			Object f(box, s.width, s.height);
 			this->objs_vector.push_back(f);
 		}
 	}
 	this->sortObjs();
-}
-/**
-
-@brief Method to improve the object detection by appliying a filter to the recognition.
-*/
-void Detector::persistence()
-{
-	if (objs_vector.empty())
-		return;
-
-	int dist_margin = 50;
-	objs_vector_filtered.clear();
-
-	for (Object obj_old : objs_vector_old)
+	if (nullptr != this->callback)
 	{
-		for (Object obj : objs_vector)
-		{
-			int offset_x = obj_old.center_x - obj.center_x;
-			int offset_y = obj_old.center_y - obj.center_y;
-			int distance = (offset_x * offset_x) + (offset_y * offset_y);
-
-			if (distance < dist_margin * dist_margin)
-			{
-				objs_vector_filtered.push_back(obj);
-			}
-		}
+		this->callback->callback_func(this->objs_vector);
 	}
-
-	for (Object face_old : objs_vector_old)
-	{
-		circle(frame, cv::Point(face_old.center_x, face_old.center_y), 5, cv::Scalar(0, 0, 255), -1);
-	}
-	for (Object object : objs_vector)
-	{
-		circle(frame, cv::Point(object.center_x, object.center_y), 5, cv::Scalar(255, 0, 0), -1);
-	}
-	for (Object object : objs_vector_filtered)
-	{
-		circle(frame, cv::Point(object.center_x, object.center_y), dist_margin, cv::Scalar(255, 0, 0));
-	}
-
-	objs_vector_old = objs_vector;
 }
 
 /**

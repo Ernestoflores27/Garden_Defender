@@ -57,7 +57,7 @@ public:
 	/**
 @brief Vector of Object objects containing the detected objects.
 */
-	std::vector<Object> objs_vector, objs_vector_old, objs_vector_filtered;
+	std::vector<Object> objs_vector;
 	/**
 
 @brief OpenCV VideoCapture object for real-time video capture.
@@ -69,7 +69,24 @@ public:
 */
 	cv::Mat frame;
 
+	/**
+	 * Callback interface which needs to be implemented by the user.
+	 *
+	 **/
+	struct Callback
+	{
+		virtual void callback_func(std::vector<Object> &objs_vector) = 0;
+	};
+	/**
+	 * Register the callback interface here to receive data.
+	 **/
+	void registerCallback(Callback *ca)
+	{
+		callback = ca;
+	}
+
 private:
+	Callback *callback = nullptr;
 	/**
 	 * @brief Array of anchor values for YOLOv5 model.
 	 */

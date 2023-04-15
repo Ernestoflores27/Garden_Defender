@@ -32,7 +32,7 @@ public:
 
 @brief Method for detecting objects in a frame and showing them with a crosshair on the turret.
 */
-	void detectT();
+	void showT();
 	/**
 
 @brief Method for showing the frame with detected objects.
@@ -43,11 +43,6 @@ public:
 @brief Method for showing the frame with detected objects and the crosshair on the turret.
 */
 	void showShooting();
-	/**
-
-@brief Vector of Object objects containing the detected objects.
-*/
-	std::vector<Object> objs_vector;
 	/**
 
 @brief OpenCV VideoCapture object for real-time video capture.
@@ -84,7 +79,7 @@ private:
 	 * @brief Draw a rectangle displaying the bounding box and display it
 	 */
 	void drawPred(int classId, float conf, int left, int top, int right, int bottom, cv::Mat &frame);
-	void detectThread();
+	void showThread();
 	Detector *detector_model;
 };
 
@@ -129,10 +124,10 @@ void GUI::drawCrossair(cv::Mat &frame)
 void GUI::lineClosest(cv::Mat &frame)
 {
 	cv::Size s = frame.size();
-	if (objs_vector.empty())
+	if (detector_model->objs_vector.empty())
 		return;
 
-	line(frame, cv::Point(s.width / 2, s.height / 2), cv::Point(objs_vector[0].center_x, objs_vector[0].center_y), cv::Scalar(0, 255, 0), 2);
+	line(frame, cv::Point(s.width / 2, s.height / 2), cv::Point(detector_model->objs_vector[0].center_x, detector_model->objs_vector[0].center_y), cv::Scalar(0, 255, 0), 2);
 }
 /**
 
@@ -140,7 +135,7 @@ void GUI::lineClosest(cv::Mat &frame)
 */
 void GUI::showShooting()
 {
-	putText(this->frame, "Shooting", cv::Point(objs_vector[0].x, objs_vector[0].y + 25), cv::FONT_HERSHEY_DUPLEX, 0.75, cv::Scalar(0, 0, 255), 1.5);
+	putText(this->frame, "Shooting", cv::Point(detector_model->objs_vector[0].x, detector_model->objs_vector[0].y + 25), cv::FONT_HERSHEY_DUPLEX, 0.75, cv::Scalar(0, 0, 255), 1.5);
 }
 
 /**
@@ -149,12 +144,20 @@ void GUI::showShooting()
 */
 void GUI::show()
 {
-	real_time.read(frame);
-	objs_vector = detector_model->objs_vector;
+	// real_time >> frame;
+	frame = detector_model->frame;
 	if (!frame.empty())
 	{
 		this->drawCrossair(frame);
 		this->lineClosest(frame);
+		if (!detector_model->objs_vector.empty())
+		{
+			for (Object object : detector_model->objs_vector)
+			{
+				circle(frame, cv::Point(object.center_x, object.center_y), 5, cv::Scalar(255, 0, 0), -1);
+				circle(frame, cv::Point(object.center_x, object.center_y), 30, cv::Scalar(255, 0, 0));
+			}
+		}
 
 		if (manual == false)
 		{
@@ -170,11 +173,12 @@ void GUI::show()
 		}
 
 		static const std::string kWinName = "Garden Defender";
-		cv::namedWindow(kWinName, cv::WINDOW_NORMAL);
-		cv::setWindowProperty(kWinName, cv::WND_PROP_FULLSCREEN, cv::WINDOW_FULLSCREEN);
-		cv::resize(frame, frame, cv::Size(frame.cols * 2, frame.rows * 2), 0, 0, cv::INTER_LINEAR);
+		cv::namedWindow(kWinName);
+		// cv::namedWindow(kWinName, cv::WINDOW_NORMAL);
+		// cv::setWindowProperty(kWinName, cv::WND_PROP_FULLSCREEN, cv::WINDOW_FULLSCREEN);
+		// cv::resize(frame, frame, cv::Size(frame.cols * 2, frame.rows * 2), 0, 0, cv::INTER_LINEAR);
 		cv::imshow(kWinName, frame);
-		int k = cv::waitKey(1);
+		int k = cv::waitKey(100);
 
 		// if (k == 82)
 		// {
@@ -209,7 +213,7 @@ void GUI::show()
 
 @brief Method that calls the detect() function. It works in a separete thread without interrupting other operations in the program.
 */
-void GUI::detectThread()
+void GUI::showThread()
 {
 	while (true)
 	{
@@ -217,8 +221,8 @@ void GUI::detectThread()
 	}
 }
 
-void GUI::detectT()
+void GUI::showT()
 {
-	std::thread t1(&GUI::detectThread, this);
+	std::thread t1(&GUI::showThread, this);
 	t1.detach();
 }

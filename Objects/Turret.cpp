@@ -125,12 +125,7 @@ void Turret::aimThread()
                 // detector_model->showShooting();
             }
         }
-        char c = (char)cv::waitKey(25);
-        if (c == 27)
-        {
-            break;
-        }
-        std::this_thread::sleep_for(10ms);
+        std::this_thread::sleep_for(35ms);
     }
 }
 /**
@@ -173,11 +168,11 @@ void Turret::explore()
 
     if (pitch > 80)
     {
-        dir = -2;
+        dir = -SPEED;
     }
     else if (pitch < -80)
     {
-        dir = 2;
+        dir = SPEED;
     }
 }
 /**
