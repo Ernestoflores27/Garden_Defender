@@ -104,8 +104,8 @@ void Detector::detect()
 	}
 	this->sortObjs();
 	this->show();
-	if (manual == false)
-		turretCallback();
+	// if (manual == false)
+	// 	turretCallback();
 }
 /**
  * @brief Callback function to control the turret. Calculates the horizontal and vertical errors between the center of the frame and the center of the first object in objs_vector. Calls the Turret::move() method to move the turret in the direction of the object.

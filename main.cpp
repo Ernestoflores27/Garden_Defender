@@ -17,12 +17,39 @@ int main()
         Detector detector_model("Garden_Defender/yoloFastestV2.onnx", 0.3, 0.4, 0.4, real_time, &turret);
         detector_model.detectT();
 
-        do
+        while (true)
         {
-                std::cout << '\n'
-                          << "Press a Enter to close...";
+                turret.explore();
+                if (!detector_model.objs_vector.empty())
+                {
+                        turret.resetTime();
 
-        } while (std::cin.get() != '\n');
+                        float error_x = detector_model.getOffsetX() * 2 / 320;
+                        float error_y = detector_model.getOffsetY() * 2 / 320;
+
+                        turret.movePitch(SPEED * error_x);
+                        turret.moveYaw(-SPEED * error_y);
+
+                        if (abs(error_x) < MARGIN and abs(error_y) < MARGIN)
+                        {
+                                turret.shoot();
+                                detector_model.showShooting();
+                        }
+                }
+                char c = (char)cv::waitKey(25);
+                if (c == 27)
+                {
+                        break;
+                }
+                std::this_thread::sleep_for(10ms);
+        }
+
+        // do
+        // {
+        //         std::cout << '\n'
+        //                   << "Press a Enter to close...";
+
+        // } while (std::cin.get() != '\n');
 
         real_time.release();
         turret.release();
