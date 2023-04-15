@@ -94,15 +94,14 @@ void Detector::detect()
 		if (classIds[idx] == 0)
 		{
 			cv::Rect box = boxes[idx];
-			this->drawPred(classIds[idx], confidences[idx], box.x, box.y,
-						   box.x + box.width, box.y + box.height, frame);
+			// this->drawPred(classIds[idx], confidences[idx], box.x, box.y,
+			// 			   box.x + box.width, box.y + box.height, frame);
 			cv::Size s = frame.size();
 			Object f(box, s.width, s.height);
 			this->objs_vector.push_back(f);
 		}
 	}
 	this->sortObjs();
-	this->show();
 }
 /**
 
@@ -173,117 +172,7 @@ void Detector::sortObjs()
 {
 	sort(objs_vector.begin(), objs_vector.end());
 }
-/**
 
-@brief Method to draws predicted bounding boxes on the frame.
-*/
-void Detector::drawPred(int classId, float conf, int left, int top, int right, int bottom, cv::Mat &frame)
-{
-	// Draw a rectangle displaying the bounding box
-	rectangle(frame, cv::Point(left, top), cv::Point(right, bottom), cv::Scalar(0, 0, 255), 2);
-
-	// Get the label for the class name and its confidence
-	std::string label = cv::format("%.2f", conf);
-	label = this->classes[classId] + ":" + label;
-
-	// Display the label at the top of the bounding box
-	int baseLine;
-	cv::Size labelSize = cv::getTextSize(label, cv::FONT_HERSHEY_DUPLEX, 0.5, 1, &baseLine);
-	top = std::max(top, labelSize.height);
-	cv::putText(frame, label, cv::Point(left, top), cv::FONT_HERSHEY_DUPLEX, 1, cv::Scalar(0, 0, 255), 1.5);
-}
-/**
-
-@brief Method to draw a crosshair in the center of a given frame for tracking.
-*/
-void Detector::drawCrossair(cv::Mat &frame)
-{
-	cv::Size s = frame.size();
-	cv::line(frame, cv::Point(s.width / 2, 0), cv::Point(s.width / 2, s.height), cv::Scalar(0, 255, 0), 1);
-	cv::line(frame, cv::Point(0, s.height / 2), cv::Point(s.width, s.height / 2), cv::Scalar(0, 255, 0), 1);
-}
-/**
-
-@brief Method draws a green line between the center of the detected object and the center of the video frame for tracking.
-*/
-void Detector::lineClosest(cv::Mat &frame)
-{
-	cv::Size s = frame.size();
-	if (objs_vector.empty())
-		return;
-
-	line(frame, cv::Point(s.width / 2, s.height / 2), cv::Point(objs_vector[0].center_x, objs_vector[0].center_y), cv::Scalar(0, 255, 0), 2);
-}
-/**
-
-@brief Method for showing the frame with detected objects and the crosshair on the turret.
-*/
-void Detector::showShooting()
-{
-	putText(this->frame, "Shooting", cv::Point(objs_vector[0].x, objs_vector[0].y + 25), cv::FONT_HERSHEY_DUPLEX, 0.75, cv::Scalar(0, 0, 255), 1.5);
-}
-
-/**
-
-@brief Method for showing the frame with detected objects and the information to command the turret in manual or automatic mode. It also command the turrent when it is in Manual mode.
-*/
-void Detector::show()
-{
-	if (!frame.empty())
-	{
-		this->drawCrossair(frame);
-		this->lineClosest(frame);
-		this->persistence();
-
-		if (manual == false)
-		{
-			putText(this->frame, "Mode: Auto", cv::Point(10, 20), cv::FONT_HERSHEY_DUPLEX, 0.75, cv::Scalar(0, 0, 255), 1.5);
-			putText(this->frame, "To change modes press Q", cv::Point(10, 40), cv::FONT_HERSHEY_DUPLEX, 0.75, cv::Scalar(0, 0, 255), 1.5);
-		}
-		else
-		{
-			putText(this->frame, "Mode: Manual", cv::Point(10, 20), cv::FONT_HERSHEY_DUPLEX, 0.75, cv::Scalar(0, 0, 255), 1.5);
-			putText(this->frame, "To change modes press Q", cv::Point(10, 40), cv::FONT_HERSHEY_DUPLEX, 0.75, cv::Scalar(0, 0, 255), 1.5);
-			putText(this->frame, "To move use arrow keys", cv::Point(10, 60), cv::FONT_HERSHEY_DUPLEX, 0.75, cv::Scalar(0, 0, 255), 1.5);
-			putText(this->frame, "To shoot press the space key", cv::Point(10, 80), cv::FONT_HERSHEY_DUPLEX, 0.75, cv::Scalar(0, 0, 255), 1.5);
-		}
-
-		static const std::string kWinName = "Garden Defender";
-		cv::namedWindow(kWinName, cv::WINDOW_NORMAL);
-		cv::setWindowProperty(kWinName, cv::WND_PROP_FULLSCREEN, cv::WINDOW_FULLSCREEN);
-		cv::resize(frame, frame, cv::Size(frame.cols * 2, frame.rows * 2), 0, 0, cv::INTER_LINEAR);
-		cv::imshow(kWinName, frame);
-		int k = cv::waitKey(1);
-
-		// if (k == 82)
-		// {
-		// 	turret->moveYaw(-5);
-		// }
-		// else if (k == 84)
-		// {
-		// 	turret->moveYaw(5);
-		// }
-		// else if (k == 81)
-		// {
-		// 	turret->movePitch(5);
-		// }
-		// else if (k == 83)
-		// {
-		// 	turret->movePitch(-5);
-		// }
-		// else if (k == 113)
-		// {
-		// 	manual = !manual;
-		// }
-		// else if (k == 32)
-		// {
-		// 	turret->shoot();
-		// }
-		// else
-		// {
-		// }
-	}
-}
 /**
 
 @brief Method that calls the detect() function. It works in a separete thread without interrupting other operations in the program.

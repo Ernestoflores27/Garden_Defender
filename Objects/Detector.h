@@ -55,17 +55,6 @@ public:
 */
 	float getOffsetY();
 	/**
-
-@brief Method for showing the frame with detected objects.
-*/
-	void show();
-	/**
-
-@brief Method for showing the frame with detected objects and the crosshair on the turret.
-*/
-	void showShooting();
-	/**
-
 @brief Vector of Object objects containing the detected objects.
 */
 	std::vector<Object> objs_vector, objs_vector_old, objs_vector_filtered;
@@ -142,14 +131,6 @@ private:
 	 */
 	void sortObjs();
 	/**
-	 * @brief Draws a crosshair in the center of a given frame for tracking.
-	 */
-	void drawCrossair(cv::Mat &frame);
-	/**
-	 * @brief Draws a green line between the center of the detected object and the center of the video frame for tracking.
-	 */
-	void lineClosest(cv::Mat &frame);
-	/**
 	 * @brief The thread to detect
 	 */
 	void detectThread();
@@ -157,8 +138,4 @@ private:
 	 * @brief Improves the object detection by appliying a filter to the recognition.
 	 */
 	void persistence();
-	/**
-	 * @brief Draw a rectangle displaying the bounding box and display it
-	 */
-	void drawPred(int classId, float conf, int left, int top, int right, int bottom, cv::Mat &frame);
 };

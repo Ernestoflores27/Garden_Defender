@@ -122,7 +122,7 @@ void Turret::aimThread()
             if (abs(error_x) < MARGIN and abs(error_y) < MARGIN)
             {
                 shoot();
-                detector_model->showShooting();
+                // detector_model->showShooting();
             }
         }
         char c = (char)cv::waitKey(25);
