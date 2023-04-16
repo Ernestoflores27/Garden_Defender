@@ -1,5 +1,8 @@
 var searchData=
 [
-  ['object_20',['Object',['../classObject.html',1,'Object'],['../classObject.html#a60060fc4679c2b945eb1b7df5eb8a368',1,'Object::Object()']]],
-  ['objs_5fvector_21',['objs_vector',['../classDetector.html#a379e5cac91f1101ca82514565d53bca1',1,'Detector']]]
+  ['mapangletopwm_16',['mapAngleToPWM',['../classServos.html#ade375cfa77b0fcb34b3d5300f2026a21',1,'Servos']]],
+  ['movepitch_17',['movePitch',['../classTurret.html#a6dd9412fe37034b543eaa775088515c5',1,'Turret']]],
+  ['movethread_18',['moveThread',['../classTurret.html#a16946e3e3c82729d222d89c43a000b81',1,'Turret']]],
+  ['moveturret_19',['moveTurret',['../classTurret.html#a5e23fb0d6a5667bfb14e814fe6800007',1,'Turret']]],
+  ['moveyaw_20',['moveYaw',['../classTurret.html#ab7d9e28407b6572a5d69add76dc7c2ed',1,'Turret']]]
 ];

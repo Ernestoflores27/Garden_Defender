@@ -1,9 +1,12 @@
 #include <gtest/gtest.h>
 #include <pigpiod_if2.h>
-#include "../Objects/Servos.cpp"
+#include "../Objects/Camera.cpp"
+#include "../Objects/Detector.cpp"
+#include "../Objects/Turret.cpp"
+#include "../Objects/GUI.cpp"
 
-
-class ServosTest : public ::testing::Test {
+class ServosTest : public ::testing::Test
+{
 protected:
     Servos servos;
     const float MIN_PWM = 1000.0f;
@@ -12,11 +15,13 @@ protected:
     const float MAX_ANGLE = 90.0f;
 };
 
-TEST_F(ServosTest, DefaultConstructor) {
+TEST_F(ServosTest, DefaultConstructor)
+{
     // Test default constructor, no setup needed
 }
 
-TEST_F(ServosTest, ServoInit) {
+TEST_F(ServosTest, ServoInit)
+{
     // Test servo initialization
     servos.servoInit(MIN_PWM, MAX_PWM, MIN_ANGLE, MAX_ANGLE);
     // Assert that minimum and maximum PWM values are set correctly
@@ -27,7 +32,8 @@ TEST_F(ServosTest, ServoInit) {
     EXPECT_EQ(MAX_ANGLE, servos.maxAngle);
 }
 
-TEST_F(ServosTest, MapAngleToPWM) {
+TEST_F(ServosTest, MapAngleToPWM)
+{
     // Test mapping of angle to PWM value
     servos.servoInit(MIN_PWM, MAX_PWM, MIN_ANGLE, MAX_ANGLE);
     // Test mapping of minimum angle to minimum PWM value
@@ -40,7 +46,8 @@ TEST_F(ServosTest, MapAngleToPWM) {
     EXPECT_EQ(EXPECTED_PWM, servos.mapAngleToPWM(ANGLE));
 }
 
-TEST_F(ServosTest, ServoMove) {
+TEST_F(ServosTest, ServoMove)
+{
     // Test moving of servo to given angle
     servos.servoInit(MIN_PWM, MAX_PWM, MIN_ANGLE, MAX_ANGLE);
     // Test moving servo to minimum angle

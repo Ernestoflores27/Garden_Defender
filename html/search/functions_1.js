@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['detect_48',['detect',['../classDetector.html#ae0c0a72fef22d6521e82c18424a4dd04',1,'Detector']]],
-  ['detectt_49',['detectT',['../classDetector.html#a2a9a4ca53f575a9e73555618e50ef224',1,'Detector']]]
+  ['camera_50',['Camera',['../classCamera.html#a897e5050649647682723b67a8f7cb1a1',1,'Camera']]],
+  ['changeposition_51',['changePosition',['../classTurret.html#a3dbe4be4e82d9e32f4e0a6ed57e30b67',1,'Turret']]],
+  ['clamp_52',['clamp',['../classTurret.html#a2e0ec8c66d827b64847cb93512d83393',1,'Turret']]]
 ];

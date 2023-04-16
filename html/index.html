@@ -87,7 +87,7 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 <div class="title">Garden_Defender </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="md_README"></a><img src="https://user-images.githubusercontent.com/56697327/229754456-5e34f1b4-b3b8-435d-b763-7635a71a4984.png" alt="Garden Defender Logo" class="inline"/></p>
+<div class="textblock"><p><a class="anchor" id="md_README"></a> <img src="https://user-images.githubusercontent.com/56697327/229754456-5e34f1b4-b3b8-435d-b763-7635a71a4984.png" alt="Garden Defender Logo" class="inline"/></p>
 <h1><a class="anchor" id="autotoc_md1"></a>
 Description</h1>
 <p><img src="https://user-images.githubusercontent.com/71940725/230478254-b407497c-fc81-4b7d-be0a-f5f599985f4d.jpg" alt="WhatsApp Image 2023-04-06 at 18 43 52" class="inline"/></p>
@@ -109,17 +109,72 @@ Features</h2>
 Documentation</h1>
 <p>For code documentation go to: <a href="https://ernestoflores27.github.io/Garden_Defender/html/index.html">https://ernestoflores27.github.io/Garden_Defender/html/index.html</a></p>
 <h1><a class="anchor" id="autotoc_md5"></a>
-Installation</h1>
-<ul>
-<li>Download and install opencv for c++ with dnn support, following the guide:</li>
-<li>Download and install pigpio, following the guide:</li>
-<li>Clone this repo using</li>
-<li>Build using cmake</li>
-</ul>
-<h1><a class="anchor" id="autotoc_md6"></a>
 Build</h1>
 <p>For full building instructions go to: <a href="https://maeldorne.notion.site/Garden-Defender-f2392ed58dae446e874e89c7e9c0607c">Full build guide</a></p>
-<h1><a class="anchor" id="autotoc_md7"></a>
+<h1><a class="anchor" id="autotoc_md6"></a>
+Installation</h1>
+<p><b>Required packages:</b></p>
+<ul>
+<li>Raspberry Pi OS (previously called Raspbian): <a href="https://www.raspberrypi.com/software/">https://www.raspberrypi.com/software/</a></li>
+<li>Cmake: <a href="https://cmake.org/download/">https://cmake.org/download/</a></li>
+<li>Pigpio: <a href="https://kalitut.com/control-gpio-pigpiod-commands/">https://kalitut.com/control-gpio-pigpiod-commands/</a></li>
+<li>PCA9685: <a href="https://www.adafruit.com/product/815">https://www.adafruit.com/product/815</a></li>
+<li>OpenCV for C++ with DNN support: <a href="https://opencv.org/">https://opencv.org/</a></li>
+</ul>
+<p><b>Installing Raspberry Pi OS:</b></p>
+<ol type="1">
+<li>Download package.</li>
+<li>Install Raspberry Pi OS on your PC.</li>
+<li>Insert SD card into your PC.</li>
+<li>Open Raspberry Pi Imager.</li>
+<li>In Operating system select: Raspberry Pi OS (32-bit)</li>
+<li>In Storage select your SD card.</li>
+<li>Select setting and add your WIFI name (SSID) and password.</li>
+<li>Finally, click on Write.</li>
+</ol>
+<p><b>Installing Cmake on RPI:</b></p>
+<p>1.-Open terminal.</p>
+<p>2.-Installation:</p>
+<div class="fragment"><div class="line">cd</div>
+<div class="line">sudo apt-get install cmake</div>
+</div><!-- fragment --><p>3.-Verification:</p>
+<div class="fragment"><div class="line">cmake --version</div>
+</div><!-- fragment --><p><b>Installing Pigpio on RPI:</b></p>
+<p>1.-Open terminal.</p>
+<p>2.-Installation:</p>
+<div class="fragment"><div class="line">cd</div>
+<div class="line">sudo apt-get install pigpio</div>
+</div><!-- fragment --><p>3.- Verification:</p>
+<div class="fragment"><div class="line">pigpio --version</div>
+</div><!-- fragment --><p><b>Installing PCA9685 on RPI:</b></p>
+<p>1.Follow the installation as shown here: <a href="https://github.com/vanvught/rpidmx512/tree/master/lib-pca9685">https://github.com/vanvught/rpidmx512/tree/master/lib-pca9685</a></p>
+<p><b>Installing OpenCV on RPI:</b></p>
+<p>1.-Open terminal</p>
+<p>2.-Download:</p>
+<div class="fragment"><div class="line">wget https://github.com/sol-prog/raspberry-pi-opencv/releases/download/opencv4rpi2.1/opencv-4.1.0-armhf.tar.bz2</div>
+</div><!-- fragment --><p>3.-Extract:</p>
+<div class="fragment"><div class="line">tar xvf opencv-4.1.0-armhf.tar.bz2</div>
+</div><!-- fragment --><p>4.-Move folder:</p>
+<div class="fragment"><div class="line">sudo mv opencv-4.1.0 /opt</div>
+</div><!-- fragment --><p>5.-Remove folder:</p>
+<div class="fragment"><div class="line">rm opencv-4.1.0-armhf.tar.bz2</div>
+</div><!-- fragment --><p>6.-Install requisites:</p>
+<div class="fragment"><div class="line">sudo apt install libtiff-dev zlib1g-dev</div>
+<div class="line">sudo apt install libjpeg-dev libpng-dev</div>
+<div class="line">sudo apt install libavcodec-dev libavformat-dev libswscale-dev libv4l-dev</div>
+<div class="line">sudo apt-get install libxvidcore-dev libx264-dev</div>
+</div><!-- fragment --><p>7.-Add OpenCV to the system library path:</p>
+<div class="fragment"><div class="line">cd ~</div>
+<div class="line">echo &#39;export LD_LIBRARY_PATH=/opt/opencv-4.1.0/lib:$LD_LIBRARY_PATH&#39; &gt;&gt; .bashrc. .bashrc</div>
+</div><!-- fragment --><p> 8.-Clone config file: </p><div class="fragment"><div class="line">cd ~</div>
+<div class="line">echo &#39;export LD_LIBRARY_PATH=/opt/opencv-4.1.0/lib:$LD_LIBRARY_PATH&#39; &gt;&gt; .bashrc. .bashrc</div>
+</div><!-- fragment --><p>Clone this repo using </p><div class="fragment"><div class="line">git clone https://github.com/Ernestoflores27/Garden_Defender.git</div>
+</div><!-- fragment --><p> Build using cmake </p><div class="fragment"><div class="line">cd Garden_Defender</div>
+<div class="line">make</div>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md7"></a>
+Run</h1>
+<div class="fragment"><div class="line">sudo Garden_Defender/build/garden_defender</div>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md8"></a>
 Social Media</h1>
 <p><a href="https://www.instagram.com/gardendefender_info/"><img src="https://camo.githubusercontent.com/451c9e00b3f8c9b6c15d4708d9c6293766e9766345a206114a135e4a597847b6/68747470733a2f2f7265732e636c6f7564696e6172792e636f6d2f6478737479337374362f696d6167652f75706c6f61642f76313634393339353835392f626c696e642d6e61762d73797374656d2f69636f6e73382d696e7374616772616d2d34385f6b356b7577692e706e67" alt="" class="inline"/></a> <a href="https://www.youtube.com/@gardendefender"><img src="https://camo.githubusercontent.com/e1aebb8e5b3c1fcaf7c9372d909c10dc1fe81b63f88c786ae15e78b65bd961dd/68747470733a2f2f7265732e636c6f7564696e6172792e636f6d2f6478737479337374362f696d6167652f75706c6f61642f76313634393339353835392f626c696e642d6e61762d73797374656d2f69636f6e73382d796f75747562652d34385f6b70616c6c392e706e67" alt="" class="inline"/></a> <a href="https://twitter.com/garden_defender"><img src="https://camo.githubusercontent.com/25a57ba7684d613af975d1270cc992490103b9472e8ffaa85a28b10925d9ba7e/68747470733a2f2f7265732e636c6f7564696e6172792e636f6d2f6478737479337374362f696d6167652f75706c6f61642f76313634393339353835392f626c696e642d6e61762d73797374656d2f69636f6e73382d747769747465722d34385f70743469637a2e706e67" alt="" class="inline"/></a> <a href="https://www.tiktok.com/@gardendefenderinfo"><img src="https://user-images.githubusercontent.com/71940725/229294685-eee9c9a3-4d63-4785-b5a5-9edc586ef4b6.png" alt="" class="inline"/></a> <a href="https://www.facebook.com/profile.php?id=100089644931372"><img src="https://user-images.githubusercontent.com/56697327/229308058-92dbd6a5-40c9-4143-af38-86583202f425.png" alt="" class="inline"/></a> </p>
 </div></div><!-- PageDoc -->

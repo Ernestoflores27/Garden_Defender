@@ -1,8 +1,10 @@
+#include <opencv4/opencv2/opencv.hpp>
+
 /**
  * @brief A Class to perform the algorithm that arranges the detected objects by distance.
- * 
+ *
  */
-class Object 
+class Object
 {
 public:
     int64_t x, y, h, w, center_x, center_y, offset_x, offset_y;

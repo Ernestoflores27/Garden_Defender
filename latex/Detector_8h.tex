@@ -10,8 +10,6 @@ Header file containing the declaration of references needed in the \mbox{\hyperl
 {\ttfamily \#include $<$opencv4/opencv2/imgproc.\+hpp$>$}\newline
 {\ttfamily \#include $<$opencv4/opencv2/highgui.\+hpp$>$}\newline
 {\ttfamily \#include \char`\"{}Object.\+cpp\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}Turret.\+cpp\char`\"{}}\newline
-{\ttfamily \#include $<$iostream$>$}\newline
 {\ttfamily \#include $<$fstream$>$}\newline
 {\ttfamily \#include $<$sstream$>$}\newline
 {\ttfamily \#include $<$thread$>$}\newline
@@ -21,7 +19,9 @@ Include dependency graph for Detector.\+h\+:
 \begin{DoxyCompactItemize}
 \item 
 class \mbox{\hyperlink{classDetector}{Detector}}
-\begin{DoxyCompactList}\small\item\em Class that handles object detection using a neural network. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Class that handles object detection using a neural network. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structDetector_1_1Callback__Detector}{Detector\+::\+Callback\+\_\+\+Detector}}
+\begin{DoxyCompactList}\small\item\em Callback interface which needs to be implemented by the user. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}

@@ -27,12 +27,15 @@ void \mbox{\hyperlink{classTurret_ab7d9e28407b6572a5d69add76dc7c2ed}{move\+Yaw}}
 \mbox{\Hypertarget{classTurret_a5e23fb0d6a5667bfb14e814fe6800007}\label{classTurret_a5e23fb0d6a5667bfb14e814fe6800007}} 
 void \mbox{\hyperlink{classTurret_a5e23fb0d6a5667bfb14e814fe6800007}{move\+Turret}} ()
 \begin{DoxyCompactList}\small\item\em Moves the turret to its new pitch and yaw angles. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classTurret_af88472151284540ae18a1365b02cf811}\label{classTurret_af88472151284540ae18a1365b02cf811}} 
-void \mbox{\hyperlink{classTurret_af88472151284540ae18a1365b02cf811}{moveT}} ()
+\mbox{\Hypertarget{classTurret_acff1e37e10eadb00728092c41521bfa9}\label{classTurret_acff1e37e10eadb00728092c41521bfa9}} 
+void \mbox{\hyperlink{classTurret_acff1e37e10eadb00728092c41521bfa9}{start}} ()
 \begin{DoxyCompactList}\small\item\em Moves the turret to its new pitch and yaw angles in a separate thread. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classTurret_a16946e3e3c82729d222d89c43a000b81}\label{classTurret_a16946e3e3c82729d222d89c43a000b81}} 
 void \mbox{\hyperlink{classTurret_a16946e3e3c82729d222d89c43a000b81}{move\+Thread}} ()
 \begin{DoxyCompactList}\small\item\em Thread function for moving the turret. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classTurret_a6cb42f076fdd3ecd76cdfa0552a39e9f}\label{classTurret_a6cb42f076fdd3ecd76cdfa0552a39e9f}} 
+void \mbox{\hyperlink{classTurret_a6cb42f076fdd3ecd76cdfa0552a39e9f}{aim\+Thread}} ()
+\begin{DoxyCompactList}\small\item\em Thread function for aiming the turret. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classTurret_ad68c2922e7abdde7ae30dd0ac715afbf}\label{classTurret_ad68c2922e7abdde7ae30dd0ac715afbf}} 
 void \mbox{\hyperlink{classTurret_ad68c2922e7abdde7ae30dd0ac715afbf}{shoot}} ()
 \begin{DoxyCompactList}\small\item\em Shoots the turret by activating the shooting relay. \end{DoxyCompactList}\item 
@@ -49,11 +52,26 @@ float \mbox{\hyperlink{classTurret_a2e0ec8c66d827b64847cb93512d83393}{clamp}} (f
 \mbox{\Hypertarget{classTurret_a5d3970b79573cbfd736863eaf45eb9b2}\label{classTurret_a5d3970b79573cbfd736863eaf45eb9b2}} 
 void \mbox{\hyperlink{classTurret_a5d3970b79573cbfd736863eaf45eb9b2}{reset\+Time}} ()
 \begin{DoxyCompactList}\small\item\em Reset the time from the last time it detected the previous object. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classTurret_a51d06c87fe2b16deb9cad1776a27057f}\label{classTurret_a51d06c87fe2b16deb9cad1776a27057f}} 
-void \mbox{\hyperlink{classTurret_a51d06c87fe2b16deb9cad1776a27057f}{release}} ()
+\mbox{\Hypertarget{classTurret_ab6fdd7b5179136fa88fa2499c605bfe5}\label{classTurret_ab6fdd7b5179136fa88fa2499c605bfe5}} 
+void \mbox{\hyperlink{classTurret_ab6fdd7b5179136fa88fa2499c605bfe5}{stop}} ()
 \begin{DoxyCompactList}\small\item\em Release resources. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classTurret_ae11b2b26e1bef68f60aeb6861e539f4b}\label{classTurret_ae11b2b26e1bef68f60aeb6861e539f4b}} 
+bool {\bfseries manual} = false
+\item 
+\mbox{\Hypertarget{classTurret_aa328046b22cbd16a66cce52b6b785583}\label{classTurret_aa328046b22cbd16a66cce52b6b785583}} 
+bool {\bfseries shooting} = false
+\item 
+\mbox{\Hypertarget{classTurret_a254ac1deb00ec69af37f78fbd29aed2b}\label{classTurret_a254ac1deb00ec69af37f78fbd29aed2b}} 
+bool {\bfseries running} = false
+\item 
+\mbox{\Hypertarget{classTurret_a1894183d47a16a800f5da1b82a63719b}\label{classTurret_a1894183d47a16a800f5da1b82a63719b}} 
+std\+::thread $\ast$ {\bfseries worker\+\_\+1} = nullptr
+\item 
+\mbox{\Hypertarget{classTurret_a02167b92e90c48ed7bf52cce61df9257}\label{classTurret_a02167b92e90c48ed7bf52cce61df9257}} 
+std\+::thread $\ast$ {\bfseries worker\+\_\+2} = nullptr
 \item 
 \mbox{\Hypertarget{classTurret_a88e4e30bfc2547b3758fe3560eb92eac}\label{classTurret_a88e4e30bfc2547b3758fe3560eb92eac}} 
 int {\bfseries Turret\+\_\+\+GPIO}
@@ -105,6 +123,12 @@ time\+\_\+t {\bfseries start\+\_\+shooting\+\_\+time}
 \item 
 \mbox{\Hypertarget{classTurret_a2e4fb3ece911a153659d5996fd4834f7}\label{classTurret_a2e4fb3ece911a153659d5996fd4834f7}} 
 time\+\_\+t {\bfseries start\+\_\+exploring\+\_\+time}
+\item 
+\mbox{\Hypertarget{classTurret_ad56118dae462830b78548408843edd32}\label{classTurret_ad56118dae462830b78548408843edd32}} 
+time\+\_\+t {\bfseries start\+\_\+aiming\+\_\+time}
+\item 
+\mbox{\Hypertarget{classTurret_a2068fd2dd52a18b2f4ad6b937618a4ee}\label{classTurret_a2068fd2dd52a18b2f4ad6b937618a4ee}} 
+std\+::vector$<$ \mbox{\hyperlink{classObject}{Object}} $>$ {\bfseries objs\+\_\+vector}
 \end{DoxyCompactItemize}
 
 

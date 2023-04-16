@@ -1,6 +1,6 @@
 \label{index_md_README}%
 \Hypertarget{index_md_README}%
-\hypertarget{index_autotoc_md1}{}\doxysection{Description}\label{index_autotoc_md1}
+ \hypertarget{index_autotoc_md1}{}\doxysection{Description}\label{index_autotoc_md1}
 
 
 Protect your garden from unwanted animals with the garden defender. The garden defender is a robotic water pellet gun that deters unwanted animals by shooting at them with a water pellet. The robotic gun will continuously scan your garden with a webcam. With the combination of computer vision and a deep learning algorithm “\+YOLO”, the garden defender can detect and distinguish between a “friendly” and “unwanted guest” before shooting a water pellet.\hypertarget{index_autotoc_md2}{}\doxysection{Details}\label{index_autotoc_md2}
@@ -17,13 +17,167 @@ One solution to deter these “unwanted guest” is by shooting at them with a w
 Please, watch our video\+:
 
 \href{https://www.youtube.com/watch?v=-97-if4tLNQ}{\texttt{ }}\hypertarget{index_autotoc_md4}{}\doxysection{Documentation}\label{index_autotoc_md4}
-For code documentation go to\+: \href{https://ernestoflores27.github.io/Garden_Defender/html/index.html}{\texttt{ https\+://ernestoflores27.\+github.\+io/\+Garden\+\_\+\+Defender/html/index.\+html}}\hypertarget{index_autotoc_md5}{}\doxysection{Installation}\label{index_autotoc_md5}
+For code documentation go to\+: \href{https://ernestoflores27.github.io/Garden_Defender/html/index.html}{\texttt{ https\+://ernestoflores27.\+github.\+io/\+Garden\+\_\+\+Defender/html/index.\+html}}\hypertarget{index_autotoc_md5}{}\doxysection{Build}\label{index_autotoc_md5}
+For full building instructions go to\+: \href{https://maeldorne.notion.site/Garden-Defender-f2392ed58dae446e874e89c7e9c0607c}{\texttt{ Full build guide}}\hypertarget{index_autotoc_md6}{}\doxysection{Installation}\label{index_autotoc_md6}
+{\bfseries{Required packages\+:}}
+
 
 \begin{DoxyItemize}
-\item Download and install opencv for c++ with dnn support, following the guide\+:
-\item Download and install pigpio, following the guide\+:
-\item Clone this repo using
-\item Build using cmake
-\end{DoxyItemize}\hypertarget{index_autotoc_md6}{}\doxysection{Build}\label{index_autotoc_md6}
-For full building instructions go to\+: \href{https://maeldorne.notion.site/Garden-Defender-f2392ed58dae446e874e89c7e9c0607c}{\texttt{ Full build guide}}\hypertarget{index_autotoc_md7}{}\doxysection{Social Media}\label{index_autotoc_md7}
+\item Raspberry Pi OS (previously called Raspbian)\+: \href{https://www.raspberrypi.com/software/}{\texttt{ https\+://www.\+raspberrypi.\+com/software/}}
+\item Cmake\+: \href{https://cmake.org/download/}{\texttt{ https\+://cmake.\+org/download/}}
+\item Pigpio\+: \href{https://kalitut.com/control-gpio-pigpiod-commands/}{\texttt{ https\+://kalitut.\+com/control-\/gpio-\/pigpiod-\/commands/}}
+\item PCA9685\+: \href{https://www.adafruit.com/product/815}{\texttt{ https\+://www.\+adafruit.\+com/product/815}}
+\item Open\+CV for C++ with DNN support\+: \href{https://opencv.org/}{\texttt{ https\+://opencv.\+org/}}
+\end{DoxyItemize}
+
+{\bfseries{Installing Raspberry Pi OS\+:}}
+
+
+\begin{DoxyEnumerate}
+\item Download package.
+\item Install Raspberry Pi OS on your PC.
+\item Insert SD card into your PC.
+\item Open Raspberry Pi Imager.
+\item In Operating system select\+: Raspberry Pi OS (32-\/bit)
+\item In Storage select your SD card.
+\item Select setting and add your WIFI name (SSID) and password.
+\item Finally, click on Write.
+\end{DoxyEnumerate}
+
+{\bfseries{Installing Cmake on RPI\+:}}
+
+1.-\/Open terminal.
+
+2.-\/Installation\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{cd}
+\DoxyCodeLine{sudo apt-\/get install cmake}
+
+\end{DoxyCode}
+
+
+3.-\/Verification\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{cmake -\/-\/version}
+
+\end{DoxyCode}
+
+
+{\bfseries{Installing Pigpio on RPI\+:}}
+
+1.-\/Open terminal.
+
+2.-\/Installation\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{cd}
+\DoxyCodeLine{sudo apt-\/get install pigpio}
+
+\end{DoxyCode}
+
+
+3.-\/ Verification\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{pigpio -\/-\/version}
+
+\end{DoxyCode}
+
+
+{\bfseries{Installing PCA9685 on RPI\+:}}
+
+1.\+Follow the installation as shown here\+: \href{https://github.com/vanvught/rpidmx512/tree/master/lib-pca9685}{\texttt{ https\+://github.\+com/vanvught/rpidmx512/tree/master/lib-\/pca9685}}
+
+{\bfseries{Installing Open\+CV on RPI\+:}}
+
+1.-\/Open terminal
+
+2.-\/Download\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{wget https://github.com/sol-\/prog/raspberry-\/pi-\/opencv/releases/download/opencv4rpi2.1/opencv-\/4.1.0-\/armhf.tar.bz2}
+
+\end{DoxyCode}
+
+
+3.-\/Extract\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{tar xvf opencv-\/4.1.0-\/armhf.tar.bz2}
+
+\end{DoxyCode}
+
+
+4.-\/Move folder\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{sudo mv opencv-\/4.1.0 /opt}
+
+\end{DoxyCode}
+
+
+5.-\/Remove folder\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{rm opencv-\/4.1.0-\/armhf.tar.bz2}
+
+\end{DoxyCode}
+
+
+6.-\/Install requisites\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{sudo apt install libtiff-\/dev zlib1g-\/dev}
+\DoxyCodeLine{sudo apt install libjpeg-\/dev libpng-\/dev}
+\DoxyCodeLine{sudo apt install libavcodec-\/dev libavformat-\/dev libswscale-\/dev libv4l-\/dev}
+\DoxyCodeLine{sudo apt-\/get install libxvidcore-\/dev libx264-\/dev}
+
+\end{DoxyCode}
+
+
+7.-\/Add Open\+CV to the system library path\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{cd \string~}
+\DoxyCodeLine{echo 'export LD\_LIBRARY\_PATH=/opt/opencv-\/4.1.0/lib:\$LD\_LIBRARY\_PATH' >> .bashrc. .bashrc}
+
+\end{DoxyCode}
+ 8.-\/Clone config file\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{cd \string~}
+\DoxyCodeLine{echo 'export LD\_LIBRARY\_PATH=/opt/opencv-\/4.1.0/lib:\$LD\_LIBRARY\_PATH' >> .bashrc. .bashrc}
+
+\end{DoxyCode}
+
+
+Clone this repo using 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{git clone https://github.com/Ernestoflores27/Garden\_Defender.git}
+
+\end{DoxyCode}
+ Build using cmake 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{cd Garden\_Defender}
+\DoxyCodeLine{make}
+
+\end{DoxyCode}
+\hypertarget{index_autotoc_md7}{}\doxysection{Run}\label{index_autotoc_md7}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{sudo Garden\_Defender/build/garden\_defender}
+
+\end{DoxyCode}
+\hypertarget{index_autotoc_md8}{}\doxysection{Social Media}\label{index_autotoc_md8}
 \href{https://www.instagram.com/gardendefender_info/}{\texttt{ }} \href{https://www.youtube.com/@gardendefender}{\texttt{ }} \href{https://twitter.com/garden_defender}{\texttt{ }} \href{https://www.tiktok.com/@gardendefenderinfo}{\texttt{ }} \href{https://www.facebook.com/profile.php?id=100089644931372}{\texttt{ }} 

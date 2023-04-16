@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['real_5ftime_22',['real_time',['../classDetector.html#addf12e0b4b4b07fe034d258db4c9ff36',1,'Detector']]],
-  ['release_23',['release',['../classTurret.html#a51d06c87fe2b16deb9cad1776a27057f',1,'Turret']]],
-  ['resettime_24',['resetTime',['../classTurret.html#a5d3970b79573cbfd736863eaf45eb9b2',1,'Turret']]]
+  ['object_21',['Object',['../classObject.html',1,'Object'],['../classObject.html#a60060fc4679c2b945eb1b7df5eb8a368',1,'Object::Object()']]],
+  ['objs_5fvector_22',['objs_vector',['../classDetector.html#a379e5cac91f1101ca82514565d53bca1',1,'Detector']]]
 ];
