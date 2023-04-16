@@ -119,7 +119,8 @@ void Detector::sortObjs()
 */
 void Detector::run()
 {
-	while (true)
+	running = true;
+	while (running)
 	{
 		this->detect();
 	}
@@ -130,6 +131,15 @@ void Detector::run()
 */
 void Detector::start()
 {
-	std::thread t1(&Detector::run, this);
-	t1.detach();
+	worker = new std::thread(&Detector::run, this);
+}
+
+/**
+@brief Method to stop a new thread for detection and and detach it from the main thread.
+*/
+void Detector::stop()
+{
+	running = false;
+	worker->join();
+	delete worker;
 }

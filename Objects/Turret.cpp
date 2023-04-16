@@ -81,10 +81,8 @@ void Turret::moveTurret()
 */
 void Turret::start()
 {
-	std::thread t1(&Turret::moveThread, this);
-	t1.detach();
-	std::thread t2(&Turret::aimThread, this);
-	t2.detach();
+	worker_1 = new std::thread(&Turret::moveThread, this);
+	worker_2 = new std::thread(&Turret::aimThread, this);
 }
 
 /**
@@ -92,7 +90,8 @@ void Turret::start()
 */
 void Turret::moveThread()
 {
-	while (true)
+	running = true;
+	while (running)
 	{
 		new_pitch = (old_pitch * SMOOTHING) + (pitch * (1 - SMOOTHING));
 		new_yaw = (old_yaw * SMOOTHING) + (yaw * (1 - SMOOTHING));
@@ -108,28 +107,33 @@ void Turret::moveThread()
 */
 void Turret::aimThread()
 {
-	while (true)
+	double start = time_time();
+	running = true;
+	while (running)
 	{
-		if (manual == false)
+		if (time_time() - start > 0.035)
 		{
-			explore();
-			if (!objs_vector.empty())
+			if (manual == false)
 			{
-				resetTime();
-
-				float error_x = (float)objs_vector[0].offset_x * 2 / 320;
-				float error_y = (float)objs_vector[0].offset_y * 2 / 320;
-
-				movePitch(SPEED * error_x);
-				moveYaw(-SPEED * error_y);
-
-				if (abs(error_x) < MARGIN and abs(error_y) < MARGIN)
+				explore();
+				if (!objs_vector.empty())
 				{
-					shoot();
+					resetTime();
+
+					float error_x = (float)objs_vector[0].offset_x * 2 / 320;
+					float error_y = (float)objs_vector[0].offset_y * 2 / 320;
+
+					movePitch(SPEED * error_x);
+					moveYaw(-SPEED * error_y);
+
+					if (abs(error_x) < MARGIN and abs(error_y) < MARGIN)
+					{
+						shoot();
+					}
 				}
 			}
+			start = time_time();
 		}
-		std::this_thread::sleep_for(35ms);
 	}
 }
 
@@ -151,10 +155,12 @@ void Turret::shoot()
 */
 void Turret::shootThread()
 {
+	double start = time_time();
 	shooting = true;
 	gpioWrite(Turret_GPIO, 0);
 	gpioWrite(shootingLed_GPIO, 1);
-	std::this_thread::sleep_for(500ms);
+	while (time_time() - start < 0.5)
+		;
 	shooting = false;
 	gpioWrite(Turret_GPIO, 1);
 	gpioWrite(shootingLed_GPIO, 0);
@@ -218,7 +224,12 @@ void Turret::resetTime()
 /**
 @brief Release resources.
 */
-void Turret::release()
+void Turret::stop()
 {
 	gpioTerminate();
+	running = false;
+	worker_1->join();
+	delete worker_1;
+	worker_2->join();
+	delete worker_2;
 }

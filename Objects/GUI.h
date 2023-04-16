@@ -8,7 +8,7 @@
 
 /**
 @class GUI
-@brief Class that handles object detection using a neural network.
+@brief Class that handles the GUI and the turret mode.
 */
 class GUI
 {
@@ -20,6 +20,7 @@ public:
 	GUI(Detector *detector_model_, Turret *turret_);
 
 	void start();
+	void stop();
 
 	/**
 	@brief Callback interface which needs to be implemented by the user.
@@ -39,6 +40,14 @@ public:
 
 private:
 	/**
+	 * @brief Variable to terminate thread.
+	 */
+	bool running = false;
+	/**
+	 * @brief Pointer for the thread.
+	 */
+	std::thread *worker = nullptr;
+	/**
 	 * @brief Input width of the YOLOv5 model.
 	 */
 	const int inpWidth = 352;
@@ -54,20 +63,13 @@ private:
 	 * @brief Draws a green line between the center of the detected object and the center of the video frame for tracking.
 	 */
 	void lineClosest(cv::Mat &frame);
-
 	Detector *detector_model;
 	Callback_GUI *callback = nullptr;
 	Turret *turret;
 	/**
-	@brief Method for showing the frame with detected objects.
-	*/
-	void run();
-
-	/**
 	@brief Method for showing the frame with detected objects and the crosshair on the turret.
 	*/
 	void showShooting();
-
 	/**
 	@brief OpenCV Mat object containing the current frame.
 	*/

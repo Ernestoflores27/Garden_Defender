@@ -34,6 +34,8 @@ public:
 	*/
 	void start();
 
+	void stop();
+
 	/**
 	@brief Vector of Object objects containing the detected objects.
 	*/
@@ -62,6 +64,8 @@ public:
 private:
 	Callback_Detector *callback = nullptr;
 
+	bool running = false;
+	std::thread *worker = nullptr;
 	/**
 	 * @brief The thread to detect
 	 */

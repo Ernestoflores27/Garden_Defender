@@ -63,19 +63,13 @@ int main()
 	detector_model.registerCallback(&ca_detector);
 	detector_model.start();
 
-	// Init GUI
+	// Start GUI
 	Callback_GUI ca_gui(&turret);
 	GUI gui(&detector_model, &turret);
-	gui.start();
 	gui.registerCallback(&ca_gui);
+	gui.start();
 
-	do
-	{
-		std::cout << '\n'
-				  << "Press a Enter to close...";
-
-	} while (std::cin.get() != '\n');
-
-	real_time.release();
-	turret.release();
+	// Stop everything
+	detector_model.stop();
+	turret.stop();
 }

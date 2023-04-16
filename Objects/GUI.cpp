@@ -39,9 +39,10 @@ void GUI::showShooting()
 /**
 @brief Method for showing the frame with detected objects and the information to command the turret in manual or automatic mode. It also command the turrent when it is in Manual mode.
 */
-void GUI::run()
+void GUI::start()
 {
-    while (true)
+    running = true;
+    while (running)
     {
         frame = detector_model->frame;
         if (!frame.empty())
@@ -80,16 +81,14 @@ void GUI::run()
             cv::imshow(kWinName, frame);
             int k = cv::waitKey(100);
 
-            if (k != 0 && nullptr != this->callback)
+            if (k != 27 && nullptr != this->callback)
             {
                 this->callback->callback_func(k);
             }
+            else if (k == 27)
+            {
+                running = false;
+            }
         }
     }
-}
-
-void GUI::start()
-{
-    std::thread t1(&GUI::run, this);
-    t1.detach();
 }

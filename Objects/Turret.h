@@ -20,6 +20,9 @@ class Turret
 public:
 	bool manual = false;
 	bool shooting = false;
+	bool running = false;
+	std::thread *worker_1 = nullptr;
+	std::thread *worker_2 = nullptr;
 	int Turret_GPIO;
 	int shootingLed_GPIO;
 	int lookingLed_GPIO;
@@ -119,5 +122,5 @@ public:
 	/**
 	@brief Release resources.
 	*/
-	void release();
+	void stop();
 };
