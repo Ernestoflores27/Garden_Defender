@@ -13,26 +13,26 @@ Initializes the servo and GPIO pins for the turret and shooting LED. Sets the st
 */
 Turret::Turret(int GPIO_, int shootingLed_GPIO_, int lookingLed_GPIO_, int min_pitch_, int max_pitch_, int min_yaw_, int max_yaw_)
 {
-    // Servo Setup
-    servos.servoInit(104, 514, -90, 90);
-    min_pitch = min_pitch_;
-    max_pitch = max_pitch_;
-    min_yaw = min_yaw_;
-    max_yaw = max_yaw_;
+	// Servo Setup
+	servos.servoInit(104, 514, -90, 90);
+	min_pitch = min_pitch_;
+	max_pitch = max_pitch_;
+	min_yaw = min_yaw_;
+	max_yaw = max_yaw_;
 
-    // Relay Pin Setup
-    Turret_GPIO = GPIO_;
-    if (gpioInitialise() < 0)
-        return;
-    gpioWrite(Turret_GPIO, 1);
+	// Relay Pin Setup
+	Turret_GPIO = GPIO_;
+	if (gpioInitialise() < 0)
+		return;
+	gpioWrite(Turret_GPIO, 1);
 
-    start_shooting_time = time(0);
-    start_exploring_time = time(0);
+	start_shooting_time = time(0);
+	start_exploring_time = time(0);
 
-    shootingLed_GPIO = shootingLed_GPIO_;
-    lookingLed_GPIO = lookingLed_GPIO_;
-    gpioWrite(shootingLed_GPIO, 0);
-    gpioWrite(lookingLed_GPIO, 0);
+	shootingLed_GPIO = shootingLed_GPIO_;
+	lookingLed_GPIO = lookingLed_GPIO_;
+	gpioWrite(shootingLed_GPIO, 0);
+	gpioWrite(lookingLed_GPIO, 0);
 }
 
 /**
@@ -43,8 +43,8 @@ Clamps the pitch and yaw angles to their respective minimum and maximum values.
 */
 void Turret::changePosition(int pitch_, int yaw_)
 {
-    pitch = clamp(pitch_, min_pitch, max_pitch);
-    yaw = clamp(yaw_, min_yaw, max_yaw);
+	pitch = clamp(pitch_, min_pitch, max_pitch);
+	yaw = clamp(yaw_, min_yaw, max_yaw);
 }
 
 /**
@@ -54,7 +54,7 @@ Clamps the pitch angle to its respective minimum and maximum values.
 */
 void Turret::movePitch(float dir)
 {
-    pitch = clamp(pitch + dir, min_pitch, max_pitch);
+	pitch = clamp(pitch + dir, min_pitch, max_pitch);
 }
 
 /**
@@ -64,7 +64,7 @@ Clamps the yaw angle to its respective minimum and maximum values.
 */
 void Turret::moveYaw(float dir)
 {
-    yaw = clamp(yaw + dir, min_yaw, max_yaw);
+	yaw = clamp(yaw + dir, min_yaw, max_yaw);
 }
 
 /**
@@ -72,19 +72,19 @@ void Turret::moveYaw(float dir)
 */
 void Turret::moveTurret()
 {
-    servos.servoMove(0, yaw);
-    servos.servoMove(1, pitch);
+	servos.servoMove(0, yaw);
+	servos.servoMove(1, pitch);
 }
 
 /**
 @brief Moves the turret to its new pitch and yaw angles in a separate thread.
 */
-void Turret::moveT()
+void Turret::start()
 {
-    std::thread t1(&Turret::moveThread, this);
-    t1.detach();
-    std::thread t2(&Turret::aimThread, this);
-    t2.detach();
+	std::thread t1(&Turret::moveThread, this);
+	t1.detach();
+	std::thread t2(&Turret::aimThread, this);
+	t2.detach();
 }
 
 /**
@@ -92,15 +92,15 @@ void Turret::moveT()
 */
 void Turret::moveThread()
 {
-    while (true)
-    {
-        new_pitch = (old_pitch * SMOOTHING) + (pitch * (1 - SMOOTHING));
-        new_yaw = (old_yaw * SMOOTHING) + (yaw * (1 - SMOOTHING));
-        old_pitch = new_pitch;
-        old_yaw = new_yaw;
-        servos.servoMove(0, new_yaw);
-        servos.servoMove(1, new_pitch);
-    }
+	while (true)
+	{
+		new_pitch = (old_pitch * SMOOTHING) + (pitch * (1 - SMOOTHING));
+		new_yaw = (old_yaw * SMOOTHING) + (yaw * (1 - SMOOTHING));
+		old_pitch = new_pitch;
+		old_yaw = new_yaw;
+		servos.servoMove(0, new_yaw);
+		servos.servoMove(1, new_pitch);
+	}
 }
 
 /**
@@ -108,29 +108,29 @@ void Turret::moveThread()
 */
 void Turret::aimThread()
 {
-    while (true)
-    {
-        if (manual == false)
-        {
-            explore();
-            if (!objs_vector.empty())
-            {
-                resetTime();
+	while (true)
+	{
+		if (manual == false)
+		{
+			explore();
+			if (!objs_vector.empty())
+			{
+				resetTime();
 
-                float error_x = (float)objs_vector[0].offset_x * 2 / 320;
-                float error_y = (float)objs_vector[0].offset_y * 2 / 320;
+				float error_x = (float)objs_vector[0].offset_x * 2 / 320;
+				float error_y = (float)objs_vector[0].offset_y * 2 / 320;
 
-                movePitch(SPEED * error_x);
-                moveYaw(-SPEED * error_y);
+				movePitch(SPEED * error_x);
+				moveYaw(-SPEED * error_y);
 
-                if (abs(error_x) < MARGIN and abs(error_y) < MARGIN)
-                {
-                    shoot();
-                }
-            }
-        }
-        std::this_thread::sleep_for(35ms);
-    }
+				if (abs(error_x) < MARGIN and abs(error_y) < MARGIN)
+				{
+					shoot();
+				}
+			}
+		}
+		std::this_thread::sleep_for(35ms);
+	}
 }
 
 /**
@@ -138,13 +138,12 @@ void Turret::aimThread()
 */
 void Turret::shoot()
 {
-    if (difftime(time(0), start_shooting_time) > 3 or manual == true)
-    {
-        std::cout << "Shooting! \n";
-        start_shooting_time = time(0);
-        std::thread t1(&Turret::shootThread, this);
-        t1.detach();
-    }
+	if (difftime(time(0), start_shooting_time) > 1.5 or manual == true)
+	{
+		start_shooting_time = time(0);
+		std::thread t1(&Turret::shootThread, this);
+		t1.detach();
+	}
 }
 
 /**
@@ -152,13 +151,13 @@ void Turret::shoot()
 */
 void Turret::shootThread()
 {
-    shooting = true;
-    gpioWrite(Turret_GPIO, 0);
-    gpioWrite(shootingLed_GPIO, 1);
-    std::this_thread::sleep_for(500ms);
-    shooting = false;
-    gpioWrite(Turret_GPIO, 1);
-    gpioWrite(shootingLed_GPIO, 0);
+	shooting = true;
+	gpioWrite(Turret_GPIO, 0);
+	gpioWrite(shootingLed_GPIO, 1);
+	std::this_thread::sleep_for(500ms);
+	shooting = false;
+	gpioWrite(Turret_GPIO, 1);
+	gpioWrite(shootingLed_GPIO, 0);
 }
 
 /**
@@ -166,20 +165,20 @@ void Turret::shootThread()
 */
 void Turret::explore()
 {
-    if (time(0) - start_exploring_time > 1)
-    {
-        yaw = 0;
-        movePitch(dir);
-    }
+	if (time(0) - start_exploring_time > 1)
+	{
+		yaw = 0;
+		movePitch(dir);
+	}
 
-    if (pitch > 80)
-    {
-        dir = -SPEED;
-    }
-    else if (pitch < -80)
-    {
-        dir = SPEED;
-    }
+	if (pitch > 80)
+	{
+		dir = -SPEED;
+	}
+	else if (pitch < -80)
+	{
+		dir = SPEED;
+	}
 }
 
 /**
@@ -187,8 +186,8 @@ void Turret::explore()
 */
 void Turret::turretTerminate()
 {
-    gpioWrite(Turret_GPIO, 1);
-    gpioTerminate();
+	gpioWrite(Turret_GPIO, 1);
+	gpioTerminate();
 }
 
 /**
@@ -196,16 +195,16 @@ void Turret::turretTerminate()
 */
 float Turret::clamp(float value, float min, float max)
 {
-    if (value < min)
-    {
-        return min;
-    }
-    else if (max < value)
-    {
-        return max;
-    }
-    else
-        return value;
+	if (value < min)
+	{
+		return min;
+	}
+	else if (max < value)
+	{
+		return max;
+	}
+	else
+		return value;
 }
 
 /**
@@ -213,7 +212,7 @@ float Turret::clamp(float value, float min, float max)
 */
 void Turret::resetTime()
 {
-    start_exploring_time = time(0);
+	start_exploring_time = time(0);
 }
 
 /**
@@ -221,5 +220,5 @@ void Turret::resetTime()
 */
 void Turret::release()
 {
-    gpioTerminate();
+	gpioTerminate();
 }

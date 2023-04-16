@@ -117,7 +117,7 @@ void Detector::sortObjs()
 /**
 @brief Method that calls the detect() function. It works in a separete thread without interrupting other operations in the program.
 */
-void Detector::detectThread()
+void Detector::run()
 {
 	while (true)
 	{
@@ -128,8 +128,8 @@ void Detector::detectThread()
 /**
 @brief Method to enable a new thread for detection and and detach it from the main thread.
 */
-void Detector::detectT()
+void Detector::start()
 {
-	std::thread t1(&Detector::detectThread, this);
+	std::thread t1(&Detector::run, this);
 	t1.detach();
 }
