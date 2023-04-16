@@ -1,10 +1,10 @@
 var indexSectionsWithContent =
 {
-  0: "cdefgmorst",
-  1: "cdost",
-  2: "cdst",
-  3: "cdegmorst",
-  4: "for",
+  0: "acdefgmorst",
+  1: "cdgost",
+  2: "cdgst",
+  3: "acdegmorst",
+  4: "fo",
   5: "g"
 };
 

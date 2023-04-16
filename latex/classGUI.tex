@@ -1,0 +1,64 @@
+\hypertarget{classGUI}{}\doxysection{GUI Class Reference}
+\label{classGUI}\index{GUI@{GUI}}
+
+
+Class that handles the \mbox{\hyperlink{classGUI}{GUI}} and the turret mode.  
+
+
+
+
+{\ttfamily \#include $<$GUI.\+h$>$}
+
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structGUI_1_1Callback__GUI}{Callback\+\_\+\+GUI}}
+\begin{DoxyCompactList}\small\item\em Callback interface which needs to be implemented by the user. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classGUI_a80c52b743f2ac8cccadb436ccd4ca697}{GUI}} (\mbox{\hyperlink{classDetector}{Detector}} $\ast$detector\+\_\+model\+\_\+, \mbox{\hyperlink{classTurret}{Turret}} $\ast$turret\+\_\+)
+\begin{DoxyCompactList}\small\item\em Constructs a \mbox{\hyperlink{classGUI}{GUI}} object. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classGUI_a5f00ff7017a733d8e5489c99d041ad58}\label{classGUI_a5f00ff7017a733d8e5489c99d041ad58}} 
+void \mbox{\hyperlink{classGUI_a5f00ff7017a733d8e5489c99d041ad58}{start}} ()
+\begin{DoxyCompactList}\small\item\em Method for showing the frame with detected objects and the information to command the turret in manual or automatic mode. It also command the turrent when it is in Manual mode. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classGUI_a36ca744345e1272704089f7c282f3e46}{register\+Callback}} (\mbox{\hyperlink{structGUI_1_1Callback__GUI}{Callback\+\_\+\+GUI}} $\ast$ca)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Class that handles the \mbox{\hyperlink{classGUI}{GUI}} and the turret mode. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classGUI_a80c52b743f2ac8cccadb436ccd4ca697}\label{classGUI_a80c52b743f2ac8cccadb436ccd4ca697}} 
+\index{GUI@{GUI}!GUI@{GUI}}
+\index{GUI@{GUI}!GUI@{GUI}}
+\doxysubsubsection{\texorpdfstring{GUI()}{GUI()}}
+{\footnotesize\ttfamily GUI\+::\+GUI (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classDetector}{Detector}} $\ast$}]{detector\+\_\+model\+\_\+,  }\item[{\mbox{\hyperlink{classTurret}{Turret}} $\ast$}]{turret\+\_\+ }\end{DoxyParamCaption})}
+
+
+
+Constructs a \mbox{\hyperlink{classGUI}{GUI}} object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em $\ast$detector\+\_\+model\+\_\+} & Pointer to the detector object. \\
+\hline
+{\em $\ast$turret\+\_\+} & Pointer to the \mbox{\hyperlink{classTurret}{Turret}} object. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classGUI_a36ca744345e1272704089f7c282f3e46}\label{classGUI_a36ca744345e1272704089f7c282f3e46}} 
+\index{GUI@{GUI}!registerCallback@{registerCallback}}
+\index{registerCallback@{registerCallback}!GUI@{GUI}}
+\doxysubsubsection{\texorpdfstring{registerCallback()}{registerCallback()}}
+{\footnotesize\ttfamily void GUI\+::register\+Callback (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structGUI_1_1Callback__GUI}{Callback\+\_\+\+GUI}} $\ast$}]{ca }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Register the callback interface here to receive data. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Objects/\mbox{\hyperlink{GUI_8h}{GUI.\+h}}\item 
+Objects/GUI.\+cpp\end{DoxyCompactItemize}
