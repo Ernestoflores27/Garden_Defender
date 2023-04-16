@@ -31,7 +31,6 @@ public:
 	float dir = 5;
 	Servos servos;
 	time_t start_shooting_time, start_exploring_time, start_aiming_time;
-	Detector *detector_model;
 	std::vector<Object> objs_vector;
 
 	/**

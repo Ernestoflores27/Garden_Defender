@@ -30,10 +30,12 @@ public:
 	Detector(std::string modelpath, float objThreshold, float confThreshold, float nmsThreshold, cv::VideoCapture real_time);
 
 	/**
-	@brief Method for detecting objects in a frame and showing them with a crosshair on the turret.
+	@brief Method to enable a new thread for detection and and detach it from the main thread.
 	*/
 	void start();
-
+	/**
+	@brief Method to stop a new thread for detection and and detach it from the main thread.
+	*/
 	void stop();
 
 	/**
@@ -61,20 +63,25 @@ public:
 		callback = ca;
 	}
 
-private:
-	Callback_Detector *callback = nullptr;
-
-	bool running = false;
-	std::thread *worker = nullptr;
-	/**
-	 * @brief The thread to detect
-	 */
-	void run();
-
 	/**
 	@brief Method for detecting objects in a frame.
 	*/
 	void detect();
+
+private:
+	Callback_Detector *callback = nullptr;
+	/**
+	@param running Terminate condition for thread.
+	*/
+	bool running = false;
+	/**
+	@param *worker Worker pointer for thread.
+	*/
+	std::thread *worker = nullptr;
+	/**
+	 * @brief The thread to detect.
+	 */
+	void run();
 
 	/**
 	@brief OpenCV VideoCapture object for real-time video capture.

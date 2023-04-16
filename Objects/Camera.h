@@ -1,12 +1,11 @@
 /**
-
 @file
 @brief This file defines a Camera class that allows setting up a camera and obtaining a video stream.
 */
 #include <opencv4/opencv2/opencv.hpp>
 /**
 
-@brief A Camera class for obtaining video streams.
+@brief A Camera class for setting up a camera, and obtaining video streams
 */
 class Camera
 {
@@ -18,7 +17,6 @@ public:
 @param height_ The height of the video stream.
     */
     Camera(int width_, int height_);
-
 /**
 
 @brief Gets a video capture object with the specified width, height, and setup.

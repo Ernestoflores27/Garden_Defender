@@ -1,5 +1,9 @@
 #include "GUI.h"
-
+/**
+@brief Constructs a GUI object.
+@param *detector_model_ Pointer to the detector object.
+@param *turret_ Pointer to the Turret object.
+*/
 GUI::GUI(Detector *detector_model_, Turret *turret_)
 {
     this->turret = turret_;

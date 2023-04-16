@@ -1,7 +1,9 @@
+#include "../Objects/Camera.cpp"
+#include "../Objects/Detector.cpp"
 #include "../Objects/Turret.cpp"
+#include "../Objects/GUI.cpp"
 #include <pigpiod_if2.h>
 #include "gtest/gtest.h"
-
 
 TEST(TurretTest, testChangePosition)
 {
@@ -63,14 +65,13 @@ TEST(TurretTest, testClamp)
 TEST(TurretTest, testResetTime)
 {
     Turret t(23, 24, 25);
-     ASSERT_NO_THROW(t.resetTime());
+    ASSERT_NO_THROW(t.resetTime());
     // expect start_exploring_time to be current time
 }
 
 TEST(TurretTest, testRelease)
 {
     Turret t(23, 24, 25);
-    ASSERT_NO_THROW(t.release());
+    ASSERT_NO_THROW(t.stop());
     // expect all GPIOs to be high
 }
-

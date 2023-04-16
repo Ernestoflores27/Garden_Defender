@@ -2,7 +2,7 @@
 /**
 /**
 /**
- * @brief Default constructor.
+ * @brief Default constructor for Servo object.
  * 
  */
 Servos::Servos()

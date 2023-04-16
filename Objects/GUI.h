@@ -15,12 +15,14 @@ class GUI
 public:
 	/*
 	@brief Constructor for GUI.
+	@param *detector_model_ Pointer to the detector object.
 	@param turret Pointer to the Turret object.
 	*/
 	GUI(Detector *detector_model_, Turret *turret_);
-
+	/**
+	@brief Method for showing the frame with detected objects and the information to command the turret in manual or automatic mode. It also command the turrent when it is in Manual mode.
+	*/
 	void start();
-	void stop();
 
 	/**
 	@brief Callback interface which needs to be implemented by the user.

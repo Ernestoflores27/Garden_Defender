@@ -59,7 +59,7 @@ int main()
 
 	// Init Detector
 	Callback_Detector ca_detector(&turret);
-	Detector detector_model("Garden_Defender/yoloFastestV2.onnx", 0.3, 0.4, 0.4, real_time);
+	Detector detector_model("Garden_Defender/Objects/yoloFastestV2.onnx", 0.3, 0.4, 0.4, real_time);
 	detector_model.registerCallback(&ca_detector);
 	detector_model.start();
 
