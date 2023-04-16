@@ -20,39 +20,39 @@ public:
 	/*
 
 	@brief Constructor for GUI.
-	@param modelpath Path to the model file.
-	@param objThreshold Object detection threshold.
-	@param confThreshold Confidence threshold.
-	@param nmsThreshold NMS threshold.
-	@param real_time OpenCV VideoCapture object for real-time video capture.
 	@param turret Pointer to the Turret object.
 	*/
-	GUI(cv::VideoCapture real_time, Detector *detector_model_);
-	/**
+	GUI(Detector *detector_model_, Turret *turret_);
 
-@brief Method for detecting objects in a frame and showing them with a crosshair on the turret.
-*/
-	void showT();
 	/**
-
-@brief Method for showing the frame with detected objects.
-*/
+	@brief Method for showing the frame with detected objects.
+	*/
 	void show();
-	/**
 
-@brief Method for showing the frame with detected objects and the crosshair on the turret.
-*/
+	/**
+	@brief Method for showing the frame with detected objects and the crosshair on the turret.
+	*/
 	void showShooting();
-	/**
 
-@brief OpenCV VideoCapture object for real-time video capture.
-*/
-	cv::VideoCapture real_time;
 	/**
-
-@brief OpenCV Mat object containing the current frame.
-*/
+	@brief OpenCV Mat object containing the current frame.
+	*/
 	cv::Mat frame;
+
+	/**
+	@brief Callback interface which needs to be implemented by the user.
+	**/
+	struct Callback_GUI
+	{
+		virtual void callback_func(int k) = 0;
+	};
+	/**
+	 * Register the callback interface here to receive data.
+	 **/
+	void registerCallback(Callback_GUI *ca)
+	{
+		callback = ca;
+	}
 
 private:
 	/**
@@ -64,10 +64,6 @@ private:
 	 */
 	const int inpHeight = 352;
 	/**
-	 * @brief Mark if it is in Manual mode
-	 */
-	bool manual = false;
-	/**
 	 * @brief Draws a crosshair in the center of a given frame for tracking.
 	 */
 	void drawCrossair(cv::Mat &frame);
@@ -75,40 +71,20 @@ private:
 	 * @brief Draws a green line between the center of the detected object and the center of the video frame for tracking.
 	 */
 	void lineClosest(cv::Mat &frame);
-	/**
-	 * @brief Draw a rectangle displaying the bounding box and display it
-	 */
-	void drawPred(int classId, float conf, int left, int top, int right, int bottom, cv::Mat &frame);
+
 	void showThread();
 	Detector *detector_model;
+	Callback_GUI *callback = nullptr;
+	Turret *turret;
 };
 
-GUI::GUI(cv::VideoCapture real_time, Detector *detector_model_)
+GUI::GUI(Detector *detector_model_, Turret *turret_)
 {
-	this->real_time = real_time;
+	this->turret = turret_;
 	this->detector_model = detector_model_;
 }
+
 /**
-
-@brief Method to draws predicted bounding boxes on the frame.
-*/
-void GUI::drawPred(int classId, float conf, int left, int top, int right, int bottom, cv::Mat &frame)
-{
-	// Draw a rectangle displaying the bounding box
-	rectangle(frame, cv::Point(left, top), cv::Point(right, bottom), cv::Scalar(0, 0, 255), 2);
-
-	// // Get the label for the class name and its confidence
-	// std::string label = cv::format("%.2f", conf);
-	// label = this->classes[classId] + ":" + label;
-
-	// // Display the label at the top of the bounding box
-	// int baseLine;
-	// cv::Size labelSize = cv::getTextSize(label, cv::FONT_HERSHEY_DUPLEX, 0.5, 1, &baseLine);
-	// top = std::max(top, labelSize.height);
-	// cv::putText(frame, label, cv::Point(left, top), cv::FONT_HERSHEY_DUPLEX, 1, cv::Scalar(0, 0, 255), 1.5);
-}
-/**
-
 @brief Method to draw a crosshair in the center of a given frame for tracking.
 */
 void GUI::drawCrossair(cv::Mat &frame)
@@ -117,8 +93,8 @@ void GUI::drawCrossair(cv::Mat &frame)
 	cv::line(frame, cv::Point(s.width / 2, 0), cv::Point(s.width / 2, s.height), cv::Scalar(0, 255, 0), 1);
 	cv::line(frame, cv::Point(0, s.height / 2), cv::Point(s.width, s.height / 2), cv::Scalar(0, 255, 0), 1);
 }
-/**
 
+/**
 @brief Method draws a green line between the center of the detected object and the center of the video frame for tracking.
 */
 void GUI::lineClosest(cv::Mat &frame)
@@ -129,8 +105,8 @@ void GUI::lineClosest(cv::Mat &frame)
 
 	line(frame, cv::Point(s.width / 2, s.height / 2), cv::Point(detector_model->objs_vector[0].center_x, detector_model->objs_vector[0].center_y), cv::Scalar(0, 255, 0), 2);
 }
-/**
 
+/**
 @brief Method for showing the frame with detected objects and the crosshair on the turret.
 */
 void GUI::showShooting()
@@ -139,90 +115,59 @@ void GUI::showShooting()
 }
 
 /**
-
 @brief Method for showing the frame with detected objects and the information to command the turret in manual or automatic mode. It also command the turrent when it is in Manual mode.
 */
 void GUI::show()
 {
-	// real_time >> frame;
-	frame = detector_model->frame;
-	if (!frame.empty())
-	{
-		this->drawCrossair(frame);
-		this->lineClosest(frame);
-		if (!detector_model->objs_vector.empty())
-		{
-			for (Object object : detector_model->objs_vector)
-			{
-				circle(frame, cv::Point(object.center_x, object.center_y), 5, cv::Scalar(255, 0, 0), -1);
-				circle(frame, cv::Point(object.center_x, object.center_y), 30, cv::Scalar(255, 0, 0));
-			}
-		}
-
-		if (manual == false)
-		{
-			putText(this->frame, "Mode: Auto", cv::Point(10, 20), cv::FONT_HERSHEY_DUPLEX, 0.75, cv::Scalar(0, 0, 255), 1.5);
-			putText(this->frame, "To change modes press Q", cv::Point(10, 40), cv::FONT_HERSHEY_DUPLEX, 0.75, cv::Scalar(0, 0, 255), 1.5);
-		}
-		else
-		{
-			putText(this->frame, "Mode: Manual", cv::Point(10, 20), cv::FONT_HERSHEY_DUPLEX, 0.75, cv::Scalar(0, 0, 255), 1.5);
-			putText(this->frame, "To change modes press Q", cv::Point(10, 40), cv::FONT_HERSHEY_DUPLEX, 0.75, cv::Scalar(0, 0, 255), 1.5);
-			putText(this->frame, "To move use arrow keys", cv::Point(10, 60), cv::FONT_HERSHEY_DUPLEX, 0.75, cv::Scalar(0, 0, 255), 1.5);
-			putText(this->frame, "To shoot press the space key", cv::Point(10, 80), cv::FONT_HERSHEY_DUPLEX, 0.75, cv::Scalar(0, 0, 255), 1.5);
-		}
-
-		static const std::string kWinName = "Garden Defender";
-		cv::namedWindow(kWinName);
-		// cv::namedWindow(kWinName, cv::WINDOW_NORMAL);
-		// cv::setWindowProperty(kWinName, cv::WND_PROP_FULLSCREEN, cv::WINDOW_FULLSCREEN);
-		// cv::resize(frame, frame, cv::Size(frame.cols * 2, frame.rows * 2), 0, 0, cv::INTER_LINEAR);
-		cv::imshow(kWinName, frame);
-		int k = cv::waitKey(100);
-
-		// if (k == 82)
-		// {
-		// 	turret->moveYaw(-5);
-		// }
-		// else if (k == 84)
-		// {
-		// 	turret->moveYaw(5);
-		// }
-		// else if (k == 81)
-		// {
-		// 	turret->movePitch(5);
-		// }
-		// else if (k == 83)
-		// {
-		// 	turret->movePitch(-5);
-		// }
-		// else if (k == 113)
-		// {
-		// 	manual = !manual;
-		// }
-		// else if (k == 32)
-		// {
-		// 	turret->shoot();
-		// }
-		// else
-		// {
-		// }
-	}
-}
-/**
-
-@brief Method that calls the detect() function. It works in a separete thread without interrupting other operations in the program.
-*/
-void GUI::showThread()
-{
 	while (true)
 	{
-		this->show();
+		frame = detector_model->frame;
+		if (!frame.empty())
+		{
+			this->drawCrossair(frame);
+			this->lineClosest(frame);
+			if (!detector_model->objs_vector.empty())
+			{
+				for (Object object : detector_model->objs_vector)
+				{
+					circle(frame, cv::Point(object.center_x, object.center_y), 5, cv::Scalar(255, 0, 0), -1);
+					circle(frame, cv::Point(object.center_x, object.center_y), 30, cv::Scalar(255, 0, 0));
+				}
+			}
+
+			if (turret->shooting)
+			{
+				putText(this->frame, "Shooting", cv::Point(detector_model->objs_vector[0].center_x, detector_model->objs_vector[0].center_y - 40), cv::FONT_HERSHEY_DUPLEX, 0.75, cv::Scalar(0, 0, 255), 1.5);
+			}
+
+			if (!turret->manual)
+			{
+				putText(this->frame, "Mode: Auto", cv::Point(10, 20), cv::FONT_HERSHEY_DUPLEX, 0.75, cv::Scalar(0, 0, 255), 1.5);
+				putText(this->frame, "To change modes press Q", cv::Point(10, 40), cv::FONT_HERSHEY_DUPLEX, 0.75, cv::Scalar(0, 0, 255), 1.5);
+			}
+			else
+			{
+				putText(this->frame, "Mode: Manual", cv::Point(10, 20), cv::FONT_HERSHEY_DUPLEX, 0.75, cv::Scalar(0, 0, 255), 1.5);
+				putText(this->frame, "To change modes press Q", cv::Point(10, 40), cv::FONT_HERSHEY_DUPLEX, 0.75, cv::Scalar(0, 0, 255), 1.5);
+				putText(this->frame, "To move use arrow keys", cv::Point(10, 60), cv::FONT_HERSHEY_DUPLEX, 0.75, cv::Scalar(0, 0, 255), 1.5);
+				putText(this->frame, "To shoot press the space key", cv::Point(10, 80), cv::FONT_HERSHEY_DUPLEX, 0.75, cv::Scalar(0, 0, 255), 1.5);
+			}
+
+			static const std::string kWinName = "Garden Defender";
+			cv::namedWindow(kWinName);
+			cv::imshow(kWinName, frame);
+			int k = cv::waitKey(100);
+
+			if (k != 0 && nullptr != this->callback)
+			{
+				this->callback->callback_func(k);
+			}
+		}
 	}
 }
 
 void GUI::showT()
 {
-	std::thread t1(&GUI::showThread, this);
+	std::thread t1(&GUI::show, this);
 	t1.detach();
 }

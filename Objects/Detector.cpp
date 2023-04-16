@@ -1,6 +1,6 @@
 #include "Detector.h"
-/*
 
+/*
 @brief Constructor for Detector.
 @param modelpath Path to the model file.
 @param objThreshold Object detection threshold.
@@ -23,8 +23,8 @@ Detector::Detector(std::string modelpath, float obj_Threshold, float conf_Thresh
 	this->num_class = this->classes.size();
 	this->net = cv::dnn::readNet(modelpath);
 }
-/**
 
+/**
 @brief Method for detecting objects in a frame and showing them. Performs non-maximum suppression to eliminate redundant overlapping boxes with lower confidences. Draws predicted bounding boxes on the frame and saves them to the vector.
 */
 void Detector::detect()
@@ -107,25 +107,6 @@ void Detector::detect()
 }
 
 /**
-
-@brief Method for calculating the x-offset of the detected object from the center of the frame.
-@return Float value of the x-offset.
-*/
-float Detector::getOffsetX()
-{
-	return this->objs_vector[0].offset_x;
-}
-/**
-
-@brief Method for getting the y-offset of the detected object from the center of the frame.
-@return Float value of the y-offset.
-*/
-float Detector::getOffsetY()
-{
-	return this->objs_vector[0].offset_y;
-}
-/**
-
 @brief Method to arrange the detected objects to calculate the closest to the center.
 */
 void Detector::sortObjs()
@@ -134,7 +115,6 @@ void Detector::sortObjs()
 }
 
 /**
-
 @brief Method that calls the detect() function. It works in a separete thread without interrupting other operations in the program.
 */
 void Detector::detectThread()
@@ -144,8 +124,8 @@ void Detector::detectThread()
 		this->detect();
 	}
 }
-/**
 
+/**
 @brief Method to enable a new thread for detection and and detach it from the main thread.
 */
 void Detector::detectT()

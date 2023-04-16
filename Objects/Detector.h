@@ -1,5 +1,4 @@
 /**
-
 @file Detector.h
 @brief Header file containing the declaration of references needed in the Detector class.
 */
@@ -14,7 +13,6 @@
 #include <thread>
 
 /**
-
 @class Detector
 @brief Class that handles object detection using a neural network.
 */
@@ -22,7 +20,6 @@ class Detector
 {
 public:
 	/*
-
 	@brief Constructor for Detector.
 	@param modelpath Path to the model file.
 	@param objThreshold Object detection threshold.
@@ -32,61 +29,49 @@ public:
 	@param turret Pointer to the Turret object.
 	*/
 	Detector(std::string modelpath, float objThreshold, float confThreshold, float nmsThreshold, cv::VideoCapture real_time);
-	/**
 
-@brief Method for detecting objects in a frame and showing them with a crosshair on the turret.
-*/
+	/**
+	@brief Method for detecting objects in a frame and showing them with a crosshair on the turret.
+	*/
 	void detectT();
-	/**
 
-@brief Method for detecting objects in a frame and showing them.
-*/
+	/**
+	@brief Method for detecting objects in a frame and showing them.
+	*/
 	void detect();
-	/**
 
-@brief Method for getting the x-offset of the detected object from the center of the frame.
-@return Float value of the x-offset.
-*/
-	float getOffsetX();
 	/**
-
-@brief Method for getting the y-offset of the detected object from the center of the frame.
-@return Float value of the y-offset.
-*/
-	float getOffsetY();
-	/**
-@brief Vector of Object objects containing the detected objects.
-*/
+	@brief Vector of Object objects containing the detected objects.
+	*/
 	std::vector<Object> objs_vector;
-	/**
 
-@brief OpenCV VideoCapture object for real-time video capture.
-*/
+	/**
+	@brief OpenCV VideoCapture object for real-time video capture.
+	*/
 	cv::VideoCapture real_time;
-	/**
 
-@brief OpenCV Mat object containing the current frame.
-*/
+	/**
+	@brief OpenCV Mat object containing the current frame.
+	*/
 	cv::Mat frame;
 
 	/**
-	 * Callback interface which needs to be implemented by the user.
-	 *
-	 **/
-	struct Callback
+	@brief Callback interface which needs to be implemented by the user.
+	**/
+	struct Callback_Detector
 	{
 		virtual void callback_func(std::vector<Object> &objs_vector) = 0;
 	};
 	/**
 	 * Register the callback interface here to receive data.
 	 **/
-	void registerCallback(Callback *ca)
+	void registerCallback(Callback_Detector *ca)
 	{
 		callback = ca;
 	}
 
 private:
-	Callback *callback = nullptr;
+	Callback_Detector *callback = nullptr;
 	/**
 	 * @brief Array of anchor values for YOLOv5 model.
 	 */
